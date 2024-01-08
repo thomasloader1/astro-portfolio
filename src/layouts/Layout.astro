@@ -1,0 +1,53 @@
+---
+import "@fontsource-variable/inter";
+import Header from '../components/Header.astro';
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href="https://avatars.githubusercontent.com/u/42984450?v=4" type="image/png">
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="text-black">
+		<div class="absolute top-0 right-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] " />
+		<Header />
+		<slot />
+	</body>
+</html>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+<style is:global>
+	:root {
+		color-scheme: ligth dark;
+	}
+
+	html {
+		background-color: #fff;
+		font-family: "Inter Variable",system-ui, sans-serif;
+		scroll-behavior: smooth;
+
+	}
+
+	body{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+	}
+
+	@media (prefers-reduced-motion: reduce){
+		html{
+			scroll-behavior: auto;
+		}
+	}
+</style>

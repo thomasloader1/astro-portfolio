@@ -1,0 +1,141 @@
+---
+import PhpIcon from '../icons/Php.astro'
+import WordpressIcon from '../icons/Wordpress.astro'
+import LaravelIcon from '../icons/Laravel.astro'
+import BashIcon from '../icons/Bash.astro'
+import MySQLIcon from '../icons/MySQL.astro'
+import ReactJSIcon from '../icons/React.astro'
+import JavaScriptIcon from '../icons/JavaScript.astro'
+import TypeScriptIcon from '../icons/TypeScript.astro'
+import DockerIcon from '../icons/Docker.astro'
+import LinuxIcon from '../icons/Linux.astro'
+import TailwindIcon from '../icons/Tailwind.astro'
+import BulmaIcon from '../icons/Bulma.astro'
+import BootstrapIcon from '../icons/Bootstrap.astro'
+import jQueryIcon from '../icons/jQuery.astro'
+import SassIcon from '../icons/Sass.astro'
+import PythonIcon from '../icons/Python.astro'
+import NextJSIcon from '../icons/Next.astro'
+import FirebaseIcon from '../icons/Firebase.astro'
+
+import type { TagsProps } from '../types/Tag'
+
+interface Props{
+    stack: string[]
+}
+
+const { stack } = Astro.props;
+
+export const TAGS: TagsProps = {
+    PHP:{
+        name: 'PHP',
+        class: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
+        icon: PhpIcon 
+    },
+    Wordpress:{
+        name: 'WordPress',
+       class: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+        icon: WordpressIcon 
+    },
+    Laravel:{
+        name: 'Laravel',
+       class: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+        icon: LaravelIcon 
+    },
+    Bash:{
+        name: 'Bash',
+       class: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+        icon: BashIcon 
+    },
+    MySQL:{
+        name: 'MySQL',
+       class: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
+        icon: MySQLIcon 
+    },
+    ReactJS:{
+        name: 'React.js',
+       class: 'bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300',
+        icon: ReactJSIcon 
+    },
+    JavaScript:{
+        name: 'JavaScript',
+       class: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+        icon: JavaScriptIcon 
+    },
+    TypeScript:{
+        name: 'TypeScript',
+       class: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+        icon: TypeScriptIcon 
+    },
+    Docker:{
+        name: 'Docker',
+       class: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+        icon: DockerIcon 
+    },
+    Linux:{
+        name: 'Linux',
+       class: 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300',
+        icon: LinuxIcon 
+    },
+    Tailwind:{
+        name: 'Tailwind',
+       class: 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-300',
+        icon: TailwindIcon 
+    },
+    Bulma:{
+        name: 'Bulma',
+       class: 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300',
+        icon: BulmaIcon 
+    },
+    Bootstrap:{
+        name: 'Bootstrap',
+       class: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300',
+        icon: BootstrapIcon 
+    },
+    jQuery:{
+        name: 'jQuery',
+       class: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+        icon: jQueryIcon 
+    },
+    Sass:{
+        name: 'Sass',
+       class: 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300',
+        icon: SassIcon 
+    },
+    Python:{
+        name: 'Python',
+       class: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+        icon: PythonIcon 
+    },
+    NextJS:{
+        name: 'Next.js',
+       class: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+        icon: NextJSIcon 
+    },
+    Firebase:{
+        name: 'Firebase',
+       class: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+        icon: FirebaseIcon 
+    }
+}
+
+---
+
+<ul class="flex flex-wrap my-5 gap-y-2 gap-x-1">
+    {
+        stack.map((tech: string) => {
+            
+            const TECH = TAGS[tech];
+
+            return(
+            <li>
+                {TECH?.name && (
+                <span class={`flex flex-column items-center gap-x-1 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ${TECH.class}`}>
+                    <TECH.icon /> {TECH.name}
+                </span>
+                )}
+            </li>
+        )})
+    }
+</ul>
+

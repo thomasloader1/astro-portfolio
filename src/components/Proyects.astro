@@ -1,0 +1,10 @@
+---
+import { PROYECTS } from "../data/Proyects";
+import ProyectsItem from "./ProyectsItem.astro";
+import CPUIcon from '../icons/CPU.astro';
+---
+<h2 class="text-2xl font-semibold mb-6 flex gap-x-2 items-center"> <CPUIcon class="size-6"/>Proyectos</h2>
+
+{
+    PROYECTS.map(proyect => <ProyectsItem {...proyect} />)
+}
