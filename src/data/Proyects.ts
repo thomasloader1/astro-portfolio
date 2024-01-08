@@ -18,5 +18,14 @@ export const PROYECTS: Proyect[] = [
         image: "bday",
         stack: ['NextJS', 'ReactJS','Tailwind','Firebase', 'TypeScript']
 
+    },
+    {
+        title: "Tic-Tac-Toe",
+        description: "Juego de 3 en raya con emojis",
+        link: "react-tictactoe-three.vercel.app",
+        repo: "https://github.com/thomasloader1/react-tictactoe",
+        image: "tictactoe",
+        stack: ['ReactJS','Tailwind', 'JavaScript']
+
     }
 ];

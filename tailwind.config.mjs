@@ -7,6 +7,7 @@ export default {
 			backgroundImage: {
 				'calculadoraFinanciera': "url('/calculadoraFinanciera.webp')",
 				'bday': "url('/bday.webp')",
+				'tictactoe': "url('/tictactoe.webp')",
 			  }
 		},
 	},
