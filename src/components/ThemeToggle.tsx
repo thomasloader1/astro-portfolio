@@ -18,7 +18,7 @@ export default function ThemeToggle() {
 
   return (
     <div className="border-s px-2 ml-2">
-      <button onClick={handleClick} className="transition p-2">{theme === "light" ? <img src="/public/Moon.svg" alt="" />: <img src="/public/Sun.svg" alt="" />}</button>
+      <button onClick={handleClick} className="transition p-2">{theme === "light" ? <img src="/Moon.svg" alt="" />: <img src="/Sun.svg" alt="" />}</button>
     </div>
   );
 }
