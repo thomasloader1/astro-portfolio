@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import React,{ useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(window.localStorage.getItem("theme") ?? "light");

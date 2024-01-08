@@ -6,7 +6,7 @@ export const PROYECTS: Proyect[] = [
         description: "Aplicacion para calcular (50/30/20)",
         link: "https://next-calculadora-financiera.vercel.app",
         repo: "https://github.com/thomasloader1/next-calculadora-financiera",
-        image: "/calculadora_finiciera.webp",
+        image: "calculadoraFinanciera",
         stack: ['NextJS', 'ReactJS','Tailwind', 'TypeScript']
 
     },
@@ -15,7 +15,7 @@ export const PROYECTS: Proyect[] = [
         description: "Aplicacion festejar eventos",
         link: "gtg-bday.vercel.app",
         repo: "https://github.com/thomasloader1/bday",
-        image: "/bday.webp",
+        image: "bday",
         stack: ['NextJS', 'ReactJS','Tailwind','Firebase', 'TypeScript']
 
     }

@@ -3,7 +3,7 @@ import type { Experience } from "../types/Experience";
 export const EXPERIENCES: Experience[] = [
     {
         date: "Noviembre 2023",
-        title: "Team Lead Developer",
+        title: "Team Lead Developer /",
         company: { name:"Medical & Scientific Knowledge", link:"https://www.msklatam.com"},
         description:
             "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
@@ -12,12 +12,12 @@ export const EXPERIENCES: Experience[] = [
     },
     {
         date: "Octubre 2022 hasta Noviembre 2023",
-        title: "Team Lead",
+        title: "Team Lead /",
         company: { name:"Océano Medicina", link:"https://www.oceanomedicina.com.ar"},
         description:
             "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
         prev: {
-            date: "Octubre 2022 hasta Noviembre 2023",
+            date: "Enero 2022 hasta Octubre 2022",
             title: "Full Stack Developer",
             description:
                 "Desarrollo y mantenimiento de aplicaciones, Api's Rest, cómo tambien integraciones de CRM de la empresa.",
@@ -27,7 +27,7 @@ export const EXPERIENCES: Experience[] = [
     },
     {
         date: "Marzo 2021 hasta Enero 2022",
-        title: "Full Stack Developer",
+        title: "Full Stack Developer /",
         company: { name:"Anteojos Negros", link:"https://www.anteojosnegros.com"},
         description:
             "Desarrollo integro de e-commerce’s, Landing Pages y Single Page Applications",
@@ -36,7 +36,7 @@ export const EXPERIENCES: Experience[] = [
     },
     {
         date: "Marzo 2020 hasta Septiembre 2021",
-        title: "Analista de Aplicaciones N2",
+        title: "Analista de Aplicaciones N2 /",
         company: { name:"Frávega", link:"https://www.fravega.com"},
         description:
             "Elaboracion de tareas automatizadas, monitoreo de aplicativos y despliegues programados",
@@ -45,7 +45,7 @@ export const EXPERIENCES: Experience[] = [
     },
     {
         date: "Septiembre 2019 hasta Marzo 2020",
-        title: "Web Developer",
+        title: "Web Developer /",
         company: { name:"Aufiero Informática", link:"https://www.aufieroinformatica.com"},
         description:
             "Desarrollo de paginas estaticas y dinamicas",

@@ -3,7 +3,12 @@ export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './node_modules/flowbite/**/*.js'],
 	darkMode: 'class',
 	theme: {
-		extend: {},
+		extend: {
+			backgroundImage: {
+				'calculadoraFinanciera': "url('/calculadoraFinanciera.webp')",
+				'bday': "url('/bday.webp')",
+			  }
+		},
 	},
 	plugins: [require('flowbite/plugin')],
 }

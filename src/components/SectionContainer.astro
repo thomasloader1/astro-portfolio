@@ -1,5 +1,4 @@
 ---
-import { propsToFilename } from 'astro/assets/utils';
 interface Props{
     id: string;
     class: string;
@@ -8,7 +7,7 @@ interface Props{
 
 const {id, class: className} = Astro.props
 ---
-<section id={id} class={`w-full lg:w-[740px] ${className}`}>
+<section id={id} class={`w-full lg:w-[740px] px-5 md:px-10 ${className}`}>
     {Astro.props.content && <Astro.props.content />}
     <slot />
 </section>
