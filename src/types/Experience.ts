@@ -4,12 +4,17 @@ export interface PreviousExperience{
     date: string;
 }
 
+export interface Company{
+    name: string;
+    link: string;
+}
+
 export interface Experience{
     title: string;
+    company: Company;
     description: string;
     date: string;
     current: boolean;
     stack: string[];
-    link?: string;
     prev?: PreviousExperience;
 }

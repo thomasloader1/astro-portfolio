@@ -5,9 +5,12 @@ import Experience from '../components/Experience.astro'
 import SectionContainer from '../components/SectionContainer.astro';
 import Proyects from '../components/Proyects.astro';
 import Home from '../components/Home.astro';
+import Header from '../components/Header.astro';
 ---
 
 <Layout title="Portfolio de Gomez Tomas Gomez - Desarrollador y Programador Full Stack">
+	<Header />
+
 	<main class="px-4">
 		<SectionContainer id="top" class="py-44 pb-24" content={Home} />
 		<SectionContainer id="experience" class="pb-24" content={Experience} />
