@@ -1,0 +1,61 @@
+{
+  "site": {
+    "title": "Gomez Tomas Gomez Portfolio - Full Stack Developer and Programmer",
+    "description": "Gomez Tomas Gomez Portfolio - Full Stack Developer specializing in PHP, JavaScript, and TypeScript"
+  },
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects"
+  },
+  "home": {
+    "title": "Hello, I'm Tomás",
+    "badge": "Available for work",
+    "description": "Full Stack Web Developer from Buenos Aires, Argentina. Specialized in applications with a focus on innovative and efficient digital solutions to deliver exceptional experiences."
+  },
+  "experience": {
+    "title": "Work Experience",
+    "current": "Present",
+    "msk": {
+      "date": "November 2023",
+      "description": "Development and monitoring of applications, services, payment platforms, and automations in CRM and communication, among other areas, leading internal and external teams."
+    },
+    "oceano": {
+      "date": "October 2022 to November 2023",
+      "description": "Development and monitoring of applications, services, payment platforms, and automations in CRM and communication, among other areas, leading internal and external teams.",
+      "prev": {
+        "date": "January 2022 to October 2022",
+        "description": "Development and maintenance of applications, REST APIs, as well as integrations with the company's CRM."
+      }
+    },
+    "anteojos": {
+      "date": "March 2021 to January 2022",
+      "description": "Full development of e-commerce, Landing Pages, and Single Page Applications."
+    },
+    "fravega": {
+      "date": "March 2020 to September 2021",
+      "description": "Automation tasks, monitoring of applications, and scheduled deployments."
+    },
+    "aufi": {
+      "date": "September 2019 to March 2020",
+      "description": "Development of static and dynamic pages."
+    }
+  },
+  "proyect": {
+    "title": "Projects",
+    "site": "Site",
+    "repo": "Repository",
+    "calculadora": {
+      "title": "Financial Calculator",
+      "description": "Application to calculate expenses (50/30/20)"
+    },
+    "bday": {
+      "title": "Bday",
+      "description": "Application for celebrating birthdays"
+    },
+    "tictactoe": {
+      "title": "Tic-Tac-Toe",
+      "description": "3-in-a-row game with emojis"
+    }
+  }
+}

@@ -3,6 +3,7 @@ import StackList from "./StackList.astro";
 import SocialPill from "./SocialPill.astro"
 import WebIcon from "../icons/Web.astro"
 import GithubIcon from "../icons/Github.astro";
+import { t } from 'i18next';
 const {title, description, stack, image, link, repo} = Astro.props
 
 let imageClass = ""
@@ -25,13 +26,13 @@ switch(image){
     <div class="absolute top-0 bottom-0 left-0 right-0 w-full z-10 bg-white/70 dark:bg-orange-700/70 flex flex-col justify-center items-center px-10 pt-6 md:h-48 md:flex-row md:justify-beetween md:top-auto rounded-xl">
     
         <div class="w-full">
-            <h3 class="text-3xl font-bold mb-2 text-black dark:text-white">{title}</h3>
-            <p class="text-black dark:text-white">{description}</p>
+            <h3 class="text-3xl font-bold mb-2 text-black dark:text-white">{t(title)}</h3>
+            <p class="text-black dark:text-white">{t(description)}</p>
             <StackList stack={stack} />
         </div>
         <div class="flex md:grid gap-3">
-            <SocialPill href={link}> <WebIcon /> Sitio</SocialPill>
-            <SocialPill href={repo}> <GithubIcon /> Repositorio</SocialPill>
+            <SocialPill href={link}> <WebIcon /> {t("proyect.site")}</SocialPill>
+            <SocialPill href={repo}> <GithubIcon /> {t("proyect.repo")}</SocialPill>
         </div>
     </div>
     

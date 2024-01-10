@@ -1,13 +1,11 @@
 ---
 import ThemeToggle from "./ThemeToggle";
-import {getLangFromUrl, useTranslations} from '../i18n/utils.ts';
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import LangPicker from "./LangPicker.tsx";
+import NavLink from "./NavLink.astro";
 ---
 
 <header class="w-[300px] sm:w-[500px] md:w-[700px] pt-10">    
-    <nav class="bg-white dark:bg-gray-900  border-b border-gray-200 dark:border-gray-600 rounded-xl ">
+    <nav class="">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4">
     
       <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -20,23 +18,25 @@ const t = useTranslations(lang);
         </button>
       </div>
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 gap-x-3" id="navbar-sticky">
-        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
           <li>
-            <a href="#top" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-orange-700 md:p-0 md:dark:hover:text-orange-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">{t("nav.home")}</a>
+            <NavLink href="#top" i18nText="nav.home" />
           </li>
           <li>
-            <a href="#experience" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-orange-700 md:p-0 md:dark:hover:text-orange-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{t("nav.experience")}</a>
+            <NavLink href="#experience" i18nText="nav.experience" />
           </li>
           <li>
-            <a href="#proyects" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-orange-700 md:p-0 md:dark:hover:text-orange-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">{t("nav.proyects")}</a>
+            <NavLink href="#proyects" i18nText="nav.proyects" />
           </li>
          
         </ul>
-        <ThemeToggle client:only />
+        <div class="flex dark:border-t mt-2 md:mt-0 md:border-t-transparent dark:md:border-s ml-2 gap-2 px-2 pt-2 md:pt-0">
+          <ThemeToggle client:only />
+          <LangPicker client:only />
+        </div>
       </div>
     </div>
   
   </nav>
 
 </header>
-

@@ -17,14 +17,13 @@ export default function ThemeToggle() {
   }, [theme]);
 
   return (
-    <div className="border-t mt-2 md:mt-0 md:border-t-transparent md:border-s px-2 ml-2">
-      <button onClick={handleClick} className="transition p-2">{theme === "light" ? (<div className="flex items-center text-black dark:text-white">
+    
+      <button onClick={handleClick} className="transition p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">{theme === "light" ? (<div className="flex items-center text-black dark:text-white">
         <img src="/Moon.svg" alt="" />
         <span className="ml-2 md:hidden">Oscuro</span>
         </div>): (<div className="flex items-center text-black dark:text-white">
         <img src="/Sun.svg" alt="" />
         <span className="ml-2 md:hidden">Claro</span>
         </div>)}</button>
-    </div>
   );
 }

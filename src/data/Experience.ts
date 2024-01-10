@@ -2,53 +2,47 @@ import type { Experience } from "../types/Experience";
 
 export const EXPERIENCES: Experience[] = [
     {
-        date: "Noviembre 2023",
+        date: "experience.msk.date",
         title: "Team Lead Developer /",
         company: { name:"Medical & Scientific Knowledge", link:"https://www.msklatam.com"},
-        description:
-            "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
+        description:"experience.msk.description",
         current: true,
         stack: ['PHP', 'Wordpress', 'MySQL', 'SQLite' , 'Laravel', 'Docker', 'Linux', 'ReactJS', 'TypeScript', 'JavaScript', 'Tailwind', 'Bulma', 'Bootstrap', 'jQuery','Sass', 'Python']
     },
     {
-        date: "Octubre 2022 hasta Noviembre 2023",
+        date: "experience.oceano.date",
         title: "Team Lead /",
         company: { name:"Océano Medicina", link:"https://www.oceanomedicina.com.ar"},
-        description:
-            "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
+        description: "experience.oceano.description",
         prev: {
-            date: "Enero 2022 hasta Octubre 2022",
+            date: "experience.oceano.prev.date",
             title: "Full Stack Developer",
-            description:
-                "Desarrollo y mantenimiento de aplicaciones, Api's Rest, cómo tambien integraciones de CRM de la empresa.",
+            description:"experience.oceano.prev.description",
         },
         current: false,
         stack: ['PHP', 'Wordpress', 'MySQL', 'SQLite' , 'Laravel', 'Docker', 'Linux', 'ReactJS', 'TypeScript', 'JavaScript', 'Bulma', 'Bootstrap', 'jQuery', 'Sass']
     },
     {
-        date: "Marzo 2021 hasta Enero 2022",
+        date: "experience.anteojos.date",
         title: "Full Stack Developer /",
         company: { name:"Anteojos Negros", link:"https://www.anteojosnegros.com"},
-        description:
-            "Desarrollo integro de e-commerce’s, Landing Pages y Single Page Applications",
+        description:"experience.anteojos.description",
         current: false,
         stack: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap', 'jQuery','Sass']
     },
     {
-        date: "Marzo 2020 hasta Septiembre 2021",
+        date: "experience.fravega.date",
         title: "Analista de Aplicaciones N2 /",
         company: { name:"Frávega", link:"https://www.fravega.com"},
-        description:
-            "Elaboracion de tareas automatizadas, monitoreo de aplicativos y despliegues programados",
+        description:"experience.fravega.description",
         current: false,
         stack: ['PHP', 'Bash', 'JavaScript', 'Bootstrap', 'jQuery', 'MySQL']
     },
     {
-        date: "Septiembre 2019 hasta Marzo 2020",
+        date: "experience.aufi.date",
         title: "Web Developer /",
         company: { name:"Aufiero Informática", link:"https://www.aufieroinformatica.com"},
-        description:
-            "Desarrollo de paginas estaticas y dinamicas",
+        description: "experience.aufi.description",
         current: false,
         stack: ['JavaScript', 'Bootstrap', 'jQuery', 'Wordpress','Sass']
     },

@@ -1,0 +1,61 @@
+{
+    "site": {
+      "title": "Porfolio de Gomez Tomas Gomez - Desarrollador y Programador Full Stack",
+      "description": "Porfolio de Gomez Tomas Gomez - Desarrollador y Programador Full Stack PHP JavaScript TypeScript"
+    },
+    "nav":{
+        "home": "Inicio",
+        "experience": "Experiencia",
+        "proyects": "Proyectos"
+    },
+    "home": {
+      "title": "Hooola, soy Tomás",
+      "badge": "Disponible para trabajar",
+      "description": "Desarrollador Web Full Stack. De Buenos Aires, Argentina. Especializado en aplicativos con enfoque en soluciones digitales innovadoras y eficientes para ofrecer experiencias excepcionales."
+    },
+    "experience":{
+        "title": "Experiencia Laboral",
+        "current": "Actualidad",
+        "msk":  {
+            "date": "Noviembre 2023",
+            "description":"Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos"
+        },
+        "oceano":  {
+            "date": "Octubre 2022 hasta Noviembre 2023",
+            "description":"Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
+            "prev": {
+                "date": "Enero 2022 hasta Octubre 2022",
+                "description": "Desarrollo y mantenimiento de aplicaciones, Api's Rest, cómo tambien integraciones de CRM de la empresa."
+            }
+        },
+        "anteojos":  {
+            "date": "Marzo 2021 hasta Enero 2022",
+            "description":"Desarrollo integro de e-commerce’s, Landing Pages y Single Page Applications."
+        },
+        "fravega":  {
+            "date": "Marzo 2020 hasta Septiembre 2021",
+            "description":"Elaboracion de tareas automatizadas, monitoreo de aplicativos y despliegues programados."
+        },
+        "aufi":  {
+            "date": "Septiembre 2019 hasta Marzo 2020",
+            "description":"Desarrollo de paginas estaticas y dinamicas."
+        }
+    },
+    "proyect":{
+        "title": "Proyectos",
+        "site": "Sitio",
+        "repo": "Repositorio",
+        "calculadora":{
+            "title": "Calculadora Financiera",
+            "description": "Aplicacion para calcular gastos (50/30/20)"
+        },
+        "bday":{
+            "title": "Bday",
+            "description": "Aplicacion para festejar cumpleaños"
+        },
+        "tictactoe":{
+            "title": "Tic-Tac-Toe",
+            "description": "Juego de 3 en raya con emojis"
+        }
+    }
+}
