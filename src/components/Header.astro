@@ -4,39 +4,98 @@ import LangPicker from "./LangPicker.tsx";
 import NavLink from "./NavLink.astro";
 ---
 
-<header class="w-[300px] sm:w-[500px] md:w-[700px] pt-10">    
-    <nav class="">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4">
-    
-      <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          
-          <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-            <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+<header class="bg-gray-200 dark:bg-gray-800 p-4 mt-5 rounded-lg shadow-md text-gray-300">
+  <nav class="flex items-center justify-between max-w-screen-xl mx-auto relative">
+      
+    <!-- Botón de menú para dispositivos móviles -->
+    <button data-collapse-toggle="navbar-sticky" type="button" class="md:hidden focus:outline-none hover:bg-gray-300 dark:hover:bg-gray-700 px-2 py-2 rounded-lg relative">
+        <div id="menu-circle" class="w-0 h-0 bg-gray-700 dark:bg-gray-500 rounded-full absolute top-0 right-0 overflow-hidden"></div>
+        <svg class="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+    </button>
+
+    <!-- Menú principal -->
+    <div class="hidden md:flex md:items-center space-x-4 pr-2">
+        <NavLink href="#top" i18nText="nav.home" />
+        <NavLink href="#experience" i18nText="nav.experience" />
+        <NavLink href="#proyects" i18nText="nav.proyects" />
+    </div>
+
+    <!-- Elementos adicionales (tema, idioma) -->
+    <div class="hidden md:flex items-center space-x-4 pl-2">
+        <ThemeToggle client:only />
+        <LangPicker client:only />
+    </div>
+</nav>
+
+<!-- Menú lateral móvil -->
+<div id="mobile-menu"
+    class="fixed inset-0 bg-gray-200 dark:bg-gray-800 hidden md:hidden transition-opacity ease-in-out duration-300 z-50">
+    <div class="flex items-center justify-between p-4">
+       
+        <!-- Botón de cierre del menú móvil -->
+        <button id="close-menu-button" class="text-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg dark:text-gray-100 dark:hover:text-gray-400 focus:outline-none px-2 py-2">
+            <div id="close-circle" class="w-0 h-0 bg-gray-700 dark:bg-gray-500 rounded-full absolute top-0 right-0 overflow-hidden"></div>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                </path>
             </svg>
         </button>
-      </div>
-      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 gap-x-3" id="navbar-sticky">
-        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 ">
-          <li>
-            <NavLink href="#top" i18nText="nav.home" />
-          </li>
-          <li>
-            <NavLink href="#experience" i18nText="nav.experience" />
-          </li>
-          <li>
-            <NavLink href="#proyects" i18nText="nav.proyects" />
-          </li>
-         
-        </ul>
-        <div class="flex dark:border-t mt-2 md:mt-0 md:border-t-transparent dark:md:border-s ml-2 gap-2 px-2 pt-2 md:pt-0">
-          <ThemeToggle client:only />
-          <LangPicker client:only />
-        </div>
-      </div>
     </div>
-  
-  </nav>
 
+    <!-- Opciones del menú lateral móvil -->
+    <ul class="flex flex-col items-center space-y-4 p-4">
+        <NavLink href="#top" i18nText="nav.home" />
+        <NavLink href="#experience" i18nText="nav.experience" />
+        <NavLink href="#proyects" i18nText="nav.proyects" />
+    </ul>
+
+    <!-- Elementos adicionales (tema, idioma) -->
+    <div class="flex items-center justify-center space-x-4 p-4 mx-3">
+        <ThemeToggle client:only />
+        <LangPicker client:only />
+    </div>
+</div>
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const mobileMenuButton = document.querySelector("[data-collapse-toggle='navbar-sticky']");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeMenuButton = document.getElementById("close-menu-button");
+    const closeMenuOverlay = document.getElementById("close-menu");
+
+    const mobileMenuList = document.querySelectorAll("#mobile-menu > ul ")
+    const mobileMenuLinks = mobileMenuList[0].children
+
+    for (let i = 0; i < mobileMenuLinks.length; i++) {
+        const link = mobileMenuLinks[i];
+        link.addEventListener('click', function(){
+            mobileMenu?.classList.toggle("hidden");
+            closeMenuOverlay?.classList.toggle("hidden");
+            document.body.style.overflow = "auto";
+        })
+    }
+
+    mobileMenuButton?.addEventListener("click", function () {
+      mobileMenu?.classList.toggle("hidden");
+      closeMenuOverlay?.classList.toggle("hidden");
+
+      if (mobileMenu?.classList.contains("hidden")) {
+      document.body.style.overflow = "auto"; // Habilitar el scroll
+    } else {
+      document.body.style.overflow = "hidden"; // Deshabilitar el scroll
+    }
+    });
+
+    closeMenuButton?.addEventListener("click", function () {
+      mobileMenu?.classList.add("hidden");
+      closeMenuOverlay?.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    });
+  });
+</script>
