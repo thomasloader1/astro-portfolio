@@ -6,6 +6,8 @@ import SectionContainer from "../components/SectionContainer.astro";
 import Proyects from "../components/Proyects.astro";
 import Home from "../components/Home.astro";
 import Header from "../components/Header.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Footer from "../components/Footer.astro";
 
 changeLanguage("es");
 ---
@@ -16,5 +18,7 @@ changeLanguage("es");
 		<SectionContainer id="top" class="py-28 pb-24" content={Home} />
 		<SectionContainer id="experience" class="py-24 pb-24" content={Experience} />
 		<SectionContainer id="proyects" class="pb-24" content={Proyects} />
+		<!-- <SectionContainer id="contact" class="pb-24" content={ContactForm} /> -->
 	</main>
+	<Footer />
 </Layout>

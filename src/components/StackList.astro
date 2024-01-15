@@ -17,14 +17,16 @@ import SassIcon from '../icons/Sass.astro'
 import PythonIcon from '../icons/Python.astro'
 import NextJSIcon from '../icons/Next.astro'
 import FirebaseIcon from '../icons/Firebase.astro'
+import OtherIcon from '../icons/Other.astro'
 
 import type { TagsProps } from '../types/Tag'
 
 interface Props{
-    stack: string[]
+    stack: string[];
+    selectable: boolean;
 }
 
-const { stack } = Astro.props;
+const { stack, selectable } = Astro.props;
 
 export const TAGS: TagsProps = {
     PHP:{
@@ -116,6 +118,11 @@ export const TAGS: TagsProps = {
         name: 'Firebase',
        class: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
         icon: FirebaseIcon 
+    },
+    Otra:{
+        name: 'Otra',
+       class: 'bg-dark-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+        icon: OtherIcon 
     }
 }
 
@@ -124,13 +131,16 @@ export const TAGS: TagsProps = {
 <ul class="flex flex-wrap my-5 gap-y-2 gap-x-1 max-w-[350px] xs:max-w-[600px] sm:max-w-[700px] md:max-w-[700px]">
     {
         stack.map((tech: string) => {
-            
             const TECH = TAGS[tech];
-
             return(
-            <li>
+            <li data-selectable={`${selectable ? 'selectable' : "no-selectable"}`} data-color={`${TECH?.class}`}>
                 {TECH?.name && (
-                <span class={`flex flex-column items-center gap-x-1 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full ${TECH.class}`}>
+                <span class={`
+                    flex flex-column items-center gap-x-1 
+                    text-xs font-medium rounded-full 
+                    me-2 px-2.5 py-0.5 
+                    ${selectable ? 'cursor-pointer bg-gray-100 text-gray-800' : TECH.class}
+                    `}>
                     <TECH.icon /> {TECH.name}
                 </span>
                 )}
@@ -138,4 +148,29 @@ export const TAGS: TagsProps = {
         )})
     }
 </ul>
+
+<script>
+    const techBadges = document.querySelectorAll("li[data-selectable='selectable']");
+
+    for (let i = 0; i < techBadges.length; i++) {
+        const badge = techBadges[i] as HTMLLIElement;
+        badge.addEventListener('click', () =>{
+            const span = badge.children[0];
+
+            const classesToAdd = badge.dataset.color?.split(" ");
+            const selectableClasses = ["bg-gray-100", "text-gray-800"];
+
+            const spanClassArray = Array.from(span.classList)
+
+            if(spanClassArray.includes(selectableClasses[0])){
+                span.classList.remove(...selectableClasses)
+                span.classList.add(...classesToAdd || '')
+            }else{
+                span.classList.remove(...classesToAdd || '')
+                span.classList.add(...selectableClasses)
+            }
+
+        })
+    }
+</script>
 
