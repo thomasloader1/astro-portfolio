@@ -1,8 +1,8 @@
 ---
-import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import SectionContainer from "../components/SectionContainer.astro";
-import {t} from "i18next"
+import { t, changeLanguage } from "i18next";
+
 changeLanguage("es");
 
 const { page } = Astro.props;

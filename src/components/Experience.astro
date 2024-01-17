@@ -9,11 +9,15 @@ import {t} from 'i18next'
 <div class="flex justify-center">
     <ol class="relative border-s border-gray-200 dark:border-gray-700">
         {
-            EXPERIENCES.map((experience) => (
-                <li class="mb-10 ms-6 ">
+            EXPERIENCES.map((experience, i) => (
+                <li class={`mb-10 ms-6`}>
                     <ExperiencieItem {...experience} />
                 </li>
             ))
         }
     </ol>
 </div>
+<!-- <div class="flex justify-center">
+
+    <button class="bg-orange-400 px-3 py-2 rounded-lg mt-3 mx-auto">Ver maaaaaaaaaaa</button>
+</div> -->
