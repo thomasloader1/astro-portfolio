@@ -1,15 +1,8 @@
 ---
-import type { Experience } from '../../types/Experience';
 import CardArticle from './CardArticle';
 
-interface Props{
-   element: Experience | any;
-}
-
-
-const { element } = Astro.props
-//const articleClass = current ? "bg-orange-primary rounded-lg pl-5 p-2 mb-5 " : "";
-//const contentClass = current ? "hidden" : "pl-5 pb-4 mb-5 border border-t-0 border-r-0 border-l-orange-primary border-b-orange-primary rounded-bl-lg text-grey-primary";
+const { item } = Astro.props
+const element = item
 ---
 
-<CardArticle article={element} />
+<CardArticle article={element}  />

@@ -1,5 +1,7 @@
 ---
-import "@fontsource-variable/inter";
+
+import '@fontsource-variable/fira-code';
+import '@fontsource-variable/red-hat-mono';
 import i18next,{t} from "i18next"
 
 interface Props {
@@ -53,8 +55,13 @@ const { title, description } = Astro.props;
 
 	html {
 		background-color: #fff;
-		font-family: "Inter Variable",system-ui, sans-serif;
+		font-family: "Fira Code Variable", monospace;
 		scroll-behavior: smooth;
+
+	}
+
+	p, h5{
+		font-family: "Red Hat Mono Variable", monospace;
 
 	}
 

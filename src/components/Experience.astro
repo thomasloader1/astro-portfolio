@@ -1,16 +1,16 @@
 ---
-import ExperiencieItem from "./ExperiencieItem.astro";
+//import ExperiencieItem from "./ExperiencieItem.astro";
+//import ShovelIcon from '../icons/Shovel.astro';
 import { EXPERIENCES } from "../data/Experience.ts"
-import ShovelIcon from '../icons/Shovel.astro';
 import {t} from 'i18next'
 import Card from "./Card/Card.astro";
 ---
 
-<h2 class="text-4xl font-semibold mb-6 flex gap-x-2 items-center text-grey-primary dark:text-white"> <ShovelIcon class="size-6"/> {t("experience.title")}</h2>
+<h2 class="text-6xl font-bold mb-12 flex gap-x-2 items-center text-grey-primary dark:text-white"> {t("experience.title")} </h2>
 <div >
     {
         EXPERIENCES.map((experience, i) => (
-           <Card element={experience} />
+           <Card item={experience} />
         ))
     }
 </div>
