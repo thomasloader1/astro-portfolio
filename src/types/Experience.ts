@@ -2,6 +2,11 @@ export interface PreviousExperience{
     title: string;
     description: string;
     date: string;
+    content: ContentExperience[];
+}
+export interface ContentExperience{
+    title: string;
+    list: string[]
 }
 
 export interface Company{
@@ -17,4 +22,5 @@ export interface Experience{
     current: boolean;
     stack: string[];
     prev?: PreviousExperience;
+    content?: ContentExperience[];
 }

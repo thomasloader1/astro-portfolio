@@ -4,6 +4,10 @@ export default {
 	darkMode: 'class',
 	theme: {
 		extend: {
+			colors: {
+				'grey-primary': '#3d3f42',
+				'orange-primary': '#ff9700',
+			  },
 			backgroundImage: {
 				'calculadoraFinanciera': "url('/calculadoraFinanciera.webp')",
 				'bday': "url('/bday.webp')",
