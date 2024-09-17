@@ -1,6 +1,7 @@
 import type { Experience } from "../../types/Experience";
 
 export const ANTEOJOS_NEGROS: Experience = {
+  index: 4,
     date: "experience.anteojos.date",
     title: "Full Stack Developer",
     company: {

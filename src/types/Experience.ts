@@ -15,6 +15,7 @@ export interface Company{
 }
 
 export interface Experience{
+    index: number;
     title: string;
     company: Company;
     description: string;

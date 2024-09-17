@@ -1,6 +1,7 @@
 import type { Experience } from "../../types/Experience";
 
 export const MSK: Experience = {
+  index: 2,
     date: "experience.msk.date",
     title: "Team Lead",
     company: {

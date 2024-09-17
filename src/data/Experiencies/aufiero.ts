@@ -1,6 +1,7 @@
 import type { Experience } from "../../types/Experience";
 
 export const AUFIERO: Experience = {
+  index: 6,
     date: "experience.aufi.date",
     title: "Web Developer",
     company: {

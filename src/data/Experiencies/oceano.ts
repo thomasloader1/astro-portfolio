@@ -1,6 +1,7 @@
 import type { Experience } from "../../types/Experience";
 
 export const OCEANO: Experience = {
+  index:3,
     date: "experience.oceano.date",
     title: "Team Lead",
     company: {

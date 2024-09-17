@@ -1,6 +1,7 @@
 import type { Experience } from "../../types/Experience";
 
 export const FRAVEGA: Experience = {
+  index: 5,
     date: "experience.fravega.date",
     title: "Analista de Aplicaciones N2",
     company: { name: "Frávega", link: "https://www.fravega.com" },

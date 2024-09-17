@@ -4,16 +4,10 @@ import { AUFIERO } from "./Experiencies/aufiero";
 import { FRAVEGA } from "./Experiencies/fravega";
 import { MSK } from "./Experiencies/msk";
 import { OCEANO } from "./Experiencies/oceano";
+import { SOLUTICA } from "./Experiencies/solutica";
 
 export const EXPERIENCES: Experience[] = [
-  {
-    date: "experience.solutica.date",
-    title: "Full Stack Developer",
-    company: { name: "Solutica", link: "https://www.msklatam.com" },
-    description: "experience.solutica.description",
-    current: true,
-    stack: [],
-  },
+  { ...SOLUTICA },
   { ...MSK },
   { ...OCEANO },
   { ...ANTEOJOS_NEGROS },

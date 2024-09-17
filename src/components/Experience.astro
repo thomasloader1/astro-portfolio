@@ -3,14 +3,14 @@
 //import ShovelIcon from '../icons/Shovel.astro';
 import { EXPERIENCES } from "../data/Experience.ts"
 import {t} from 'i18next'
-import Card from "./Card/Card.astro";
+import Card from "./Card/Card.tsx"
 ---
 
 <h2 class="text-6xl font-bold mb-12 flex gap-x-2 items-center text-grey-primary dark:text-white"> {t("experience.title")} </h2>
 <div >
     {
         EXPERIENCES.map((experience, i) => (
-           <Card item={experience} />
+           <Card item={experience} client:load />
         ))
     }
 </div>
