@@ -1,0 +1,70 @@
+---
+import ThemeToggle from './ThemeToggle'
+import LanguageSelector from './LanguageSelector'
+---
+
+<script>
+  const handleScroll = () => {
+    const initialNav = document.getElementById('initial-nav')
+    const scrolledNav = document.getElementById('scrolled-nav')
+    const show = window.scrollY > 100
+
+    if (initialNav && scrolledNav) {
+      initialNav.style.transform = show ? 'translateY(-100%)' : 'translateY(0)'
+      scrolledNav.style.transform = show ? 'translateY(0)' : 'translateY(-100%)'
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll)
+</script>
+
+<!-- Botones iniciales -->
+<div 
+  id="initial-nav"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+  <div class="max-w-5xl mx-auto px-4 py-6 flex justify-between items-center">
+    <nav class="flex items-center gap-6">
+      <a href="#experience" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Experiencia
+      </a>
+      <a href="#education" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Educación
+      </a>
+      <a href="#courses" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Cursos
+      </a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <ThemeToggle client:only="react" />
+      <LanguageSelector client:only="react" />
+    </div>
+  </div>
+</div>
+
+<!-- Navegación fija al scrollear -->
+<div 
+  id="scrolled-nav"
+  class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 transition-all duration-300 -translate-y-full"
+>
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+    <a href="#" class="text-lg font-semibold text-gray-900 dark:text-white">
+      GTG
+    </a>
+    <nav class="hidden md:flex items-center gap-6">
+      <a href="#experience" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Experiencia
+      </a>
+      <a href="#education" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Educación
+      </a>
+      <a href="#courses" class="text-gray-600 hover:text-orange-500 dark:text-gray-300 dark:hover:text-orange-400">
+        Cursos
+      </a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <ThemeToggle client:only="react" />
+      <LanguageSelector client:only="react" />
+    </div>
+  </div>
+</div> 

@@ -1,24 +1,54 @@
 ---
-import { changeLanguage } from "i18next";
-import Layout from "../layouts/Layout.astro";
-import Experience from "../components/Experience.astro";
-import SectionContainer from "../components/SectionContainer.astro";
-import Proyects from "../components/Proyects.astro";
-import Home from "../components/Home.astro";
-import Header from "../components/Header.astro";
-import ContactForm from "../components/ContactForm.astro";
-import Footer from "../components/Footer.astro";
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import ContactBar from '../components/ContactBar.astro'
+import ExperienceTimeline from '../components/ExperienceTimeline.astro'
+import Education from '../components/Education.astro'
+import Courses from '../components/Courses.astro'
+import Navigation from '../components/Navigation.astro'
+import { translations, locale } from '../store/i18n'
 
-changeLanguage("es");
+const currentLocale = locale.get()
+const t = translations[currentLocale as 'es' | 'en']
 ---
 
-<Layout title="site.title" description='site.description'>
-	<Header />
-	<main>
-		<SectionContainer id="top" class="py-28 pb-24" content={Home} />
-		<SectionContainer id="experience" class="py-24 pb-24" content={Experience} />
-		<SectionContainer id="proyects" class="pb-24" content={Proyects} />
-		<!-- <SectionContainer id="contact" class="pb-24" content={ContactForm} /> -->
-	</main>
-	<Footer />
+<Layout title="Gomez Tomás Gonzalo - Full Stack Developer">
+	<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+		<Navigation />
+
+		<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<div class="my-16">
+				<Header 
+					title="Gomez Tomás Gonzalo"
+					subtitle="Full Stack Developer"
+					image="/profile.jpeg"
+					/>
+			
+			<ContactBar />
+			</div>
+			
+			<div class="mt-16 space-y-16">
+				<section id="experience">
+					<h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+						{t.sections.experience}
+					</h2>
+					<ExperienceTimeline />
+				</section>
+
+				<section id="education">
+					<h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+						{t.sections.education}
+					</h2>
+					<Education />
+				</section>
+
+				<section id="courses">
+					<h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">
+						{t.sections.courses}
+					</h2>
+					<Courses />
+				</section>
+			</div>
+		</main>
+	</div>
 </Layout>

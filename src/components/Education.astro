@@ -1,0 +1,56 @@
+---
+interface Education {
+  title: string;
+  institution: string;
+  period: string;
+  description: string[];
+}
+
+const education: Education[] = [
+  {
+    title: "Tecnico en Desarrollo de Aplicaciones Web",
+    institution: "UNLaM",
+    period: "Ene. 2017 - Actual",
+    description: [
+      "Habilidad para resolver problemas utilizando tecnologías acordes con las tendencias internacionales y adecuadas al medio local.",
+      "Conocimientos teóricos y prácticos para el diseño, configuración y mantimiento de aplicaciones web.",
+      "Idoneidad para aplicar atributos de seguridad, calidad y accesibilidad a los desarrollos realizados.",
+      "Practicas llevadas con Java 8 / 11 con Spring Boot y JUnit",
+      "Capacidad para la interacción grupal."
+    ]
+  },
+  {
+    title: "Bachiller",
+    institution: "E.E.M Nº 19",
+    period: "Ene. 2007 - Dic. 2013",
+    description: [
+      "Estudios secundarios orientado a Ciencias Economias."
+    ]
+  }
+]
+---
+
+<div class="space-y-8">
+  {
+    education.map((item) => (
+      <div class="relative pl-8 border-l-2 border-orange-500">
+        <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-[9px] top-0"></div>
+        
+        <div class="mb-4">
+          <h3 class="text-xl font-semibold flex items-center gap-2">
+            {item.title}
+            <span class="text-orange-500">@</span>
+            <span>{item.institution}</span>
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">{item.period}</p>
+        </div>
+
+        <ul class="list-disc list-inside space-y-2">
+          {item.description.map((desc) => (
+            <li class="text-gray-700 dark:text-gray-300">{desc}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div> 

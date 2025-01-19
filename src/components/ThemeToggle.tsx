@@ -1,55 +1,63 @@
-import React,{ useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState(window.localStorage.getItem("theme") ?? "light");
-
-  const handleClick = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const [theme, setTheme] = useState(() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme')
+    }
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark'
+    }
+    return 'light'
+  })
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+    const root = document.documentElement
+    if (theme === 'light') {
+      root.classList.remove('dark')
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.add('dark')
     }
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
+    localStorage.setItem('theme', theme || 'light')
+  }, [theme])
 
   return (
-    
-      <button onClick={handleClick} className="transition p-2 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-        {theme === "light" ? (
-        <div className="flex items-center text-black dark:text-white"> 
-         {/*  <img src="/Moon.svg" alt="" /> */}
-         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-moon text-gray-900" width="24"
-              height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none"
-              strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-          </svg>
-          <span className="ml-2 md:hidden">Oscuro</span>
-        </div>
-        ) : (
-        <div className="flex items-center text-black dark:text-white">
-          {/* <img src="/Sun.svg" alt="" /> */}
-          <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-sun-high dark:text-white" width="24"
-              height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="white" fill="none"
-              strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
-              <path d="M6.343 17.657l-1.414 1.414" />
-              <path d="M6.343 6.343l-1.414 -1.414" />
-              <path d="M17.657 6.343l1.414 -1.414" />
-              <path d="M17.657 17.657l1.414 1.414" />
-              <path d="M4 12h-2" />
-              <path d="M12 4v-2" />
-              <path d="M20 12h2" />
-              <path d="M12 20v2" />
-          </svg>
-          <span className="ml-2 md:hidden">Claro</span>
-        </div>
-        )}
-        </button>
-  );
+    <button
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      className="p-2 text-gray-500 hover:text-orange-500 transition-colors"
+      aria-label="Toggle theme"
+    >
+      {theme === 'light' ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+          />
+        </svg>
+      ) : (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+          />
+        </svg>
+      )}
+    </button>
+  )
 }

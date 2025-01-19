@@ -1,0 +1,47 @@
+---
+interface Course {
+  title: string;
+  platform: string;
+}
+
+const courses: Course[] = [
+  {
+    title: "Master en JavaScript",
+    platform: "Udemy"
+  },
+  {
+    title: "React Avanzado",
+    platform: "LinkedIn"
+  },
+  {
+    title: "PHP MVC Laravel",
+    platform: "EducacionIT"
+  },
+  {
+    title: "Curso de React.JS",
+    platform: "EducacionIT"
+  },
+  {
+    title: "Node: Desarrollo de Aplicaciones",
+    platform: "LinkedIn"
+  },
+  {
+    title: "Inicializacion con Docker",
+    platform: "Udemy"
+  }
+]
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {
+    courses.map((course) => (
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+        <h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+          {course.title}
+          <span class="text-orange-500">@</span>
+          <span class="text-gray-600 dark:text-gray-400">{course.platform}</span>
+        </h3>
+      </div>
+    ))
+  }
+</div> 

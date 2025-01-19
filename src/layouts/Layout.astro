@@ -1,74 +1,42 @@
 ---
 import "@fontsource-variable/inter";
-import i18next,{t} from "i18next"
 
 interface Props {
 	title: string;
-	description: string;
 }
 
-const { title, description } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={i18next.language}>
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={t(description)} />
+		<meta name="description" content="Portfolio profesional de Gomez Tomás Gonzalo - Full Stack Developer" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="https://avatars.githubusercontent.com/u/42984450?v=4" type="image/png">
-		<link rel="stylesheet" href="swiper.css">
-		<title>{t(title)}</title>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
 	</head>
-	<body class="relative top-0 right-0 z-[-2] bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-neutral-950 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+	<body class="antialiased">
 		<slot />
-		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 	</body>
-
 </html>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
-<script is:inline>
-	const theme = (() => {
-	  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-		return localStorage.getItem("theme");
-	  }
-	  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		return "dark";
-	  }
-	  return "light";
-	})();
-  
-	if (theme === "light") {
-	  document.documentElement.classList.remove("dark");
-	} else {
-	  document.documentElement.classList.add("dark");
-	}
-	window.localStorage.setItem("theme", theme);
-  </script>
 
 <style is:global>
 	:root {
-		color-scheme: ligth dark;
+		--accent: 255, 115, 0;
+		--accent-light: 255, 156, 77;
+		--accent-dark: 204, 92, 0;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
 	}
 
 	html {
-		background-color: #fff;
-		font-family: "Inter Variable",system-ui, sans-serif;
 		scroll-behavior: smooth;
-
-	}
-
-	body{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		min-height: 100vh;
-	}
-
-	@media (prefers-reduced-motion: reduce){
-		html{
-			scroll-behavior: auto;
-		}
 	}
 </style>

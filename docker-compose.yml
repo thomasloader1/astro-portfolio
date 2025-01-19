@@ -1,0 +1,26 @@
+services:
+  app:
+    container_name: astro-portfolio-dev
+    build:
+      context: .
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  app-prod:
+    container_name: astro-portfolio-prod
+    build:
+      context: .
+      dockerfile: docker/prod/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  node_modules: 
