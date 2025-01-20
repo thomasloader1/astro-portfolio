@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useStore } from '@nanostores/react'
-import { locale, setLocale, type Locale } from '../store/i18n'
+import { locale, setLocale, type Locale } from '../../store/i18n'
 
 const languages = [
   { code: 'es', name: 'Español' },

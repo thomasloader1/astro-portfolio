@@ -1,15 +1,6 @@
 ---
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  description: string[];
-  technologies: string[];
-  projects?: {
-    name: string;
-    tech: string[];
-  }[];
-}
+import type { Experience } from "../types/Experience";
+import ExperienceTimelineList from "./react/ExperienceTimelineList";
 
 const experiences: Experience[] = [
   {
@@ -17,7 +8,8 @@ const experiences: Experience[] = [
     company: "Solutica",
     period: "Sep. 2024 - Actual",
     description: [],
-    technologies: ["Next.js 14", "Laravel 10", "Automatización de procesos y eventos"]
+    tasks: [],
+    technologies: ["React", "Typescript","SQL-Server", ".NET Core"]
   },
   {
     title: "Team Lead",
@@ -27,16 +19,29 @@ const experiences: Experience[] = [
       "Sitio Web (frontend - backend)",
       "Migración, mantencion y re-configuracion de aplicativos"
     ],
+    tasks: [
+      {
+        name:"Sitio Web (frontend - backend)",
+        detail: ["Next.js 14","Laravel 10", "Automatizacion de procesos y evento"]
+      },
+      {
+        name:"Migracion, mantencion y re-configuracion de aplicativos",
+        detail: ["API Pagos (Laravel 8 => 9)","Pasarela de pagos (React.js 17 => 18)", "Venta Presencial (React.js 17 => 18)","API CMS (Wordpress 5 => 6)","Reglas de flujo y Funciones (Zoho CRM / Flow)","Herramientas internas de Cobranzas y Marketing"]
+      },
+      {
+        name:"En todo el proceso de los proyectos desespeñé",
+        detail: ["Analisis e implementacion de los requerimientos","Supervicion de personal interno y externo", "Despligue a Produccion y Desarrollo (Vercel, VPS, AWS)"]
+      }
+    ],
     technologies: [
       "Next.js 14",
+      "Typescript",
       "Laravel 10",
-      "Automatizacion de procesos y eventos",
-      "API Pagos (Laravel 8 => 9)",
-      "Pasarela de pagos (React.js 17 => 18)",
-      "Venta Presencial (React.js 17 => 18)",
-      "API CMS (Wordpress 5 => 6)",
-      "Reglas de flujo y Funciones (Zoho CRM / Flow)",
-      "Herramientas internas de Cobranzas y Marketing"
+      "Docker",
+      "React",
+      "Python",
+      "PHP",
+      "Nginx"
     ],
     projects: [
       {
@@ -60,66 +65,20 @@ const experiences: Experience[] = [
     description: [
       "Responsable del area, analisis, planificacion de nuevos y mantencion de proyectos / servicios"
     ],
+    tasks: [
+      {
+        name:"Responsable del area, analisis, planificacion de nuevos y mantencion de proyectos / servicios",
+        detail: ["Manejo de servidores Linux","Docker", "Automatizacion de procesos "]
+      },
+    ],
     technologies: [
-      "Manejo de servidores Linux",
-      "Docker",
-      "Automatizacion de procesos"
+      "React", "Laravel 10", "Next.js 14", "PHP", "Docker", "Typescript"
     ]
-  }
+  },
+  
 ]
 ---
 
 <div class="space-y-8">
-  {
-    experiences.map((experience) => (
-      <div class="relative pl-8 border-l-2 border-orange-500">
-        <div class="absolute w-4 h-4 bg-orange-500 rounded-full -left-[9px] top-0"></div>
-        
-        <div class="mb-4">
-          <h3 class="text-xl font-semibold flex items-center gap-2">
-            {experience.title}
-            <span class="text-orange-500">@</span>
-            <span>{experience.company}</span>
-          </h3>
-          <p class="text-gray-600 dark:text-gray-400">{experience.period}</p>
-        </div>
-
-        {experience.description.length > 0 && (
-          <ul class="list-disc list-inside mb-4 space-y-2">
-            {experience.description.map((item) => (
-              <li class="text-gray-700 dark:text-gray-300">{item}</li>
-            ))}
-          </ul>
-        )}
-
-        <div class="flex flex-wrap gap-2 mb-4">
-          {experience.technologies.map((tech) => (
-            <span class="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-full dark:bg-orange-900 dark:text-orange-100">
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {experience.projects && (
-          <div class="mt-4">
-            <h4 class="font-semibold mb-2">Otros proyectos:</h4>
-            <div class="space-y-2">
-              {experience.projects.map((project) => (
-                <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                  <p class="font-medium">{project.name}</p>
-                  <div class="flex flex-wrap gap-2 mt-2">
-                    {project.tech.map((t) => (
-                      <span class="px-2 py-1 text-xs bg-gray-200 dark:bg-gray-700 rounded">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    ))
-  }
-</div> 
+  <ExperienceTimelineList experiences={experiences} />
+</div>

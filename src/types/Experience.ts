@@ -9,12 +9,24 @@ export interface Company{
     link: string;
 }
 
-export interface Experience{
-    title: string;
-    company: Company;
-    description: string;
-    date: string;
-    current: boolean;
-    stack: string[];
-    prev?: PreviousExperience;
+export interface Project{
+    name: string;
+      tech: string[];
 }
+
+export interface Experience {
+    title: string;
+    company: string;
+    period: string;
+    description: string[];
+    technologies: string[];
+    tasks:{
+      name: string,
+      detail: string[]
+    }[]
+    projects?: {
+      name: string;
+      tech: string[];
+    }[];
+    prev?: PreviousExperience
+  }

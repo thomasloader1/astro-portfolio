@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/inter";
+import '@fontsource-variable/fira-code';
 
 interface Props {
 	title: string;
@@ -34,6 +35,15 @@ const { title } = Astro.props;
 			rgb(var(--accent-light)) 30%,
 			white 60%
 		);
+		--font-title: 'Fira Code', monospace; 
+	}
+
+	h1, h2, h3, h4, h5, h6, a, p {
+		font-family: var(--font-title); 
+	}
+
+	body {
+		font-family: var(--font-title); 
 	}
 
 	html {
