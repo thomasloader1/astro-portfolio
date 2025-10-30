@@ -16,8 +16,12 @@
     "experience":{
         "title": "Experiencia Laboral",
         "current": "Actualidad",
+        "solutica": {
+            "date": "Septiembre 2024",
+            "description": "Desarrollo integro de aplicacion para gestionar ventas, facturas y trazabilidad de productos, como tambien mantenimiento de aplicactivos existentes para laboratorios."
+        },
         "msk":  {
-            "date": "Noviembre 2023",
+            "date": "Noviembre 2023 hasta Septiembre 2024",
             "description":"Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos"
         },
         "oceano":  {

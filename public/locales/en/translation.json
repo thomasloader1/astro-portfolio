@@ -16,8 +16,12 @@
   "experience": {
     "title": "Work Experience",
     "current": "Present",
+    "solutica": {
+      "date": "September 2024",
+      "description": "Comprehensive development of an application to manage sales, invoices, and product traceability, as well as maintenance of existing applications for laboratories."
+    },
     "msk": {
-      "date": "November 2023",
+      "date": "November 2023 to September 2024",
       "description": "Development and monitoring of applications, services, payment platforms, and automations in CRM and communication, among other areas, leading internal and external teams."
     },
     "oceano": {
