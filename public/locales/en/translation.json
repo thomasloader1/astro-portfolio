@@ -16,6 +16,8 @@
   "experience": {
     "title": "Work Experience",
     "current": "Present",
+    "showMore": "Show more",
+    "showLess": "Show less",
     "solutica": {
       "date": "September 2024",
       "description": "Comprehensive development of an application to manage sales, invoices, and product traceability, as well as maintenance of existing applications for laboratories."
