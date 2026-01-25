@@ -6,12 +6,48 @@
   "nav": {
     "home": "Inicio",
     "experience": "Experiencia",
-    "proyects": "Proyectos"
+    "proyects": "Proyectos",
+    "services": "Servicios",
+    "process": "Proceso",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
   },
   "home": {
-    "title": "Hooola, soy Tomás",
-    "badge": "Disponible para trabajar",
-    "description": "Desarrollador Web Full Stack. De Buenos Aires, Argentina. Especializado en aplicativos con enfoque en soluciones digitales innovadoras y eficientes para ofrecer experiencias excepcionales."
+    "title": "Hola, soy Tomás",
+    "badge": "Disponible para consultoría estratégica",
+    "description": "Consultor Técnico para Startups. De Buenos Aires, Argentina. Especializado en arquitecturas escalables, optimización de performance y estrategia tecnológica que impulsa el crecimiento sostenible."
+  },
+  "services": {
+    "title": "Servicios de Consultoría Técnica",
+    "subtitle": "Ayudo a startups a construir sistemas escalables, optimizar performance y definir estrategias tecnológicas que impulsan el crecimiento",
+    "cta": {
+      "free": "Agendar consulta gratuita (30min)",
+      "explore": "Ver servicios"
+    },
+    "custom": {
+      "title": "¿No encuentras lo que buscas?",
+      "description": "Ofrezco soluciones personalizadas según las necesidades específicas de tu startup. Agendemos una llamada gratuita para analizar tu caso.",
+      "button": "Agendar consulta gratuita"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Iniciemos una conversación sobre tu proyecto",
+    "form": {
+      "name": "Nombre",
+      "email": "Email",
+      "company": "Empresa/Startup",
+      "size": "Tamaño del equipo",
+      "budget": "Presupuesto estimado",
+      "project": "Describe tu proyecto",
+      "submit": "Enviar mensaje",
+      "success": "Mensaje enviado con éxito",
+      "error": "Error al enviar mensaje"
+    },
+    "calendar": {
+      "title": "O agenda directamente una llamada",
+      "description": "Selecciona el horario que mejor te convenga para una llamada de 30 minutos"
+    }
   },
   "experience": {
     "title": "Experiencia Laboral",

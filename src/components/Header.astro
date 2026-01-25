@@ -7,8 +7,8 @@ import NavLink from "./NavLink.astro";
 <header class="px-3 py-2 bg-gray-100 rounded-lg shadow m-4 dark:bg-gray-800">
   <nav class="flex items-center justify-between max-w-screen-xl mx-auto relative">
       
-    <!-- Botón de menú para dispositivos móviles -->
-    <button data-collapse-toggle="navbar-sticky" type="button" class="md:hidden focus:outline-none hover:bg-gray-300 dark:hover:bg-gray-700 px-2 py-2 rounded-lg relative">
+<!-- Botón de menú para dispositivos móviles -->
+    <button data-collapse-toggle="navbar-sticky" type="button" class="md:hidden focus-visible:ring-2 focus-visible:ring-orange-400 focus:outline-none hover:bg-gray-300 dark:hover:bg-gray-700 px-2 py-2 rounded-lg relative" aria-label="Abrir menú de navegación" aria-expanded="false">
         <div id="menu-circle" class="w-0 h-0 bg-gray-700 dark:bg-gray-500 rounded-full absolute top-0 right-0 overflow-hidden"></div>
         <svg class="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor"
             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -19,9 +19,13 @@ import NavLink from "./NavLink.astro";
 
     <!-- Menú principal -->
     <div class="hidden md:flex md:items-center space-x-4 pr-2">
-        <NavLink href="#top" i18nText="nav.home" />
+        <NavLink href="#hero" i18nText="nav.home" />
+        <NavLink href="#services" i18nText="nav.services" />
+        <NavLink href="#process" i18nText="nav.process" />
+        <NavLink href="#testimonials" i18nText="nav.testimonials" />
         <NavLink href="#experience" i18nText="nav.experience" />
         <NavLink href="#proyects" i18nText="nav.proyects" />
+        <NavLink href="#contact" i18nText="nav.contact" />
     </div>
 
     <!-- Elementos adicionales (tema, idioma) -->
@@ -36,8 +40,8 @@ import NavLink from "./NavLink.astro";
     class="fixed inset-0 bg-gray-200 dark:bg-gray-800 hidden md:hidden transition-opacity ease-in-out duration-300 z-50">
     <div class="flex items-center justify-between p-4">
        
-        <!-- Botón de cierre del menú móvil -->
-        <button id="close-menu-button" class="text-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg dark:text-gray-100 dark:hover:text-gray-400 focus:outline-none px-2 py-2">
+<!-- Botón de cierre del menú móvil -->
+        <button id="close-menu-button" class="text-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg dark:text-gray-100 dark:hover:text-gray-400 focus-visible:ring-2 focus-visible:ring-orange-400 focus:outline-none px-2 py-2" aria-label="Cerrar menú de navegación">
             <div id="close-circle" class="w-0 h-0 bg-gray-700 dark:bg-gray-500 rounded-full absolute top-0 right-0 overflow-hidden"></div>
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
@@ -49,9 +53,13 @@ import NavLink from "./NavLink.astro";
 
     <!-- Opciones del menú lateral móvil -->
     <ul class="flex flex-col items-center space-y-4 p-4">
-        <NavLink href="#top" i18nText="nav.home" />
+        <NavLink href="#hero" i18nText="nav.home" />
+        <NavLink href="#services" i18nText="nav.services" />
+        <NavLink href="#process" i18nText="nav.process" />
+        <NavLink href="#testimonials" i18nText="nav.testimonials" />
         <NavLink href="#experience" i18nText="nav.experience" />
         <NavLink href="#proyects" i18nText="nav.proyects" />
+        <NavLink href="#contact" i18nText="nav.contact" />
     </ul>
 
     <!-- Elementos adicionales (tema, idioma) -->
@@ -82,10 +90,13 @@ import NavLink from "./NavLink.astro";
     }
 
     mobileMenuButton?.addEventListener("click", function () {
-      mobileMenu?.classList.toggle("hidden");
+      const isHidden = mobileMenu?.classList.toggle("hidden");
       closeMenuOverlay?.classList.toggle("hidden");
 
-      if (mobileMenu?.classList.contains("hidden")) {
+      // Update aria-expanded
+      mobileMenuButton.setAttribute('aria-expanded', (!isHidden).toString());
+
+      if (isHidden) {
       document.body.style.overflow = "auto"; // Habilitar el scroll
     } else {
       document.body.style.overflow = "hidden"; // Deshabilitar el scroll

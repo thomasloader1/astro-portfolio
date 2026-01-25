@@ -1,0 +1,147 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+---
+
+<section id="process" class="py-16 lg:py-24">
+  <div class="max-w-screen-xl mx-auto px-4">
+    
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-black dark:text-white">
+        Mi metodología de trabajo
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Un proceso estructurado que garantiza resultados medibles y alineación con tus objetivos de negocio
+      </p>
+    </div>
+
+    <!-- Process Steps -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      
+      <!-- Step 1 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="compass" class="size-10 text-white" />
+          </div>
+          <div class="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-orange-500 to-gray-300 dark:to-gray-600 -translate-x-8"></div>
+        </div>
+        
+        <h3 class="text-xl font-semibold mb-4 text-black dark:text-white">
+          1. Discovery & Diagnóstico
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          Análisis profundo de tu arquitectura actual, procesos y objetivos. 
+          Identifico puntos críticos y oportunidades de mejora específicas para tu startup.
+        </p>
+        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-left">
+          <h4 class="font-medium text-sm text-black dark:text-white mb-2">Entregables:</h4>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <li>• Audit técnico completo</li>
+            <li>• Mapa de riesgos y oportunidades</li>
+            <li>• Recomendaciones prioritarias</li>
+          </ul>
+        </div>
+        <div class="mt-4 text-sm font-medium text-orange-600 dark:text-orange-400">
+          Duración: 1-2 semanas
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="cpu" class="size-10 text-white" />
+          </div>
+          <div class="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-orange-500 to-gray-300 dark:to-gray-600 -translate-x-8"></div>
+        </div>
+        
+        <h3 class="text-xl font-semibold mb-4 text-black dark:text-white">
+          2. Strategy & Architecture
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          Diseño de la solución técnica optimizada para escalabilidad, performance y mantenibilidad. 
+          Alineamos la tecnología con los objetivos de negocio.
+        </p>
+        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-left">
+          <h4 class="font-medium text-sm text-black dark:text-white mb-2">Entregables:</h4>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <li>• Arquitectura detallada</li>
+            <li>• Roadmap de implementación</li>
+            <li>• Stack tecnológico recomendado</li>
+          </ul>
+        </div>
+        <div class="mt-4 text-sm font-medium text-orange-600 dark:text-orange-400">
+          Duración: 1 semana
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="users" class="size-10 text-white" />
+          </div>
+        </div>
+        
+        <h3 class="text-xl font-semibold mb-4 text-black dark:text-white">
+          3. Implementation & Mentoring
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          Implementación práctica junto a tu equipo. Transferencia de conocimiento 
+          y establecimiento de best practices para sostenibilidad a largo plazo.
+        </p>
+        <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-4 text-left">
+          <h4 class="font-medium text-sm text-black dark:text-white mb-2">Entregables:</h4>
+          <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <li>• Código y configuración</li>
+            <li>• Documentación técnica</li>
+            <li>• Training del equipo</li>
+          </ul>
+        </div>
+        <div class="mt-4 text-sm font-medium text-orange-600 dark:text-orange-400">
+          Duración: Variable (2-8 semanas)
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div class="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Icon name="check-circle" class="size-12 text-green-500 mx-auto mb-4" />
+        <h4 class="font-semibold text-black dark:text-white mb-2">Sin sorpresas</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Alcance claro y entregables definidos desde el inicio</p>
+      </div>
+      
+      <div class="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Icon name="chart" class="size-12 text-blue-500 mx-auto mb-4" />
+        <h4 class="font-semibold text-black dark:text-white mb-2">Resultados medibles</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-400">KPIs específicos para evaluar el éxito del proyecto</p>
+      </div>
+      
+      <div class="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Icon name="graduation-cap" class="size-12 text-purple-500 mx-auto mb-4" />
+        <h4 class="font-semibold text-black dark:text-white mb-2">Knowledge transfer</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Capacitación a tu equipo para mantener y evolucionar la solución</p>
+      </div>
+      
+      <div class="text-center p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Icon name="clock" class="size-12 text-orange-500 mx-auto mb-4" />
+        <h4 class="font-semibold text-black dark:text-white mb-2">Agilidad garantizada</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Metodologías ágiles para adaptarse a cambios y feedback constante</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <Button 
+        variant="primary" 
+        size="lg"
+        href="#contact"
+      >
+        Iniciar mi proyecto
+      </Button>
+    </div>
+  </div>
+</section>

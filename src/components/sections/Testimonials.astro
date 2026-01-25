@@ -1,0 +1,134 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import { TESTIMONIALS, CLIENT_LOGOS } from '../../data/Testimonials';
+---
+
+<section id="testimonials" class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-screen-xl mx-auto px-4">
+    
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-black dark:text-white">
+        Lo que dicen mis clientes
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Resultados reales para startups que buscan escalar su tecnología y optimizar sus procesos
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      {
+        TESTIMONIALS.map((testimonial) => (
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 lg:p-8 border border-gray-200 dark:border-gray-700">
+            
+            <!-- Rating -->
+            <div class="flex mb-4">
+              {
+                Array.from({ length: 5 }).map((_, i) => (
+                  <Icon 
+                    name="star" 
+                    class={`size-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`} 
+                  />
+                ))
+              }
+            </div>
+
+            <!-- Content -->
+            <blockquote class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+              "{testimonial.content}"
+            </blockquote>
+
+            <!-- Author -->
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold mr-3">
+                {testimonial.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <div>
+                <div class="font-semibold text-black dark:text-white">{testimonial.name}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">{testimonial.position}, {testimonial.company}</div>
+              </div>
+            </div>
+
+            <!-- Project Info -->
+            <div class="mb-4">
+              <div class="text-sm font-medium text-orange-600 dark:text-orange-400 mb-2">
+                Proyecto: {testimonial.project}
+              </div>
+              
+              {/* Metrics */}
+              {testimonial.metrics && (
+                <div class="grid grid-cols-3 gap-2">
+                  {
+                    testimonial.metrics.map((metric) => (
+                      <div class="text-center p-2 bg-gray-50 dark:bg-gray-900 rounded">
+                        <div class="font-bold text-green-600 dark:text-green-400 text-sm">
+                          {metric.value}
+                        </div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                          {metric.label}
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Client Logos -->
+    <div class="mb-12">
+      <div class="text-center mb-8">
+        <h3 class="text-lg font-medium text-gray-600 dark:text-gray-400 mb-6">
+          Empresas que han confiado en mi experiencia
+        </h3>
+        <div class="flex flex-wrap justify-center items-center gap-8 lg:gap-12 opacity-60">
+          {
+            CLIENT_LOGOS.map((logo) => (
+              <div class="w-32 h-12 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                  {logo.name}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center">
+      <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-8 text-white">
+        <h3 class="text-2xl font-bold mb-4">
+          ¿Quieres obtener resultados similares?
+        </h3>
+        <p class="mb-6 text-orange-100">
+          Cada proyecto es único. Agendemos una llamada para analizar tus necesidades específicas 
+          y crear una estrategia personalizada para tu startup.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            variant="secondary" 
+            size="lg"
+            href="#contact"
+            class="bg-white text-orange-600 hover:bg-gray-100 border-0"
+          >
+            Agendar consulta estratégica
+          </Button>
+          <Button 
+            variant="outline" 
+            size="lg"
+            href="#experience"
+            class="border-white text-white hover:bg-white hover:text-orange-600"
+          >
+            Ver mi experiencia
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

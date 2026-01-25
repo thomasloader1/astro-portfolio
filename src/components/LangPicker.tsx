@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 interface Language {
   name: string;
@@ -33,8 +33,11 @@ const LangPicker: React.FC = () => {
     <div className="relative">
       <button
         type="button"
-        className="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+        className="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-orange-400 focus:outline-none"
         onClick={handleToggleDropdown}
+        aria-label="Selector de idioma"
+        aria-expanded={dropdownVisible}
+        aria-haspopup="listbox"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,12 +61,15 @@ const LangPicker: React.FC = () => {
         {selectedLanguage.name}
       </button>
       {dropdownVisible && (
-        <div className="absolute right-0 mt-2 py-2 bg-white  rounded-lg shadow dark:bg-gray-700">
+        <div className="absolute right-0 mt-2 py-2 bg-white rounded-lg shadow dark:bg-gray-700" role="listbox">
           {languages.map((lang) => (
             <a
               key={lang.code}
               onClick={() =>  {!(lang.name === selectedLanguage.name) && handleLanguageChange(lang)}}
-              className={`block px-4 py-2 text-sm text-gray-700 ${lang.name === selectedLanguage.name ? 'bg-gray-100 dark:bg-gray-600 dark:text-white cursor-not-allowed' : 'cursor-pointer'} hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white`}
+              className={`block px-4 py-2 text-sm text-gray-700 ${lang.name === selectedLanguage.name ? 'bg-gray-100 dark:bg-gray-600 dark:text-white cursor-not-allowed' : 'cursor-pointer'} hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-600`}
+              role="option"
+              aria-selected={lang.name === selectedLanguage.name}
+              tabIndex={lang.name === selectedLanguage.name ? -1 : 0}
             >
               {lang.name}
             </a>

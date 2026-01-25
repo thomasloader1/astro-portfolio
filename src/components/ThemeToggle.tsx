@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(window.localStorage.getItem("theme") ?? "light");
@@ -18,7 +18,7 @@ export default function ThemeToggle() {
 
   return (
     
-      <button onClick={handleClick} className="transition p-2 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+      <button onClick={handleClick} className="transition-colors duration-200 p-2 rounded-lg cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-700 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-orange-400 focus:outline-none" aria-label="Cambiar entre modo claro y oscuro">
         {theme === "light" ? (
         <div className="flex items-center text-black dark:text-white"> 
          {/*  <img src="/Moon.svg" alt="" /> */}
