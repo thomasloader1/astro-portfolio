@@ -2,9 +2,7 @@
 import Badge from "../../components/Badge.astro";
 import SocialPill from "../../components/SocialPill.astro";
 import Button from "../../components/ui/Button.astro";
-import LinkedInIcon from '../../icons/LinkedIn.astro';
-import GitHubIcon from '../../icons/Github.astro';
-import MailIcon from '../../icons/Mail.astro';
+import Icon from "../ui/Icon.astro";
 // import {t} from 'i18next';
 ---
 
@@ -86,13 +84,13 @@ import MailIcon from '../../icons/Mail.astro';
       <p class="text-sm text-gray-500 dark:text-gray-400">Conectemos</p>
       <nav class="flex gap-3 flex-wrap justify-center">
         <SocialPill href="https://linkedin.com/in/gomeztomasgonzalo">
-          <LinkedInIcon class="size-4 lg:size-5"/> LinkedIn
+          <Icon name="linkedin" class="size-4 lg:size-5"/> LinkedIn
         </SocialPill>
         <SocialPill href="https://github.com/thomasloader1">
-          <GitHubIcon class="size-4 lg:size-5" /> GitHub
+          <Icon name="github" class="size-4 lg:size-5" /> GitHub
         </SocialPill>
         <SocialPill href="mailto:talk.gtg@gmail.com">
-          <MailIcon class="size-4 lg:size-5" /> talk.gtg@gmail.com
+          <Icon name="mail" class="size-4 lg:size-5" /> talk.gtg@gmail.com
         </SocialPill>
       </nav>
     </div>
