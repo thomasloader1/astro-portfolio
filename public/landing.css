@@ -1,0 +1,53 @@
+/* Landing page styles extracted from tomas-portfolio-landing.html */
+/* Design tokens and base styles (trimmed to essentials for the landing) */
+:root {
+  --bg: #fff7ed;
+  --surface: #ffffff;
+  --surface-warm: #ffedd5;
+  --fg: #2d2a26;
+  --fg-2: #574f45;
+  --muted: #7c6f64;
+  --accent: #ff4f00;
+  --border: #eadfd3;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  --container-max: 1160px;
+  --container-gutter-desktop: 32px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { font-family: Inter, system-ui, sans-serif; font-size: 16px; color: var(--fg); background: var(--bg); }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-gutter-desktop); }
+
+/* Simple hero layout */
+.hero { padding: 64px 0; }
+.hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--space-12); align-items: center; }
+.hero h1 { font-size: 48px; line-height: 1; margin-bottom: 16px; }
+.hero-lede { color: var(--fg-2); max-width: 50ch; margin-bottom: 24px; }
+.hero-actions { display:flex; gap:12px; margin-bottom: 32px; }
+.btn { padding: 12px 18px; border-radius: 10px; text-decoration: none; font-weight:600; }
+.btn-primary { background: var(--accent); color: white; }
+.btn-ghost { background: transparent; border: 1px solid var(--border); }
+
+/* Sidebar quick info */
+.hero-side { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
+
+/* Sections */
+section { padding: 56px 0; }
+.divider { height: 1px; background: var(--border); }
+
+/* Responsive */
+@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.site-footer { padding: 24px 0; border-top: 1px solid var(--border); color: var(--muted); }
+
+/* Minimal utility */
+.eyebrow { color: var(--accent); font-weight:600; display:inline-block; margin-bottom:8px; }

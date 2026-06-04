@@ -10,6 +10,8 @@ services:
     environment:
       - NODE_ENV= development
       - PROJECT_DOMAIN= astro.dev.local
+    ports:
+      - "4321:4321"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.astro.rule=Host(`astro.dev.local`)"
