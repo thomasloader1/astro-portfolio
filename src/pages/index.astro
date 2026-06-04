@@ -3,6 +3,7 @@ import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/sections/Hero.astro";
 import Services from "../components/sections/Services.astro";
+import About from "../components/sections/About.astro";
 import Process from "../components/sections/Process.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
 import Experience from "../components/Experience.astro";
@@ -19,6 +20,7 @@ changeLanguage("es");
 	<Header />
 	<main>
 		<Hero />
+		<About />
 		<SectionContainer id="services" class="py-24" content={Services} />
 		<Process />
 		<Testimonials />
