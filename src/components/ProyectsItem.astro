@@ -1,8 +1,7 @@
 ---
 import StackList from "./StackList.astro";
 import SocialPill from "./SocialPill.astro"
-import WebIcon from "../icons/Web.astro"
-import GithubIcon from "../icons/Github.astro";
+import Icon from './ui/Icon.astro';
 import { t } from 'i18next';
 
 interface Props{
@@ -41,8 +40,8 @@ switch(image){
             <StackList stack={stack} />
         </div>
         <div class="flex md:grid gap-3">
-            <SocialPill href={link}> <WebIcon /> {t("proyect.site")}</SocialPill>
-            <SocialPill href={repo}> <GithubIcon /> {t("proyect.repo")}</SocialPill>
+            <SocialPill href={link}> <Icon name="compass" /> {t("proyect.site")}</SocialPill>
+            <SocialPill href={repo}> <Icon name="users" /> {t("proyect.repo")}</SocialPill>
         </div>
     </div>
     

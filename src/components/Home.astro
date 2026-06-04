@@ -1,9 +1,7 @@
 ---
 import Badge from "./Badge.astro";
 import SocialPill from "./SocialPill.astro";
-import LinkedInIcon from '../icons/LinkedIn.astro';
-import GitHubIcon from '../icons/Github.astro';
-import MailIcon from '../icons/Mail.astro';
+import Icon from './ui/Icon.astro';
 
 import {t} from 'i18next'
 ---
@@ -16,12 +14,12 @@ import {t} from 'i18next'
 		
 <nav class="flex gap-2 flex-wrap">
     <SocialPill href="https://linkedin.com/in/gomeztomasgonzalo">
-        <LinkedInIcon class="size-4 lg:size-6"/> LinkedIn
+        <Icon name="users" class="size-4 lg:size-6"/> LinkedIn
     </SocialPill>
     <SocialPill href="https://github.com/thomasloader1">
-        <GitHubIcon class="size-4 lg:size-6" /> GitHub
+        <Icon name="users" class="size-4 lg:size-6" /> GitHub
     </SocialPill>
     <SocialPill href="mailto:talk.gtg@gmail.com">
-        <MailIcon class="size-4 lg:size-6" /> talk.gtg@gmail.com
+        <Icon name="calendar" class="size-4 lg:size-6" /> talk.gtg@gmail.com
     </SocialPill>
 </nav>
