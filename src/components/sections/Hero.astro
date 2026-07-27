@@ -5,8 +5,14 @@ import i18next, { t } from "i18next";
 <section class="hero" aria-label={i18next.language === "es" ? "Presentación" : "Introduction"}>
   <div class="container">
     <div class="hero-content">
-      <span class="eyebrow">{t("hero.role")}</span>
-      <h1><span class="hero-name">{t("hero.name")} <span class="dot">.</span></span></h1>
+      
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <img src="https://avatars.githubusercontent.com/u/42984450?v=4" alt="Tomas Gomez Profile" class="rounded-full w-40">
+        <div class="text-left">
+          <h1 class="font-bold text-5xl mb-1"><span class="hero-name">{t("hero.name")}</span></h1>
+        <span class="eyebrow">{t("hero.role")}</span>
+        </div>
+      </div>
       <p class="hero-lede">{t("hero.lede")}</p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">{t("hero.ctaContact")}</a>
