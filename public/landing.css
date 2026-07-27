@@ -72,6 +72,23 @@ html {
   scroll-padding-top: 72px;
 }
 
+/* --- Dark mode --- */
+html.dark {
+  color-scheme: dark;
+  --bg: #1a1714;
+  --surface: #242019;
+  --surface-warm: #2d2821;
+  --fg: #f0ebe4;
+  --fg-2: #c4b8a8;
+  --muted: #8a7e70;
+  --border: #3a3429;
+  --border-soft: #2d2821;
+  --accent: #ff4f00;
+  --accent-on: #ffffff;
+  --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+  --focus-ring: rgba(255, 79, 0, 0.35);
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -81,6 +98,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01", "cv11";
+  transition: background 0.2s, color 0.2s;
 }
 
 /* --- Skip link --- */
@@ -159,19 +177,20 @@ p { max-width: 65ch; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--accent);
+  margin-bottom: var(--space-4);
 }
-.eyebrow::before {
+/* .eyebrow::before {
   content: "";
   width: 24px;
   height: 1px;
   background: var(--accent);
-}
+} */
 
 /* --- Editorial --- */
 .editorial {
@@ -358,6 +377,39 @@ section {
   outline: none;
   box-shadow: var(--focus-ring);
 }
+
+/* --- Theme toggle --- */
+.theme-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--fg-2);
+  padding: 0;
+  transition: color var(--motion-fast), background var(--motion-fast);
+}
+.theme-toggle:hover {
+  color: var(--fg);
+  background: var(--surface-warm);
+}
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.theme-toggle .sun-icon { display: none; }
+.theme-toggle .moon-icon { display: block; }
+html.dark .theme-toggle .sun-icon { display: block; }
+html.dark .theme-toggle .moon-icon { display: none; }
 
 /* --- Nav toggle (mobile) --- */
 .nav-toggle {
