@@ -1,15 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}', './node_modules/flowbite/**/*.js'],
-	darkMode: 'class',
+	content: ['./src/**/*.{astro,html,js,ts}'],
 	theme: {
-		extend: {
-			backgroundImage: {
-				'calculadoraFinanciera': "url('/calculadoraFinanciera.webp')",
-				'bday': "url('/bday.webp')",
-				'tictactoe': "url('/tictactoe.webp')",
-			  }
-		},
+		extend: {},
 	},
-	plugins: [require('flowbite/plugin')],
+	plugins: [],
 }

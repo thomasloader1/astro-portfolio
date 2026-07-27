@@ -1,67 +1,147 @@
 {
   "site": {
-    "title": "Gomez Tomas Gomez Portfolio - Full Stack Developer and Programmer",
-    "description": "Gomez Tomas Gomez Portfolio - Full Stack Developer specializing in PHP, JavaScript, and TypeScript"
+    "title": "Tomás Gómez — Freelance Full Stack Developer",
+    "description": "Tomás Gómez — Freelance Full Stack Developer based in Buenos Aires. .NET, React, TypeScript, Laravel. Available for projects in LATAM and the US."
   },
   "nav": {
-    "home": "Home",
+    "skip": "Skip to content",
+    "about": "About",
     "experience": "Experience",
-    "projects": "Projects"
+    "projects": "Projects",
+    "services": "Services",
+    "contact": "Contact",
+    "cta": "Available",
+    "ctaAria": "Available for projects — go to contact",
+    "menu": "Open menu"
   },
-  "home": {
-    "title": "Hello, I'm Tomás",
-    "badge": "Available for work",
-    "description": "Full Stack Web Developer from Buenos Aires, Argentina. Specialized in applications with a focus on innovative and efficient digital solutions to deliver exceptional experiences."
+  "hero": {
+    "role": "Freelance Full Stack Developer",
+    "name": "Tomás Gómez",
+    "lede": "I build end-to-end digital products — from .NET APIs to React interfaces — leading teams and making architecture decisions that scale.",
+    "ctaContact": "Hire me →",
+    "ctaProjects": "See projects",
+    "stat1": "Years writing production code",
+    "stat2": "Companies, from startups to corporations",
+    "stat3": "Projects delivered"
   },
-  "experience": {
-    "title": "Work Experience",
-    "current": "Present",
-    "showMore": "Show more",
-    "showLess": "Show less",
-    "solutica": {
-      "date": "September 2024",
-      "description": "Comprehensive development of an application to manage sales, invoices, and product traceability, as well as maintenance of existing applications for laboratories."
-    },
-    "msk": {
-      "date": "November 2023 to September 2024",
-      "description": "Development and monitoring of applications, services, payment platforms, and automations in CRM and communication, among other areas, leading internal and external teams."
-    },
-    "oceano": {
-      "date": "October 2022 to November 2023",
-      "description": "Development and monitoring of applications, services, payment platforms, and automations in CRM and communication, among other areas, leading internal and external teams.",
-      "prev": {
-        "date": "January 2022 to October 2022",
-        "description": "Development and maintenance of applications, REST APIs, as well as integrations with the company's CRM."
-      }
-    },
-    "anteojos": {
-      "date": "March 2021 to January 2022",
-      "description": "Full development of e-commerce, Landing Pages, and Single Page Applications."
-    },
-    "fravega": {
-      "date": "March 2020 to September 2021",
-      "description": "Automation tasks, monitoring of applications, and scheduled deployments."
-    },
-    "aufi": {
-      "date": "September 2019 to March 2020",
-      "description": "Development of static and dynamic pages."
-    }
+  "about": {
+    "eyebrow": "About me",
+    "titlePrefix": "What",
+    "titleAccent": "I bring to your project",
+    "desc": "Full Stack developer with 5+ years of professional experience building software. I work with startups and companies that need someone to solve complex technical problems — from backend to deployment, no middlemen.",
+    "kExperience": "Experience",
+    "vExperience": "5+ years in production",
+    "kLocation": "Location",
+    "vLocation": "Buenos Aires · UTC−3",
+    "kModality": "Modality",
+    "vModality": "Remote / Hybrid",
+    "kAvailability": "Availability",
+    "vAvailability": "Immediate"
   },
-  "proyect": {
-    "title": "Projects",
-    "site": "Site",
-    "repo": "Repository",
-    "calculadora": {
-      "title": "Financial Calculator",
-      "description": "Application to calculate expenses (50/30/20)"
-    },
-    "bday": {
-      "title": "Bday",
-      "description": "Application for celebrating birthdays"
-    },
-    "tictactoe": {
-      "title": "Tic-Tac-Toe",
-      "description": "3-in-a-row game with emojis"
-    }
+  "exp": {
+    "eyebrow": "Path",
+    "title": "Experience.",
+    "lede": "From N2 support to leading teams. Each role widened the scope of what I own.",
+    "narrative": "Over five years building professional software — from PHP e-commerce to enterprise platforms in .NET and React. Every project taught me something new about architecture, leadership, and delivering code that works in production.",
+    "now": "Now",
+    "r1Title": "Senior Full Stack Developer",
+    "r1Context": "Enterprise software · high availability",
+    "r1Core": "Backend .NET + React/TS on enterprise software with high availability.",
+    "r1b1": "Design and implement REST APIs in .NET Core 8 for high-availability systems — contracts, data models, and error handling.",
+    "r1b2": "Build interfaces in React + TypeScript with a focus on performance and maintainability — component architecture, strict typing, and state.",
+    "r1b3": "Optimize SQL, Stored Procedures, and Triggers on critical operations — execution plans and data-layer refactors.",
+    "r1b4": "Take part in architecture and team-standards decisions — design reviews and reusable patterns across modules.",
+    "r2Title": "Team Lead",
+    "r2Context": "Scientific publishing and health",
+    "r2Core": "Tech lead with code on Laravel / Next.js / Python stacks and Linux infra.",
+    "r2b1": "Lead the team technically — planning, code reviews, deliveries, and sprint cadence.",
+    "r2b2": "Translate business requirements into technical solutions — stakeholder discovery, technical design, and backlog prioritization.",
+    "r2b3": "Develop in Laravel, Next.js, and Python — direct hands-on code alongside the team.",
+    "r2b4": "Manage Linux infrastructure and deploy applications to production.",
+    "r2b5": "Define development practices, reviews, and team workflow.",
+    "r3Title": "Team Lead · Senior Full Stack Developer",
+    "r3Context": "Medical publishing · multiple platforms",
+    "r3Core": "Technical direction across heterogeneous stacks (Laravel, WordPress, CakePHP, React) in medical publishing.",
+    "r3b1": "Direct web projects technically and coordinate teams — distribution of responsibilities, delivery tracking, and technical unblocking.",
+    "r3b2": "Implement platforms in Laravel, WordPress, CakePHP, and React — coexistence and maintenance of heterogeneous stacks.",
+    "r3b3": "Design scalable solutions and refactor existing systems — architecture improvements without slowing the business.",
+    "r3b4": "Manage Linux infrastructure and deploy applications to production.",
+    "r3b5": "Define development practices and team workflow for predictable deliveries.",
+    "r4Title": "Semi-Senior Full Stack Developer",
+    "r4Context": "Eyewear e-commerce · PHP + jQuery + AWS",
+    "r4Core": "Full-stack on a PHP / Slim + jQuery e-commerce running on AWS.",
+    "r4b1": "Develop backend in PHP + Slim Framework — domain modelling, internal endpoints, and support for sales flows.",
+    "r4b2": "Implement frontend in JavaScript + jQuery — catalog interactivity, validations, and UX improvements.",
+    "r4b3": "Integrate third-party APIs and external services — connection with vendors and business platforms.",
+    "r4b4": "Set up infrastructure and deployments on AWS.",
+    "r5Title": "Application Support Analyst Level 2",
+    "r5Context": "Retail · logistics and ASAP shipping support",
+    "r5Core": "N2 support on logistics systems and automation with Bash / Rundeck.",
+    "r5b1": "Support logistics systems and ASAP shipping orders — daily operation of critical retail applications.",
+    "r5b2": "Diagnose and resolve production incidents — log analysis, root cause, and escalation to the development team.",
+    "r5b3": "Automate operational processes with Bash and Rundeck — replace manual tasks with auditable jobs.",
+    "r5b4": "Administer Linux and Windows environments."
+  },
+  "proj": {
+    "eyebrow": "Projects",
+    "title": "Things I built to solve real problems.",
+    "lede": "Projects that show how I apply my stack to real challenges.",
+    "p2Cat": "SOCIAL",
+    "p2Role": "Book and celebrate remote birthdays",
+    "p2Desc": "Platform to organize birthdays remotely — invitations, RSVP, messages, and a shared gallery. Built on Firebase for auth and real-time data.",
+    "site": "Live",
+    "repo": "Repository"
+  },
+  "srv": {
+    "eyebrow": "Services",
+    "title": "What I can do for your team.",
+    "lede": "I work both on fixed-scope projects and longer contracts. What matters is that the problem gets solved and the code stays maintainable.",
+    "s1Title": "Full-stack development",
+    "s1Desc": "End-to-end web applications — frontend, backend, deploy. React, TypeScript, .NET, Laravel. From zero to production.",
+    "s1d1": "REST APIs in .NET Core / Laravel",
+    "s1d2": "SPAs in React / Next.js",
+    "s1d3": "CI/CD + basic monitoring",
+    "s2Title": "Integrations & APIs",
+    "s2Desc": "Connecting systems — CRMs, payment gateways, ERPs, external services. Clean, documented, and testable design.",
+    "s2d1": "Design and implementation of REST APIs",
+    "s2d2": "Webhooks and async events",
+    "s2d3": "Migrating legacy integrations to REST",
+    "s3Title": "Technical leadership",
+    "s3Desc": "Team lead for 3 to 8 people. Code reviews, planning, standards, 1:1 mentoring.",
+    "s3d1": "Workflow and practices setup",
+    "s3d2": "Mentoring and code review",
+    "s3d3": "Architecture decisions",
+    "s4Title": "Legacy modernization",
+    "s4Desc": "Migrating old stacks to modern ones. Incremental refactor, tests, zero-downtime deploys. PHP, .NET Framework, jQuery to TypeScript.",
+    "s4d1": "Initial technical audit",
+    "s4d2": "Phased migration plan",
+    "s4d3": "Refactor with test coverage"
+  },
+  "proc": {
+    "eyebrow": "How I work",
+    "title": "A simple process, no surprises.",
+    "lede": "Four steps. The same ones I apply on every project.",
+    "p1Title": "Discovery",
+    "p1Desc": "I unpack the business problem, map technical constraints, and define measurable success.",
+    "p2Title": "Plan in writing",
+    "p2Desc": "Concrete proposal: scope, stack, deliverables, timeline. No ambiguity.",
+    "p3Title": "Incremental build",
+    "p3Desc": "Short deliveries, weekly demos, code in repos from day one.",
+    "p4Title": "Handoff & support",
+    "p4Desc": "Brief documentation, reproducible deploy, post-delivery support window."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "titleAccent": "together",
+    "desc": "If you have a project in mind or you just want to connect — write me. I reply within 24 hours.",
+    "kEmail": "Email",
+    "kLinkedIn": "LinkedIn",
+    "kGitHub": "GitHub",
+    "kWeb": "Web",
+    "kPhone": "Phone"
+  },
+  "footer": {
+    "copy": "© 2026 Tomás Gómez · Buenos Aires, Argentina",
+    "handmade": "Hand-made, with coffee and curiosity."
   }
 }

@@ -1,116 +1,61 @@
 ---
-import Button from '../ui/Button.astro';
-import Icon from '../ui/Icon.astro';
-import { SERVICES } from '../../data/Services';
-// import { t } from 'i18next';
+import { t } from "i18next";
+
+interface Service {
+  num: string;
+  titleKey: string;
+  descKey: string;
+  deliverableKeys: string[];
+}
+
+const services: Service[] = [
+  {
+    num: "01",
+    titleKey: "srv.s1Title",
+    descKey: "srv.s1Desc",
+    deliverableKeys: ["srv.s1d1", "srv.s1d2", "srv.s1d3"],
+  },
+  {
+    num: "02",
+    titleKey: "srv.s2Title",
+    descKey: "srv.s2Desc",
+    deliverableKeys: ["srv.s2d1", "srv.s2d2", "srv.s2d3"],
+  },
+  {
+    num: "03",
+    titleKey: "srv.s3Title",
+    descKey: "srv.s3Desc",
+    deliverableKeys: ["srv.s3d1", "srv.s3d2", "srv.s3d3"],
+  },
+  {
+    num: "04",
+    titleKey: "srv.s4Title",
+    descKey: "srv.s4Desc",
+    deliverableKeys: ["srv.s4d1", "srv.s4d2", "srv.s4d3"],
+  },
+];
 ---
 
-<section id="services" class="py-16 lg:py-24">
-  <div class="max-w-screen-xl mx-auto px-4">
-    
-    <!-- Section Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-black dark:text-white">
-        Servicios de Consultoría Técnica
-      </h2>
-      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Ayudo a startups a construir sistemas escalables, optimizar performance 
-        y definir estrategias tecnológicas que impulsan el crecimiento
-      </p>
+<section id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("srv.eyebrow")}</span>
+      <h2 id="services-title">{t("srv.title")}</h2>
+      <p class="lede">{t("srv.lede")}</p>
     </div>
-
-    <!-- Services Grid -->
-    <div class="grid md:grid-cols-2 gap-8 mb-12">
-      {
-        SERVICES.map((service) => (
-          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 lg:p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
-            
-            <!-- Service Header -->
-            <div class="flex items-center mb-4">
-              <Icon name={service.icon} class="size-8 text-orange-500 mr-3" />
-              <h3 class="text-xl font-semibold text-black dark:text-white">
-                {service.title}
-              </h3>
-            </div>
-
-            <!-- Service Description -->
-            <p class="text-gray-600 dark:text-gray-300 mb-6">
-              {service.description}
-            </p>
-
-            <!-- Benefits -->
-            <div class="mb-6">
-              <h4 class="font-medium text-black dark:text-white mb-3">Beneficios clave:</h4>
-              <ul class="space-y-2">
-                {
-                  service.benefits.map((benefit) => (
-                    <li class="flex items-start">
-                      <Icon name="check-circle" class="size-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span class="text-gray-600 dark:text-gray-300">{benefit}</span>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-
-            <!-- Service Details -->
-            <div class="mb-6">
-              <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
-                <Icon name="clock" class="size-4 mr-1" />
-                <span>Tiempo estimado: {service.timeline}</span>
-              </div>
-              <div class="text-sm font-medium text-orange-600 dark:text-orange-400">
-                {service.pricing}
-              </div>
-            </div>
-
-            <!-- Deliverables -->
-            <div class="mb-6">
-              <h4 class="font-medium text-black dark:text-white mb-3">Entregables:</h4>
-              <div class="bg-gray-50 dark:bg-gray-900 rounded-lg p-3">
-                <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                  {
-                    service.deliverables.map((deliverable) => (
-                      <li>• {deliverable}</li>
-                    ))
-                  }
-                </ul>
-              </div>
-            </div>
-
-            <!-- CTA Button -->
-            <Button 
-              variant="primary" 
-              size="md"
-              href="#contact"
-              class="w-full"
-            >
-              {service.cta}
-            </Button>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- Call to Action -->
-    <div class="text-center">
-      <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-8 text-white">
-        <h3 class="text-2xl font-bold mb-4">
-          ¿No encuentras lo que buscas?
-        </h3>
-        <p class="mb-6 text-orange-100">
-          Ofrezco soluciones personalizadas según las necesidades específicas de tu startup. 
-          Agendemos una llamada gratuita para analizar tu caso.
-        </p>
-        <Button 
-          variant="secondary" 
-          size="lg"
-          href="#contact"
-          class="bg-white text-orange-600 hover:bg-gray-100 border-0"
-        >
-          Agendar consulta gratuita
-        </Button>
-      </div>
+    <div class="services-grid">
+      {services.map((s) => (
+        <article class="card card--service">
+          <div class="card__num">{s.num}</div>
+          <h3>{t(s.titleKey)}</h3>
+          <p>{t(s.descKey)}</p>
+          <ul class="card__deliverables">
+            {s.deliverableKeys.map((key) => (
+              <li>{t(key)}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
     </div>
   </div>
 </section>

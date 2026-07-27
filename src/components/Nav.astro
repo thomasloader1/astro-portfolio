@@ -1,0 +1,30 @@
+---
+import i18next, { t } from "i18next";
+---
+
+<nav class="site-nav" aria-label={i18next.language === "es" ? "Navegación principal" : "Main navigation"}>
+  <div class="container">
+    <a href="#main" class="nav-brand" aria-label={i18next.language === "es" ? "Inicio" : "Home"}>
+      <span class="mark" aria-hidden="true">GTG</span>
+      <span class="name">Tomás Gómez</span>
+    </a>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="#about">{t("nav.about")}</a></li>
+      <li><a href="#experience">{t("nav.experience")}</a></li>
+      <li><a href="#projects">{t("nav.projects")}</a></li>
+      <li><a href="#services">{t("nav.services")}</a></li>
+      <li><a href="#contact">{t("nav.contact")}</a></li>
+    </ul>
+    <div class="lang-toggle" id="lang-toggle" role="group" aria-label={i18next.language === "es" ? "Idioma" : "Language"}>
+      <button type="button" data-lang="es" class="lang-btn {i18next.language === 'es' ? 'is-active' : ''}" aria-pressed={i18next.language === "es" ? "true" : "false"}>ES</button>
+      <button type="button" data-lang="en" class="lang-btn {i18next.language === 'en' ? 'is-active' : ''}" aria-pressed={i18next.language === "en" ? "true" : "false"}>EN</button>
+    </div>
+    <a href="#contact" class="nav-cta" aria-label={t("nav.ctaAria")}>
+      <span class="pulse" aria-hidden="true"></span>
+      <span>{t("nav.cta")}</span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-label={t("nav.menu")} aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>

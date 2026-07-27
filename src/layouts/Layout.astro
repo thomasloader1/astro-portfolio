@@ -1,6 +1,9 @@
 ---
 import "@fontsource-variable/inter";
-import i18next,{t} from "i18next"
+import "@fontsource/space-grotesk";
+import "@fontsource/cormorant-garamond";
+import "@fontsource/roboto-mono";
+import i18next, { t } from "i18next";
 
 interface Props {
 	title: string;
@@ -14,62 +17,69 @@ const { title, description } = Astro.props;
 <html lang={i18next.language}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={t(description)} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="https://avatars.githubusercontent.com/u/42984450?v=4" type="image/png">
-		<link rel="stylesheet" href="swiper.css">
-		<link rel="stylesheet" href="/landing.css">
+		<meta name="description" content={t(description)} />
+		<meta name="color-scheme" content="light" />
+		<meta property="og:title" content={t(title)} />
+		<meta property="og:description" content={t(description)} />
+		<link rel="icon" href="https://avatars.githubusercontent.com/u/42984450?v=4" type="image/png" />
+		<link rel="stylesheet" href="/landing.css" />
 		<title>{t(title)}</title>
 	</head>
-	<body class="relative top-0 right-0 z-[-2] bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-neutral-950 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+	<body>
+		<a class="skip-link" href="#main">{t("nav.skip")}</a>
 		<slot />
-		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 	</body>
-
 </html>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+
 <script is:inline>
-	const theme = (() => {
-	  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-		return localStorage.getItem("theme");
-	  }
-	  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		return "dark";
-	  }
-	  return "light";
-	})();
-  
-	if (theme === "light") {
-	  document.documentElement.classList.remove("dark");
-	} else {
-	  document.documentElement.classList.add("dark");
-	}
-	window.localStorage.setItem("theme", theme);
-  </script>
+	(function () {
+		'use strict';
 
-<style is:global>
-	:root {
-		color-scheme: ligth dark;
-	}
-
-	html {
-		background-color: #fff;
-		font-family: "Inter Variable",system-ui, sans-serif;
-		scroll-behavior: smooth;
-
-	}
-
-	body{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		min-height: 100vh;
-	}
-
-	@media (prefers-reduced-motion: reduce){
-		html{
-			scroll-behavior: auto;
+		// Skip link focus management
+		var skipLink = document.querySelector('.skip-link');
+		if (skipLink) {
+			skipLink.addEventListener('click', function (e) {
+				var target = document.querySelector(skipLink.getAttribute('href'));
+				if (target) {
+					e.preventDefault();
+					target.setAttribute('tabindex', '-1');
+					target.focus();
+					setTimeout(function () { target.removeAttribute('tabindex'); }, 1000);
+				}
+			});
 		}
-	}
-</style>
+
+		// Nav toggle
+		var navToggle = document.getElementById('nav-toggle');
+		var navLinks = document.getElementById('nav-links');
+		if (navToggle && navLinks) {
+			navToggle.addEventListener('click', function () {
+				var open = navLinks.classList.toggle('open');
+				navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+			});
+			navLinks.addEventListener('click', function (e) {
+				if (e.target.tagName === 'A') {
+					navLinks.classList.remove('open');
+					navToggle.setAttribute('aria-expanded', 'false');
+				}
+			});
+		}
+
+		// IntersectionObserver for nav scroll tracking
+		var sections = document.querySelectorAll('section[id]');
+		var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+		if (sections.length && navAnchors.length) {
+			var observer = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) {
+						navAnchors.forEach(function (a) { a.removeAttribute('aria-current'); });
+						var match = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
+						if (match) match.setAttribute('aria-current', 'page');
+					}
+				});
+			}, { rootMargin: '-40% 0px -55% 0px' });
+			sections.forEach(function (s) { observer.observe(s); });
+		}
+	})();
+</script>

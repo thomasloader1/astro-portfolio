@@ -1,103 +1,147 @@
 {
   "site": {
-    "title": "Porfolio de Gomez Tomas Gomez - Desarrollador y Programador Full Stack",
-    "description": "Porfolio de Gomez Tomas Gomez - Desarrollador y Programador Full Stack PHP JavaScript TypeScript"
+    "title": "Tomás Gómez — Desarrollador Full Stack Freelance",
+    "description": "Tomás Gómez — Desarrollador Full Stack freelance en Buenos Aires. .NET, React, TypeScript, Laravel. Disponible para proyectos en LATAM y EEUU."
   },
   "nav": {
-    "home": "Inicio",
+    "skip": "Saltar al contenido",
+    "about": "Sobre mí",
     "experience": "Experiencia",
-    "proyects": "Proyectos",
+    "projects": "Proyectos",
     "services": "Servicios",
-    "process": "Proceso",
-    "testimonials": "Testimonios",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "cta": "Disponible",
+    "ctaAria": "Disponible para proyectos — ir a contacto",
+    "menu": "Abrir menú"
   },
-  "home": {
-    "title": "Hola, soy Tomás",
-    "badge": "Disponible para consultoría estratégica",
-    "description": "Consultor Técnico para Startups. De Buenos Aires, Argentina. Especializado en arquitecturas escalables, optimización de performance y estrategia tecnológica que impulsa el crecimiento sostenible."
+  "hero": {
+    "role": "Freelance Full Stack Developer",
+    "name": "Tomás Gómez",
+    "lede": "Construyo productos digitales de punta a punta — desde APIs en .NET hasta interfaces en React — liderando equipos y tomando decisiones de arquitectura que escalan.",
+    "ctaContact": "Contratá mis servicios →",
+    "ctaProjects": "Ver proyectos",
+    "stat1": "Años escribiendo código en producción",
+    "stat2": "Empresas, de startups a corporations",
+    "stat3": "Proyectos entregados"
   },
-  "services": {
-    "title": "Servicios de Consultoría Técnica",
-    "subtitle": "Ayudo a startups a construir sistemas escalables, optimizar performance y definir estrategias tecnológicas que impulsan el crecimiento",
-    "cta": {
-      "free": "Agendar consulta gratuita (30min)",
-      "explore": "Ver servicios"
-    },
-    "custom": {
-      "title": "¿No encuentras lo que buscas?",
-      "description": "Ofrezco soluciones personalizadas según las necesidades específicas de tu startup. Agendemos una llamada gratuita para analizar tu caso.",
-      "button": "Agendar consulta gratuita"
-    }
+  "about": {
+    "eyebrow": "Sobre mí",
+    "titlePrefix": "Lo que",
+    "titleAccent": "trabajo con vos",
+    "desc": "Desarrollador Full Stack con 5+ años de experiencia construyendo software profesional. Trabajo con startups y empresas que necesitan alguien que resuelva problemas técnicos complejos — del backend al deploy, sin intermedios.",
+    "kExperience": "Experiencia",
+    "vExperience": "5+ años en producción",
+    "kLocation": "Ubicación",
+    "vLocation": "Buenos Aires · UTC−3",
+    "kModality": "Modalidad",
+    "vModality": "Remoto / Híbrido",
+    "kAvailability": "Disponibilidad",
+    "vAvailability": "Inmediata"
+  },
+  "exp": {
+    "eyebrow": "Trayectoria",
+    "title": "Experiencia.",
+    "lede": "De soporte N2 a liderar equipos. Cada rol amplió el alcance de lo que tomo a cargo.",
+    "narrative": "Más de cinco años construyendo software profesional — desde e-commerce PHP hasta plataformas empresariales en .NET y React. Cada proyecto me enseñó algo nuevo sobre arquitectura, liderazgo y cómo entregar código que funciona en producción.",
+    "now": "Ahora",
+    "r1Title": "Senior Full Stack Developer",
+    "r1Context": "Software empresarial · alta disponibilidad",
+    "r1Core": "Backend .NET + React/TS sobre software empresarial de alta disponibilidad.",
+    "r1b1": "Diseñar e implementar APIs REST en .NET Core 8 para sistemas de alta disponibilidad — contratos, modelos de datos y manejo de errores.",
+    "r1b2": "Construir interfaces en React + TypeScript con foco en rendimiento y mantenibilidad — arquitectura de componentes, tipado estricto y estado.",
+    "r1b3": "Optimizar SQL, Stored Procedures y Triggers sobre operaciones críticas — planes de ejecución y refactor de la capa de datos.",
+    "r1b4": "Participar en decisiones de arquitectura y estándares del equipo — design reviews y patterns reutilizables entre módulos.",
+    "r2Title": "Team Lead",
+    "r2Context": "Publicaciones científicas y salud",
+    "r2Core": "Tech lead con código sobre stacks Laravel / Next.js / Python e infra Linux.",
+    "r2b1": "Liderar técnicamente al equipo — planificación, code reviews, entregas y ritmo de sprint.",
+    "r2b2": "Traducir requerimientos de negocio en soluciones técnicas — discovery con stakeholders, diseño técnico y priorización del backlog.",
+    "r2b3": "Desarrollar en Laravel, Next.js y Python — participación directa en código junto al equipo.",
+    "r2b4": "Administrar infraestructura Linux y desplegar aplicaciones en producción.",
+    "r2b5": "Definir prácticas de desarrollo, revisiones y workflow del equipo.",
+    "r3Title": "Team Lead · Senior Full Stack Developer",
+    "r3Context": "Editorial médica · múltiples plataformas",
+    "r3Core": "Dirección técnica sobre stacks heterogéneos (Laravel, WordPress, CakePHP, React) en editorial médica.",
+    "r3b1": "Dirigir técnicamente proyectos web y coordinar equipos — distribución de responsabilidades, seguimiento de entregas y desbloqueo técnico.",
+    "r3b2": "Implementar plataformas en Laravel, WordPress, CakePHP y React — convivencia y mantenimiento de stacks heterogéneos.",
+    "r3b3": "Diseñar soluciones escalables y refactorizar sistemas existentes — mejora de arquitectura sin frenar el negocio.",
+    "r3b4": "Administrar infraestructura Linux y desplegar aplicaciones en producción.",
+    "r3b5": "Definir prácticas de desarrollo y workflow del equipo para entregas predecibles.",
+    "r4Title": "Semi-Senior Full Stack Developer",
+    "r4Context": "E-commerce de anteojos · PHP + jQuery + AWS",
+    "r4Core": "Full-stack en e-commerce PHP / Slim + jQuery sobre AWS.",
+    "r4b1": "Desarrollar backend en PHP + Slim Framework — modelado de dominio, endpoints internos y soporte a flujos de venta.",
+    "r4b2": "Implementar frontend en JavaScript + jQuery — interactividad del catálogo, validaciones y mejoras de UX.",
+    "r4b3": "Integrar APIs de terceros y servicios externos — conexión con proveedores y plataformas del negocio.",
+    "r4b4": "Configurar infraestructura y despliegues en AWS.",
+    "r5Title": "Analista en Soporte de Aplicaciones Nivel 2",
+    "r5Context": "Retail · soporte a logística y envíos ASAP",
+    "r5Core": "Soporte N2 sobre sistemas logísticos y automatización con Bash / Rundeck.",
+    "r5b1": "Soportar sistemas logísticos y órdenes de envío ASAP — operación diaria de aplicaciones críticas del retail.",
+    "r5b2": "Diagnosticar y resolver incidentes en producción — análisis de logs, causa raíz y escalamiento al equipo de desarrollo.",
+    "r5b3": "Automatizar procesos operativos con Bash y Rundeck — reemplazo de tareas manuales por jobs auditables.",
+    "r5b4": "Administrar entornos Linux y Windows."
+  },
+  "proj": {
+    "eyebrow": "Proyectos",
+    "title": "Cosas que construí para resolver problemas reales.",
+    "lede": "Proyectos que muestran cómo aplico mi stack en problemas concretos.",
+    "p2Cat": "SOCIAL",
+    "p2Role": "Reservá y celebrá cumpleaños remotos",
+    "p2Desc": "Plataforma para organizar cumpleaños a distancia — invitaciones, confirmación de asistencia, mensajes y galería compartida. Construida con Firebase para auth y datos en tiempo real.",
+    "site": "Sitio",
+    "repo": "Repositorio"
+  },
+  "srv": {
+    "eyebrow": "Servicios",
+    "title": "Lo que puedo hacer por tu equipo.",
+    "lede": "Trabajo tanto en modalidad proyecto cerrado como en contratos largos. Lo que importa es que el problema se resuelva y el código quede mantenible.",
+    "s1Title": "Desarrollo full-stack",
+    "s1Desc": "Aplicaciones web completas — frontend, backend, deploy. React, TypeScript, .NET, Laravel. De cero a producción.",
+    "s1d1": "APIs REST en .NET Core / Laravel",
+    "s1d2": "SPAs en React / Next.js",
+    "s1d3": "CI/CD + monitoreo básico",
+    "s2Title": "Integraciones & APIs",
+    "s2Desc": "Conexión entre sistemas — CRMs, pasarelas de pago, ERPs, servicios externos. Diseño limpio, documentado y testeable.",
+    "s2d1": "Diseño e implementación de APIs REST",
+    "s2d2": "Webhooks y eventos asincrónicos",
+    "s2d3": "Migración de integraciones legacy a REST",
+    "s3Title": "Liderazgo técnico",
+    "s3Desc": "Team lead para equipos de 3 a 8 personas. Code reviews, planificación, definición de estándares, mentoría 1:1.",
+    "s3d1": "Setup de workflow y prácticas",
+    "s3d2": "Mentoría y code review",
+    "s3d3": "Decisiones de arquitectura",
+    "s4Title": "Modernización de legacy",
+    "s4Desc": "Migración de stacks viejos a modernos. Refactor incremental, tests, deploys sin downtime. PHP, .NET Framework, jQuery a TypeScript.",
+    "s4d1": "Auditoría técnica inicial",
+    "s4d2": "Plan de migración por fases",
+    "s4d3": "Refactor con cobertura de tests"
+  },
+  "proc": {
+    "eyebrow": "Cómo trabajo",
+    "title": "Un proceso simple, sin sorpresas.",
+    "lede": "Cuatro pasos. Los mismos que aplico en cada proyecto.",
+    "p1Title": "Diagnóstico",
+    "p1Desc": "Entiendo el problema de negocio, mapeo restricciones técnicas y defino éxito medible.",
+    "p2Title": "Plan por escrito",
+    "p2Desc": "Propuesta concreta: alcance, stack, entregables, plazos. Sin ambigüedades.",
+    "p3Title": "Build incremental",
+    "p3Desc": "Entregas cortas, demos semanales, código en repos desde el día uno.",
+    "p4Title": "Handoff & soporte",
+    "p4Desc": "Documentación breve, deploy reproducible, ventana de soporte post-entrega."
   },
   "contact": {
-    "title": "Contacto",
-    "subtitle": "Iniciemos una conversación sobre tu proyecto",
-    "form": {
-      "name": "Nombre",
-      "email": "Email",
-      "company": "Empresa/Startup",
-      "size": "Tamaño del equipo",
-      "budget": "Presupuesto estimado",
-      "project": "Describe tu proyecto",
-      "submit": "Enviar mensaje",
-      "success": "Mensaje enviado con éxito",
-      "error": "Error al enviar mensaje"
-    },
-    "calendar": {
-      "title": "O agenda directamente una llamada",
-      "description": "Selecciona el horario que mejor te convenga para una llamada de 30 minutos"
-    }
+    "eyebrow": "Contacto",
+    "titleAccent": "juntos",
+    "desc": "Si tenés un proyecto en mente o simplemente querés conectar — escribime. Respondo en menos de 24 horas.",
+    "kEmail": "Email",
+    "kLinkedIn": "LinkedIn",
+    "kGitHub": "GitHub",
+    "kWeb": "Web",
+    "kPhone": "Teléfono"
   },
-  "experience": {
-    "title": "Experiencia Laboral",
-    "current": "Actualidad",
-    "showMore": "Ver más",
-    "showLess": "Ver menos",
-    "solutica": {
-      "date": "Septiembre 2024",
-      "description": "Desarrollo integro de aplicacion para gestionar ventas, facturas y trazabilidad de productos, como tambien mantenimiento de aplicactivos existentes para laboratorios."
-    },
-    "msk": {
-      "date": "Noviembre 2023 hasta Septiembre 2024",
-      "description": "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos"
-    },
-    "oceano": {
-      "date": "Octubre 2022 hasta Noviembre 2023",
-      "description": "Desarrollo y monitoreo de aplicaciones, servicios, plataforma de pagos y automatizaciones en CRM’s y comunicacion entre otras areas teniendo equipo a cargo internos y externos",
-      "prev": {
-        "date": "Enero 2022 hasta Octubre 2022",
-        "description": "Desarrollo y mantenimiento de aplicaciones, Api's Rest, cómo tambien integraciones de CRM de la empresa."
-      }
-    },
-    "anteojos": {
-      "date": "Marzo 2021 hasta Enero 2022",
-      "description": "Desarrollo integro de e-commerce’s, Landing Pages y Single Page Applications."
-    },
-    "fravega": {
-      "date": "Marzo 2020 hasta Septiembre 2021",
-      "description": "Elaboracion de tareas automatizadas, monitoreo de aplicativos y despliegues programados."
-    },
-    "aufi": {
-      "date": "Septiembre 2019 hasta Marzo 2020",
-      "description": "Desarrollo de paginas estaticas y dinamicas."
-    }
-  },
-  "proyect": {
-    "title": "Proyectos",
-    "site": "Sitio",
-    "repo": "Repositorio",
-    "calculadora": {
-      "title": "Calculadora Financiera",
-      "description": "Aplicacion para calcular gastos (50/30/20)"
-    },
-    "bday": {
-      "title": "Bday",
-      "description": "Aplicacion para festejar cumpleaños"
-    },
-    "tictactoe": {
-      "title": "Tic-Tac-Toe",
-      "description": "Juego de 3 en raya con emojis"
-    }
+  "footer": {
+    "copy": "© 2026 Tomás Gómez · Buenos Aires, Argentina",
+    "handmade": "Hecho a mano, con café y curiosidad."
   }
 }

@@ -1,28 +1,31 @@
 ---
-import SectionContainer from "../..//SectionContainer.astro";
+import i18next, { t } from "i18next";
 ---
 
-<section id="about" aria-labelledby="about-title" class="py-24">
+<section id="about" aria-labelledby="about-title">
   <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">Sobre mí</p>
-      <h2 id="about-title">Senior Software Engineer · Arquitecturas escalables</h2>
-      <p class="lede">Diseño y construyo soluciones web y cloud con foco en calidad, observabilidad y coste. Trabajo con equipos remotos proponiendo estrategias técnicas alineadas al negocio.</p>
-    </div>
-
-    <div class="callout">
+    <div class="card card--callout">
       <div>
-        <h3>Qué hago <span class="accent">mejor</span></h3>
-        <p>Defino roadmap técnico, realizo auditorías de arquitectura, optimizo pipelines y lidero migraciones a cloud con foco en resultados.</p>
+        <span class="eyebrow">{t("about.eyebrow")}</span>
+        <h3 id="about-title">{t("about.titlePrefix")} <span class="accent">{t("about.titleAccent")}</span></h3>
+        <p>{t("about.desc")}</p>
       </div>
       <div class="callout-grid">
-        <div class="callout-cell">
-          <div class="k">Clientes</div>
-          <div class="v">Startups en etapa seed y series A</div>
+        <div class="callout-cell !border-none">
+          <div class="k">{t("about.kExperience")}</div>
+          <div class="v tag">{t("about.vExperience")}</div>
+        </div>
+        <div class="callout-cell !border-none">
+          <div class="k">{t("about.kLocation")}</div>
+          <div class="v">{t("about.vLocation")}</div>
         </div>
         <div class="callout-cell">
-          <div class="k">Disponibilidad</div>
-          <div class="v">Contratación por proyecto o retainer</div>
+          <div class="k">{t("about.kModality")}</div>
+          <div class="v tag">{t("about.vModality")}</div>
+        </div>
+        <div class="callout-cell">
+          <div class="k">{t("about.kAvailability")}</div>
+          <div class="v">{t("about.vAvailability")}</div>
         </div>
       </div>
     </div>

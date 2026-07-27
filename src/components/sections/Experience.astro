@@ -1,0 +1,100 @@
+---
+import { t } from "i18next";
+
+interface Role {
+  titleKey: string;
+  company: string;
+  contextKey: string;
+  coreKey: string;
+  bulletKeys?: string[];
+  date: string;
+  isCurrent: boolean;
+  techs: string[];
+}
+
+const roles: Role[] = [
+  {
+    titleKey: "exp.r1Title",
+    company: "Solutica",
+    contextKey: "exp.r1Context",
+    coreKey: "exp.r1Core",
+    date: "Sep 2024 — Actualidad",
+    isCurrent: true,
+    techs: [".NET Core 8", "C#", "React", "TypeScript", "SQL Server"],
+  },
+  {
+    titleKey: "exp.r2Title",
+    company: "Medical & Scientific Knowledge",
+    contextKey: "exp.r2Context",
+    coreKey: "exp.r2Core",
+    bulletKeys: ["exp.r2b1", "exp.r2b2", "exp.r2b3", "exp.r2b4", "exp.r2b5"],
+    date: "Oct 2023 — Sep 2024",
+    isCurrent: false,
+    techs: ["Laravel", "PHP", "Next.js", "React", "TypeScript", "Python", "MySQL", "Linux"],
+  },
+  {
+    titleKey: "exp.r3Title",
+    company: "Océano Medicina",
+    contextKey: "exp.r3Context",
+    coreKey: "exp.r3Core",
+    bulletKeys: ["exp.r3b1", "exp.r3b2", "exp.r3b3", "exp.r3b4", "exp.r3b5"],
+    date: "Ene 2022 — Oct 2023",
+    isCurrent: false,
+    techs: ["Laravel", "PHP", "CakePHP", "React", "WordPress", "MySQL", "Linux"],
+  },
+  {
+    titleKey: "exp.r4Title",
+    company: "Anteojos Negros",
+    contextKey: "exp.r4Context",
+    coreKey: "exp.r4Core",
+    bulletKeys: ["exp.r4b1", "exp.r4b2", "exp.r4b3", "exp.r4b4"],
+    date: "Mar 2021 — Ene 2022",
+    isCurrent: false,
+    techs: ["PHP", "Slim Framework", "JavaScript", "jQuery", "AWS", "MySQL"],
+  },
+  {
+    titleKey: "exp.r5Title",
+    company: "Frávega",
+    contextKey: "exp.r5Context",
+    coreKey: "exp.r5Core",
+    bulletKeys: ["exp.r5b1", "exp.r5b2", "exp.r5b3", "exp.r5b4"],
+    date: "Mar 2020 — Ago 2021",
+    isCurrent: false,
+    techs: ["Bash", "Rundeck", "Linux", "Windows"],
+  },
+];
+---
+
+<section id="experience" aria-labelledby="exp-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("exp.eyebrow")}</span>
+      <h2 id="exp-title">{t("exp.title")}</h2>
+      
+    </div>
+    <p class="exp-narrative">{t("exp.narrative")}</p>
+    <ol class="timeline" role="list">
+      {roles.map((role) => (
+        <li class="tl-item">
+          <div class="tl-date">
+            {role.date}
+            {role.isCurrent && <span class="now">{t("exp.now")}</span>}
+          </div>
+          <div class="tl-role">
+            <div class="top">
+              <h3>{t(role.titleKey)}</h3>
+              <span class="company">{role.company}</span>
+            </div>
+            <p class="company-context">{t(role.contextKey)}</p>
+            <p class="role-core">{t(role.coreKey)}</p>
+            <div class="techs">
+              {role.techs.map((tech) => (
+                <span>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

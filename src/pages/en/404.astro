@@ -1,20 +1,16 @@
 ---
+import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
-import SectionContainer from "../../components/SectionContainer.astro";
-import { t, changeLanguage } from "i18next";
 
 changeLanguage("en");
-
-const { page } = Astro.props;
-console.log(page);
 ---
 
 <Layout title="site.title" description="site.description">
-	<main class="px-4">
-        <SectionContainer id='' class='py-44 pb-22 flex flex-col items-center'>
-            <h1 class="text-5xl font-bold mb-4">404</h1>
-            <p class="mb-8">La ruta {page} que solicito no existe</p>
-            <a href="/" class="bg-orange-500 px-3 py-2 rounded-xl">Volver al inicio</a>
-        </SectionContainer>
-	</main>
+  <main id="main" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container" style="text-align: center;">
+      <h1 style="font-size: clamp(4rem, 12vw, 8rem); color: var(--accent); margin-bottom: var(--space-4);">404</h1>
+      <p style="font-size: var(--text-lg); color: var(--fg-2); margin-bottom: var(--space-8);">The page you're looking for doesn't exist.</p>
+      <a href="/en/" class="btn btn-primary">Go back home</a>
+    </div>
+  </main>
 </Layout>

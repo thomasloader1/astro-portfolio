@@ -1,0 +1,54 @@
+---
+import { t } from "i18next";
+
+interface Project {
+  catKey: string;
+  title: string;
+  roleKey: string;
+  descKey: string;
+  techs: string[];
+  url: string;
+  repo: string;
+}
+
+const projects: Project[] = [
+  {
+    catKey: "proj.p2Cat",
+    title: "Bday",
+    roleKey: "proj.p2Role",
+    descKey: "proj.p2Desc",
+    techs: ["Next.js", "React", "TypeScript", "Firebase", "Tailwind"],
+    url: "https://gtg-bday.vercel.app",
+    repo: "https://github.com/thomasloader1/bday",
+  },
+];
+---
+
+<section id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("proj.eyebrow")}</span>
+      <h2 id="projects-title">{t("proj.title")}</h2>
+      <p class="lede">{t("proj.lede")}</p>
+    </div>
+    <div class="project-grid">
+      {projects.map((p, i) => (
+        <article class="card card--project">
+          <div class="card__num">0{i + 1} / <span>{t(p.catKey)}</span></div>
+          <h3>{p.title}</h3>
+          <div class="card__role">{t(p.roleKey)}</div>
+          <p class="card__desc">{t(p.descKey)}</p>
+          <div class="card__techs">
+            {p.techs.map((tech) => (
+              <span>{tech}</span>
+            ))}
+          </div>
+          <div class="card__links">
+            <a href={p.url} target="_blank" rel="noopener">{t("proj.site")}</a>
+            <a href={p.repo} target="_blank" rel="noopener">{t("proj.repo")}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
