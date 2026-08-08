@@ -16,8 +16,8 @@ import i18next, { t } from "i18next";
       <li><a href="#contact">{t("nav.contact")}</a></li>
     </ul>
     <div class="lang-toggle" id="lang-toggle" role="group" aria-label={t("nav.ariaLang")}>
-      <button type="button" data-lang="es" class="lang-btn {i18next.language === 'es' ? 'is-active' : ''}" aria-pressed={i18next.language === "es" ? "true" : "false"}>ES</button>
-      <button type="button" data-lang="en" class="lang-btn {i18next.language === 'en' ? 'is-active' : ''}" aria-pressed={i18next.language === "en" ? "true" : "false"}>EN</button>
+      <button type="button" data-lang="es" class="lang-btn" aria-pressed={i18next.language === "es" ? "true" : "false"}>ES</button>
+      <button type="button" data-lang="en" class="lang-btn" aria-pressed={i18next.language === "en" ? "true" : "false"}>EN</button>
     </div>
     <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
       <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

@@ -59,10 +59,20 @@ function setupScrollTracking(): void {
 
 function setupLangToggle(): void {
 	const langToggle = document.getElementById("lang-toggle");
-	langToggle?.addEventListener("click", (e) => {
+	if (!langToggle) return;
+	// No client-side i18next instance (SSG) — the URL is the source of truth,
+	// same mapping used by the click handler below. Highlights the active
+	// language button on load (the is-active class is not rendered server-side).
+	const currentLang = window.location.pathname.startsWith("/en/") ? "en" : "es";
+	langToggle.querySelectorAll<HTMLElement>(".lang-btn").forEach((btn) => {
+		btn.classList.toggle("is-active", btn.getAttribute("data-lang") === currentLang);
+	});
+	langToggle.addEventListener("click", (e) => {
 		const btn = (e.target as HTMLElement).closest<HTMLElement>(".lang-btn");
 		if (!btn) return;
 		const next = btn.getAttribute("data-lang");
+		langToggle.querySelectorAll<HTMLElement>(".lang-btn").forEach((b) => b.classList.remove("is-active"));
+		btn.classList.add("is-active");
 		window.location.href = next === "en" ? "/en/" : "/";
 	});
 }
