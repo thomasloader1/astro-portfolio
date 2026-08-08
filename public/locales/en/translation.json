@@ -12,7 +12,10 @@
     "contact": "Contact",
     "cta": "Available",
     "ctaAria": "Available for projects — go to contact",
-    "menu": "Open menu"
+    "menu": "Open menu",
+    "ariaMain": "Main navigation",
+    "ariaBrand": "Home",
+    "ariaLang": "Language"
   },
   "hero": {
     "role": "Freelance Full Stack Developer",
@@ -22,7 +25,13 @@
     "ctaProjects": "See projects",
     "stat1": "Years writing production code",
     "stat2": "Companies, from startups to corporations",
-    "stat3": "Projects delivered"
+    "stat3": "Projects delivered",
+    "ariaSection": "Introduction",
+    "ariaStats": "Professional summary"
+  },
+  "404": {
+    "message": "The page you're looking for doesn't exist.",
+    "back": "Go back home"
   },
   "about": {
     "eyebrow": "About me",
@@ -41,6 +50,7 @@
   "exp": {
     "eyebrow": "Path",
     "title": "Experience.",
+    "present": "Present",
     "r1Title": "Senior Full Stack Developer",
     "r1Context": "Enterprise software · high availability",
     "r1Core": "Backend .NET + React/TS on enterprise software with high availability.",
@@ -106,6 +116,7 @@
     "p4Desc": "Brief documentation, reproducible deploy, post-delivery support window."
   },
   "contact": {
+    "title": "Let's work",
     "eyebrow": "Contact",
     "titleAccent": "together",
     "desc": "If you have a project in mind or you just want to connect — write me. I reply within 24 hours.",

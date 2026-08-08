@@ -12,7 +12,10 @@
     "contact": "Contacto",
     "cta": "Disponible",
     "ctaAria": "Disponible para proyectos — ir a contacto",
-    "menu": "Abrir menú"
+    "menu": "Abrir menú",
+    "ariaMain": "Navegación principal",
+    "ariaBrand": "Inicio",
+    "ariaLang": "Idioma"
   },
   "hero": {
     "role": "Full Stack Developer",
@@ -22,7 +25,13 @@
     "ctaProjects": "Ver proyectos",
     "stat1": "Años escribiendo código en producción",
     "stat2": "Empresas, de startups a corporations",
-    "stat3": "Proyectos entregados"
+    "stat3": "Proyectos entregados",
+    "ariaSection": "Presentación",
+    "ariaStats": "Resumen profesional"
+  },
+  "404": {
+    "message": "La página que buscás no existe.",
+    "back": "Volver al inicio"
   },
   "about": {
     "eyebrow": "Sobre mí",
@@ -41,6 +50,7 @@
   "exp": {
     "eyebrow": "Trayectoria",
     "title": "Experiencia.",
+    "present": "Actualidad",
     "r1Title": "Senior Full Stack Developer",
     "r1Context": "Software Factory para la industria farmacéutica",
     "r1Core": "Responsable de la evolución, mantenimiento y desarrollo de aplicaciones empresariales utilizadas por compañías de la industria farmacéutica. Desarrollo nuevas funcionalidades, optimizo procesos existentes y resuelvo requerimientos específicos, trabajando sobre sistemas en producción donde la estabilidad y la continuidad operativa son críticas. Participo en decisiones técnicas, mejoras de arquitectura y definición de soluciones orientadas a la escalabilidad, mantenibilidad y calidad del software.",
@@ -106,6 +116,7 @@
     "p4Desc": "Documentación breve, deploy reproducible, ventana de soporte post-entrega."
   },
   "contact": {
+    "title": "Trabajemos",
     "eyebrow": "Contacto",
     "titleAccent": "juntos",
     "desc": "Si tenés un proyecto en mente o simplemente querés conectar — escribime. Respondo en menos de 24 horas.",
