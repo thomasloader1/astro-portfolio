@@ -1,8 +1,8 @@
 ---
-import i18next, { t } from "i18next";
+import { t } from "i18next";
 ---
 
-<section class="hero" aria-label={i18next.language === "es" ? "Presentación" : "Introduction"}>
+<section class="hero" aria-label={t("hero.ariaSection")}>
   <div class="container">
     <div class="hero-content">
       
@@ -18,7 +18,7 @@ import i18next, { t } from "i18next";
         <a href="#contact" class="btn btn-primary">{t("hero.ctaContact")}</a>
         <a href="#projects" class="btn btn-ghost">{t("hero.ctaProjects")}</a>
       </div>
-      <div class="stat-row" aria-label={i18next.language === "es" ? "Resumen profesional" : "Professional summary"}>
+      <div class="stat-row" aria-label={t("hero.ariaStats")}>
         <div class="stat">
           <span class="num">5<span class="unit">+</span></span>
           <span class="label">{t("hero.stat1")}</span>
