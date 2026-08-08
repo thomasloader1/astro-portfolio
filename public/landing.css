@@ -936,6 +936,12 @@ html.dark .theme-toggle .moon-icon { display: none; }
   .card--callout { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr 1fr; }
   .contact { grid-template-columns: 1fr; padding: var(--space-8); }
+  /* Nav fit: keep the full nav (links + toggles + CTA) from overflowing
+     below 980px — the es CTA + link labels are the widest; tighter
+     padding/font keeps scrollWidth within the viewport at 768px. */
+  .nav-links a { padding: 8px 10px; }
+  .nav-cta { padding: 8px 10px; font-size: var(--text-xs); }
+  .lang-btn { padding: 4px 8px; }
 }
 
 /* --- Responsive: 720px --- */
