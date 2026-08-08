@@ -998,8 +998,8 @@ html.dark .theme-toggle .moon-icon { display: none; }
   body { background: #fff !important; color: #000 !important; font-size: 11pt; }
   .site-nav, .nav-cta, .hero::after, .card--callout, .services-grid, .process-grid, .contact, .nav-toggle, .lang-toggle { display: none !important; }
   section { padding: 0.5cm 0 !important; }
-  h1 { font-size: 28pt; }
-  h2 { font-size: 16pt; }
+  body h1 { font-size: 28pt; }
+  body h2 { font-size: 16pt; }
   a { color: #000; text-decoration: underline; }
   .container { max-width: none !important; padding: 0 !important; }
 }
