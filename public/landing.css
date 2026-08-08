@@ -24,6 +24,7 @@
   --text-md: 14px;
   --text-base: 16px;
   --text-lg: 18px;
+  --text-step: clamp(2rem, 4vw, 2.4rem);
   --leading-body: 1.5;
   --tracking-display: -0.025em;
   --space-2: 8px;
@@ -562,7 +563,7 @@ html.dark .theme-toggle .moon-icon { display: none; }
   transform: none;
 }
 .card--callout:hover { transform: none; border-color: var(--border); }
-.card--callout h3 {
+.card--callout h2 {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2vw, 1.75rem);
   font-weight: 600;
@@ -570,7 +571,7 @@ html.dark .theme-toggle .moon-icon { display: none; }
   line-height: 1.15;
   margin-bottom: var(--space-3);
 }
-.card--callout h3 .accent { color: var(--accent); }
+.card--callout h2 .accent { color: var(--accent); }
 .card--callout p {
   color: var(--fg-2);
   font-size: var(--text-base);
@@ -809,19 +810,14 @@ html.dark .theme-toggle .moon-icon { display: none; }
 .process-step { position: relative; }
 .process-step .step-num {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: var(--text-step);
   font-weight: 600;
   color: var(--accent);
   line-height: 1;
   margin-bottom: var(--space-3);
   letter-spacing: -0.02em;
 }
-.process-step h4 {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
+.process-step h3 { margin-bottom: 6px; }
 .process-step p {
   font-size: var(--text-sm);
   color: var(--fg-2);
@@ -843,7 +839,6 @@ html.dark .theme-toggle .moon-icon { display: none; }
 .contact .eyebrow { color: var(--accent); }
 .contact h2 {
   color: var(--bg);
-  font-size: clamp(2rem, 4vw, 3.2rem);
   margin-bottom: var(--space-4);
 }
 .contact h2 .editorial { color: var(--accent); font-weight: 300; }
