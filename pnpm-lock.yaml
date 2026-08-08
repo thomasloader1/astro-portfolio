@@ -14,9 +14,6 @@ importers:
       '@astrojs/tailwind':
         specifier: ^6.0.2
         version: 6.0.2(astro@7.1.3(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(jiti@1.21.7)(rollup@4.52.5)(yaml@2.9.0))(tailwindcss@3.4.18(yaml@2.9.0))
-      '@fontsource-variable/inter':
-        specifier: ^5.0.16
-        version: 5.2.8
       '@fontsource/cormorant-garamond':
         specifier: ^5.2.11
         version: 5.2.11
@@ -445,9 +442,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@fontsource-variable/inter@5.2.8':
-    resolution: {integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==}
 
   '@fontsource/cormorant-garamond@5.2.11':
     resolution: {integrity: sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA==}
@@ -2843,8 +2837,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.1':
     optional: true
-
-  '@fontsource-variable/inter@5.2.8': {}
 
   '@fontsource/cormorant-garamond@5.2.11': {}
 
