@@ -1,5 +1,5 @@
 ---
-import i18next, { t } from "i18next";
+import { t } from "i18next";
 
 interface ContactLink {
   href: string;
@@ -22,7 +22,7 @@ const links: ContactLink[] = [
     <div class="contact">
       <div>
         <span class="eyebrow">{t("contact.eyebrow")}</span>
-        <h2 id="contact-title">{i18next.language === "es" ? "Trabajemos" : "Let's work"} <span class="editorial">{t("contact.titleAccent")}</span>{i18next.language === "es" ? "." : " together."}</h2>
+        <h2 id="contact-title">{t("contact.title")} <span class="editorial">{t("contact.titleAccent")}</span>.</h2>
         <p>{t("contact.desc")}</p>
       </div>
       <div class="contact-actions">
