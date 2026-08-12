@@ -15,7 +15,8 @@
     "menu": "Abrir menú",
     "ariaMain": "Navegación principal",
     "ariaBrand": "Inicio",
-    "ariaLang": "Idioma"
+    "ariaLang": "Idioma",
+    "themeToggle": "Alternar tema oscuro"
   },
   "hero": {
     "role": "Full Stack Developer",
@@ -74,6 +75,12 @@
     "p2Cat": "SOCIAL",
     "p2Role": "Reservá y celebrá cumpleaños remotos",
     "p2Desc": "Plataforma para organizar cumpleaños a distancia — invitaciones, confirmación de asistencia, mensajes y galería compartida. Construida con Firebase para auth y datos en tiempo real.",
+    "p3Cat": "PLATAFORMA",
+    "p3Role": "Adaptacion de textos para bibliotecas",
+    "p3Desc": "Plataforma para adaptar textos de libros a formatos accesibles pensado para usuarios con discapacidad visual. convertirlos a audio y texto simplificado, y seguimiento de contenidos.",
+    "p4Cat": "FINANZAS",
+    "p4Role": "Gestión de ingresos",
+    "p4Desc": "Plataforma para gestionar ingresos y gastos de manera simple y rápida. Siguiendo el modelo de 50/30/20, permite categorizar gastos, generar reportes y exportar datos a Excel.",
     "site": "Sitio",
     "repo": "Repositorio"
   },
@@ -124,7 +131,40 @@
     "kLinkedIn": "LinkedIn",
     "kGitHub": "GitHub",
     "kWeb": "Web",
-    "kPhone": "Teléfono"
+    "kPhone": "Teléfono",
+    "ctaButton": "Escribime",
+    "modal": {
+      "title": "Hablemos",
+      "subtitle": "Cuéntame qué necesitás y te respondo en menos de 24h",
+      "close": "Cerrar",
+      "form": {
+        "name": "Nombre",
+        "email": "Email",
+        "type": "Tipo de contacto",
+        "typePlaceholder": "Seleccioná una opción",
+        "message": "Mensaje",
+        "submit": "Enviar mensaje",
+        "submitting": "Enviando...",
+        "types": {
+          "hire": "Contratar servicios",
+          "work": "Trabajar para mi empresa",
+          "mentoring": "Mentoría / Análisis de plataforma",
+          "support": "Soporte de aplicaciones"
+        },
+        "success": "¡Gracias! Te contacto en menos de 24 horas.",
+        "error": "Algo salió mal. Por favor intentá de nuevo.",
+        "validation": {
+          "nameRequired": "El nombre es obligatorio",
+          "emailRequired": "El email es obligatorio",
+          "emailInvalid": "Formato de email inválido",
+          "typeRequired": "Seleccioná un tipo de contacto",
+          "messageRequired": "El mensaje es obligatorio"
+        }
+      },
+      "emailConfirmationSubject": "Gracias por contactarme",
+      "emailConfirmationBody": "Hola {{name}},<br><br>Gracias por escribirme. He recibido tu mensaje sobre <strong>{{contactTypeLabel}}</strong> y te contactaré en menos de 24 horas.<br><br>Un saludo,<br>Tomás Gómez",
+      "emailConfirmationText": "Hola {{name}},\n\nGracias por escribirme. He recibido tu mensaje sobre {{contactTypeLabel}} y te contactaré en menos de 24 horas.\n\nUn saludo,\nTomás Gómez"
+    }
   },
   "footer": {
     "copy": "© 2026 Tomás Gómez · Buenos Aires, Argentina",

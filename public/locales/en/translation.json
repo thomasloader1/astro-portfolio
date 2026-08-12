@@ -15,12 +15,13 @@
     "menu": "Open menu",
     "ariaMain": "Main navigation",
     "ariaBrand": "Home",
-    "ariaLang": "Language"
+    "ariaLang": "Language",
+    "themeToggle": "Toggle dark mode"
   },
   "hero": {
-    "role": "Freelance Full Stack Developer",
+    "role": "Full Stack Developer",
     "name": "Tomás Gómez",
-    "lede": "I build end-to-end digital products — from .NET APIs to React interfaces — leading teams and making architecture decisions that scale.",
+    "lede": "I build digital products end to end — e-commerce, business platforms, APIs. I take ideas to production.",
     "ctaContact": "Hire me →",
     "ctaProjects": "See projects",
     "stat1": "Years writing production code",
@@ -48,24 +49,24 @@
     "vAvailability": "Immediate"
   },
   "exp": {
-    "eyebrow": "Path",
+    "eyebrow": "Career",
     "title": "Experience.",
     "present": "Present",
     "r1Title": "Senior Full Stack Developer",
-    "r1Context": "Enterprise software · high availability",
-    "r1Core": "Backend .NET + React/TS on enterprise software with high availability.",
+    "r1Context": "Software factory for the pharmaceutical industry",
+    "r1Core": "Responsible for the evolution, maintenance, and development of enterprise applications used by companies in the pharmaceutical industry. I build new features, optimize existing processes, and solve specific requirements on production systems where stability and operational continuity are critical. I take part in technical decisions, architecture improvements, and solutions geared toward scalability, maintainability, and software quality.",
     "r2Title": "Team Lead",
-    "r2Context": "Scientific publishing and health",
-    "r2Core": "Tech lead with code on Laravel / Next.js / Python stacks and Linux infra.",
+    "r2Context": "Scientific and health e-learning platform",
+    "r2Core": "I led a development team, combining technical leadership with hands-on development. I coordinated planning and delivery, took part in defining architecture and scalable solutions, and established development best practices and code review. I was the technical reference and point of contact for international development teams, turning business needs into concrete solutions while actively building and evolving the platforms.",
     "r3Title": "Team Lead · Senior Full Stack Developer",
-    "r3Context": "Medical publishing · multiple platforms",
-    "r3Core": "Technical direction across heterogeneous stacks (Laravel, WordPress, CakePHP, React) in medical publishing.",
+    "r3Context": "Medical and scientific publishing",
+    "r3Core": "I led a development team, combining technical leadership with hands-on development. I coordinated planning and delivery, took part in defining architecture and scalable solutions, and established development best practices and code review. I was the technical reference and point of contact for international development teams, turning business needs into concrete solutions while actively building and evolving the platforms.",
     "r4Title": "Semi-Senior Full Stack Developer",
-    "r4Context": "Eyewear e-commerce · PHP + jQuery + AWS",
-    "r4Core": "Full-stack on a PHP / Slim + jQuery e-commerce running on AWS.",
+    "r4Context": "Digital marketing agency",
+    "r4Core": "End-to-end development and maintenance of an e-commerce platform — backend, frontend, and infrastructure. I implemented features, optimized existing processes, and worked on integrating and deploying applications on AWS.",
     "r5Title": "Application Support Analyst Level 2",
-    "r5Context": "Retail · logistics and ASAP shipping support",
-    "r5Core": "N2 support on logistics systems and automation with Bash / Rundeck."
+    "r5Context": "Retail and shipping logistics",
+    "r5Core": "Level 2 support on systems critical to logistics and shipping operations: incident analysis and resolution, monitoring of production processes, and automation of operational tasks with Bash and Rundeck, on Linux and Windows environments."
   },
   "proj": {
     "eyebrow": "Projects",
@@ -124,7 +125,40 @@
     "kLinkedIn": "LinkedIn",
     "kGitHub": "GitHub",
     "kWeb": "Web",
-    "kPhone": "Phone"
+    "kPhone": "Phone",
+    "ctaButton": "Write me",
+    "modal": {
+      "title": "Let's talk",
+      "subtitle": "Tell me what you need and I'll get back to you within 24h",
+      "close": "Close",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "type": "Contact type",
+        "typePlaceholder": "Select an option",
+        "message": "Message",
+        "submit": "Send message",
+        "submitting": "Sending...",
+        "types": {
+          "hire": "Hire services",
+          "work": "Work for my company",
+          "mentoring": "Mentoring / Platform analysis",
+          "support": "Application support"
+        },
+        "success": "Thanks! I'll be in touch within 24 hours.",
+        "error": "Something went wrong. Please try again.",
+        "validation": {
+          "nameRequired": "Name is required",
+          "emailRequired": "Email is required",
+          "emailInvalid": "Invalid email format",
+          "typeRequired": "Select a contact type",
+          "messageRequired": "Message is required"
+        }
+      },
+      "emailConfirmationSubject": "Thanks for reaching out",
+      "emailConfirmationBody": "Hi {{name}},<br><br>Thanks for writing. I received your message about <strong>{{contactTypeLabel}}</strong> and will get back to you within 24 hours.<br><br>Best,<br>Tomás Gómez",
+      "emailConfirmationText": "Hi {{name}},\n\nThanks for writing. I received your message about {{contactTypeLabel}} and will get back to you within 24 hours.\n\nBest,\nTomás Gómez"
+    }
   },
   "footer": {
     "copy": "© 2026 Tomás Gómez · Buenos Aires, Argentina",

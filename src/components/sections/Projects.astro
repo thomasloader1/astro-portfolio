@@ -8,7 +8,7 @@ interface Project {
   descKey: string;
   techs: string[];
   url: string;
-  repo: string;
+  repo?: string;
 }
 
 const projects: Project[] = [
@@ -20,6 +20,22 @@ const projects: Project[] = [
     techs: ["Next.js", "React", "TypeScript", "Firebase", "Tailwind"],
     url: "https://gtg-bday.vercel.app",
     repo: "https://github.com/thomasloader1/bday",
+  },
+  {
+    catKey: "proj.p3Cat",
+    title: "WIRIN",
+    roleKey: "proj.p3Role",
+    descKey: "proj.p3Desc",
+    techs: ["Angular", ".NET Core", "TypeScript", "Azure", "Docker"],
+    url: "https://wirinadaptalanding.vercel.app"
+  },
+   {
+    catKey: "proj.p4Cat",
+    title: "Calculadora Financiera",
+    roleKey: "proj.p4Role",
+    descKey: "proj.p4Desc",
+    techs: ["Next.js", "Firebase", "TypeScript"],
+    url: "https://calculadora.gomeztomasgonzalo.com.ar"
   },
 ];
 ---
@@ -45,7 +61,9 @@ const projects: Project[] = [
           </div>
           <div class="card__links">
             <a href={p.url} target="_blank" rel="noopener">{t("proj.site")}</a>
-            <a href={p.repo} target="_blank" rel="noopener">{t("proj.repo")}</a>
+            {p?.repo && (
+              <a href={p.repo} target="_blank" rel="noopener">{t("proj.repo")}</a>
+            )}
           </div>
         </article>
       ))}
