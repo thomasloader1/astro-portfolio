@@ -12,8 +12,13 @@
   --fg-2: #574f45;
   --muted: #7c6f64;
   --border: #eadfd3;
-  --accent: #ff4f00;
+  --accent: #cc3e00;
   --accent-on: #ffffff;
+  /* --accent is AA-compliant on light surfaces (>= 4.5:1) for text AND as
+     button background. --accent-strong lets dark mode keep a bright text
+     accent while buttons stay dark enough for white text to pass AA. */
+  --accent-strong: #cc3e00;
+  --accent-strong-hover: color-mix(in oklab, var(--accent-strong), black 8%);
   --accent-hover: color-mix(in oklab, var(--accent), black 8%);
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
@@ -65,11 +70,17 @@ html.dark {
   --surface-warm: #2d2821;
   --fg: #f0ebe4;
   --fg-2: #c4b8a8;
-  --muted: #8a7e70;
+  --muted: #938679;
   --border: #3a3429;
   --accent: #ff4f00;
   --accent-on: #ffffff;
-  --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+  /* Bright orange passes AA on dark for TEXT, but white text on it is only
+     3.3:1 — buttons use --accent-strong so white text passes 4.5:1. */
+  --accent-strong: #cc3e00;
+  --accent-strong-hover: color-mix(in oklab, var(--accent-strong), black 8%);
+  /* On dark, text hovers BRIGHTEN (white mix) so contrast keeps rising
+     instead of dropping below AA (black-mix would give only 4.23:1). */
+  --accent-hover: color-mix(in oklab, var(--accent), white 12%);
   --focus-ring: rgba(255, 79, 0, 0.35);
 }
 
@@ -327,7 +338,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   padding: 8px 14px;
-  background: var(--accent);
+  background: var(--accent-strong);
   color: var(--accent-on);
   border-radius: var(--radius-pill);
   font-size: var(--text-base);
@@ -336,7 +347,7 @@ section {
   transition: background var(--motion-fast);
 }
 .nav-cta:hover {
-  background: var(--accent-hover);
+  background: var(--accent-strong-hover);
   color: var(--accent-on);
   text-decoration: none;
 }
@@ -458,14 +469,14 @@ html.dark .theme-toggle .moon-icon { display: none; }
 .btn:hover { text-decoration: none; }
 .btn-primary {
   padding: 14px 22px;
-  background: var(--accent);
+  background: var(--accent-strong);
   color: var(--accent-on);
-  border-color: var(--accent);
+  border-color: var(--accent-strong);
   border-radius: var(--radius-md);
 }
 .btn-primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: var(--accent-strong-hover);
+  border-color: var(--accent-strong-hover);
   color: var(--accent-on);
 }
 .btn-ghost {
@@ -1056,10 +1067,12 @@ dialog {
   }
 }
 
+/* NOTE: no backdrop-filter here on purpose — a full-viewport blur forces the
+   browser to re-composite the entire page on every frame while the modal is
+   open, which tanks the frame rate (especially on Windows). A slightly darker
+   solid overlay reads just as well for a fraction of the cost. */
 dialog::backdrop {
-  background: rgba(26, 23, 20, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(26, 23, 20, 0.78);
   animation: backdropEnter var(--motion-fast) var(--ease-standard);
 }
 
@@ -1069,7 +1082,15 @@ dialog::backdrop {
 }
 
 html.dark dialog::backdrop {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* While the modal is open, kill the nav's own 14px blur too — two nested
+   full-viewport backdrop-filters (nav + overlay) is the worst compositing
+   case. The tinted overlay keeps the page behind legible either way. */
+html:has(dialog[open]) .site-nav.is-scrolled {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .contact-modal__header {
@@ -1195,6 +1216,16 @@ html.dark .contact-modal__field select {
   line-height: 1.4;
 }
 
+/* Chrome paints autofilled fields pale gray-blue, which reads as "gray form
+   when data is loaded". Match the surface so filled fields keep the tokens. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--surface) inset;
+  -webkit-text-fill-color: var(--fg);
+}
+
 .contact-modal__actions {
   margin-top: var(--space-2);
 }
@@ -1205,8 +1236,11 @@ html.dark .contact-modal__field select {
   overflow: hidden;
 }
 
+/* Loading/disabled: NO opacity fade — a dimmed full-width button reads as
+   "gray/off" and was the source of the "modal turns gray" complaint. The
+   spinner + "Enviando…" text carry the loading state, and the form keeps
+   aria-busy while the request is in flight. */
 .contact-modal__submit:disabled {
-  opacity: 0.8;
   cursor: not-allowed;
 }
 

@@ -3,6 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { z } from "zod";
 
+// This route must run as a serverless function (Vercel). Without this,
+// hybrid output would try to prerender it as static HTML — POST never works.
+export const prerender = false;
+
 // Zod schema for validation
 const ContactSchema = z.object({
   name: z.string().min(1, { message: "validation.nameRequired" }).max(100),
@@ -191,6 +195,11 @@ export const POST: APIRoute = async ({ request }) => {
 
   const resend = new Resend(resendApiKey);
 
+  // Configurable sender. Defaults to Resend's sandbox so the form works in
+  // dev without domain verification; once the domain's MX record is added
+  // and verified, set EMAIL_FROM="Tomás Gómez <contact@gomeztomasgonzalo.com.ar>".
+  const emailFrom = import.meta.env.EMAIL_FROM ?? "Tomás Gómez <on@resend.dev>";
+
   // Determine language from Accept-Language header or default to Spanish
   const acceptLang = request.headers.get("accept-language") ?? "es";
   const lang = acceptLang.startsWith("en") ? "en" : "es";
@@ -201,7 +210,7 @@ export const POST: APIRoute = async ({ request }) => {
   const [userEmailResult, ownerEmailResult] = await Promise.allSettled([
     // User confirmation email
     resend.emails.send({
-      from: "Tomás Gómez <contact@tomasgomez.dev>",
+      from: emailFrom,
       to: body.email,
       subject: t.confirmationSubject,
       html: t.confirmationBody(body.name, contactTypeLabel),
@@ -210,7 +219,7 @@ export const POST: APIRoute = async ({ request }) => {
     }),
     // Owner notification email
     resend.emails.send({
-      from: "Contact Form <contact@tomasgomez.dev>",
+      from: emailFrom,
       to: contactEmailTo,
       subject: t.notificationSubject(body.name, contactTypeLabel),
       html: t.notificationHtml(body, contactTypeLabel),
@@ -225,7 +234,11 @@ export const POST: APIRoute = async ({ request }) => {
   const ownerEmailFailed = ownerEmailResult.status === "rejected" || (ownerEmailResult.status === "fulfilled" && ownerEmailResult.value.error);
 
   if (userEmailFailed || ownerEmailFailed) {
-    console.error("Email send failures:", { userEmailResult, ownerEmailResult });
+    // Log the REAL error messages (name/message), not the opaque result objects
+    console.error("Email send failures:", {
+      userEmail: userEmailResult.status === "fulfilled" ? userEmailResult.value.error?.message : (userEmailResult.reason as Error)?.message,
+      ownerEmail: ownerEmailResult.status === "fulfilled" ? ownerEmailResult.value.error?.message : (ownerEmailResult.reason as Error)?.message,
+    });
     // Supabase row exists, but email failed
     return new Response(
       JSON.stringify({ error: "Submission saved but email delivery failed" }),

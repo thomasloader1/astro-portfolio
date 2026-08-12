@@ -136,6 +136,11 @@ function setupContactModal(): void {
 	// i18n translation object (injected by Astro at build time)
 	const i18n = (window as any).__i18n ?? {};
 
+	// Guards against double submits while a request is in flight. The submit
+	// button stays ENABLED so focus is never dropped to <body> (a11y); the
+	// in-flight state is conveyed via aria-busy on the form.
+	let inFlight = false;
+
 	// Helper to get translation with fallback
 	const t = (key: string, fallback?: string): string => {
 		const keys = key.split(".");
@@ -258,6 +263,9 @@ function setupContactModal(): void {
 	// Form submit
 	form.addEventListener("submit", async (e) => {
 		e.preventDefault();
+		if (inFlight) return; // guard against double submits
+		inFlight = true;
+		form.setAttribute("aria-busy", "true");
 
 		const formData = new FormData(form);
 		const { valid, errors } = validateForm(formData);
@@ -269,12 +277,13 @@ function setupContactModal(): void {
 		});
 
 		if (!valid) {
+			inFlight = false;
+			form.removeAttribute("aria-busy");
 			Object.entries(errors).forEach(([field, message]) => showFieldError(field, message));
 			return;
 		}
 
-		// Loading state
-		submitBtn.disabled = true;
+		// Loading state (button stays enabled/focused; aria-busy conveys state)
 		submitText.hidden = true;
 		submitLoading.hidden = false;
 
@@ -293,16 +302,20 @@ function setupContactModal(): void {
 			const data = await response.json();
 
 			if (response.ok && data.success) {
-				// Success
+				// Success: reset the form FIRST (resetForm wipes the status
+				// element), then show the confirmation so it actually renders.
+				resetForm();
+				inFlight = false;
+				form.removeAttribute("aria-busy");
 				successEl.textContent = t("contact.modal.form.success", "Thanks! I'll be in touch within 24 hours.");
 				successEl.hidden = false;
-				resetForm();
 				// Auto-close after 2 seconds
 				setTimeout(() => closeModal(), 2000);
 			} else if (response.status === 400 && data.field) {
 				// Validation error from server
 				showFieldError(data.field, data.error);
-				submitBtn.disabled = false;
+				inFlight = false;
+				form.removeAttribute("aria-busy");
 				submitText.hidden = false;
 				submitLoading.hidden = true;
 			} else if (response.status === 429) {
@@ -311,7 +324,8 @@ function setupContactModal(): void {
 				successEl.textContent = errorMsg;
 				successEl.style.color = "var(--accent)";
 				successEl.hidden = false;
-				submitBtn.disabled = false;
+				inFlight = false;
+				form.removeAttribute("aria-busy");
 				submitText.hidden = false;
 				submitLoading.hidden = true;
 			} else {
@@ -320,7 +334,8 @@ function setupContactModal(): void {
 				successEl.textContent = errorMsg;
 				successEl.style.color = "var(--accent)";
 				successEl.hidden = false;
-				submitBtn.disabled = false;
+				inFlight = false;
+				form.removeAttribute("aria-busy");
 				submitText.hidden = false;
 				submitLoading.hidden = true;
 			}
@@ -330,7 +345,8 @@ function setupContactModal(): void {
 			successEl.textContent = errorMsg;
 			successEl.style.color = "var(--accent)";
 			successEl.hidden = false;
-			submitBtn.disabled = false;
+			inFlight = false;
+			form.removeAttribute("aria-busy");
 			submitText.hidden = false;
 			submitLoading.hidden = true;
 		}

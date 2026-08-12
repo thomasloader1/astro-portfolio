@@ -16,6 +16,42 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Extract i18n resources for current locale to inject client-side
+const locale = i18next.language;
+const resources = i18next.getResourceBundle(locale, "translation") ?? {};
+
+// --- Technical SEO (canonical, hreflang, Open Graph, Twitter, JSON-LD) ---
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL ?? "https://gomeztomasgonzalo.com.ar").replace(/\/+$/, "");
+const pathname = Astro.url.pathname;
+
+// Root `/` and `/en/` keep their trailing slash; every other path drops it.
+const isRoot = pathname === "/" || pathname === "/en/";
+const canonicalUrl = siteUrl + (isRoot ? pathname : pathname.replace(/\/+$/, ""));
+
+// Locale variants — es lives at the root, en under `/en`.
+const esPath = pathname.startsWith("/en") ? (pathname === "/en/" ? "/" : pathname.slice(3)) : pathname;
+const esUrl = siteUrl + (esPath === "/" ? "/" : esPath.replace(/\/+$/, ""));
+const enUrl = siteUrl + (esPath === "/" ? "/en/" : "/en" + esPath.replace(/\/+$/, ""));
+
+const ogLocale = i18next.language === "en" ? "en_US" : "es_ES";
+const ogLocaleAlternate = i18next.language === "en" ? "es_ES" : "en_US";
+const ogImageUrl = siteUrl + "/og-image.svg";
+
+// Person schema only on the landing pages (excludes the 404 error pages).
+const isLanding = pathname === "/" || pathname === "/en/";
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: t("hero.name"),
+	url: canonicalUrl,
+	jobTitle: t("hero.role"),
+	image: ogImageUrl,
+	sameAs: [
+		"https://linkedin.com/in/gomeztomasgonzalo",
+		"https://github.com/thomasloader1",
+	],
+};
 ---
 
 <!doctype html>
@@ -33,17 +69,37 @@ const { title, description } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={t(description)} />
 		<meta name="color-scheme" content="light dark" />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="es" href={esUrl} />
+		<link rel="alternate" hreflang="en" href={enUrl} />
+		<link rel="alternate" hreflang="x-default" href={esUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={t("hero.name")} />
 		<meta property="og:title" content={t(title)} />
 		<meta property="og:description" content={t(description)} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlternate} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={t(title)} />
+		<meta name="twitter:description" content={t(description)} />
+		<meta name="twitter:image" content={ogImageUrl} />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="stylesheet" href="/landing.css" />
 		<title>{t(title)}</title>
+		{isLanding && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		)}
 	</head>
 	<body>
 		<a class="skip-link" href="#main">{t("nav.skip")}</a>
 		<slot />
 		<script>
 			import "../scripts/site";
+		</script>
+		<script is:inline define:vars={{ resources }}>
+			window.__i18n = resources;
 		</script>
 	</body>
 </html>
