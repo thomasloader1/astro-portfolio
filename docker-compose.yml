@@ -1,0 +1,21 @@
+services:
+  astro-portfolio-dev:
+    container_name: astro
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    environment:
+      - NODE_ENV= development
+      - PROJECT_DOMAIN= astro.dev.local
+    ports:
+      - "4321:4321"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.astro.rule=Host(`astro.dev.local`)"
+      - "traefik.http.services.astro.loadbalancer.server.port=4321"
+networks:
+  proxy:
+    external: true

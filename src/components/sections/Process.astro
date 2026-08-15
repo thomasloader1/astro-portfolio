@@ -1,0 +1,35 @@
+---
+import { t } from "i18next";
+
+interface Step {
+  num: string;
+  titleKey: string;
+  descKey: string;
+}
+
+const steps: Step[] = [
+  { num: "01", titleKey: "proc.p1Title", descKey: "proc.p1Desc" },
+  { num: "02", titleKey: "proc.p2Title", descKey: "proc.p2Desc" },
+  { num: "03", titleKey: "proc.p3Title", descKey: "proc.p3Desc" },
+  { num: "04", titleKey: "proc.p4Title", descKey: "proc.p4Desc" },
+];
+---
+
+<section aria-labelledby="process-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("proc.eyebrow")}</span>
+      <h2 id="process-title">{t("proc.title")}</h2>
+      <p class="lede">{t("proc.lede")}</p>
+    </div>
+    <div class="process-grid">
+      {steps.map((s) => (
+        <div class="process-step">
+          <div class="step-num">{s.num}</div>
+          <h3>{t(s.titleKey)}</h3>
+          <p>{t(s.descKey)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

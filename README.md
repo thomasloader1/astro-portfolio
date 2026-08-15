@@ -1,54 +1,77 @@
-# Astro Starter Kit: Basics
+# Astro Portfolio — Tomás Gómez
 
-```sh
-npm create astro@latest -- --template basics
-```
+Single-page freelance portfolio built with **Astro 7**, **Tailwind CSS 3**, **astro-i18next** and TypeScript (strict). Hand-written CSS design system in `public/landing.css` with a few Tailwind utilities sprinkled in.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Stack
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Layer | Tool |
+|---|---|
+| Framework | Astro 7 (static) |
+| Styling | Hand-written CSS system (`public/landing.css`) + Tailwind utilities |
+| i18n | astro-i18next (`i18next` + `i18next-fs-backend`), translations in `public/locales/{es,en}/translation.json` |
+| Language | TypeScript strict |
+| Package manager | pnpm (workspace) |
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Structure
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── landing.css        # design tokens + all component styles
+│   ├── favicon.svg
+│   └── locales/
+│       ├── es/translation.json
+│       └── en/translation.json
+└── src/
+    ├── components/
+    │   ├── Nav.astro, Footer.astro
+    │   └── sections/      # Hero, Services, Projects, Experience, About, Process, Contact
+    ├── layouts/Layout.astro   # head, FOUC theme script, shared site.ts bundle, skip link
+    ├── pages/
+    │   ├── index.astro    # es (default)
+    │   ├── en/index.astro
+    │   ├── 404.astro
+    │   └── en/404.astro
+    └── scripts/site.ts    # shared browser scripts (skip-link, nav/theme/lang toggles, scroll observer)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Scripts
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+All commands run from the root with pnpm:
 
-Any static assets, like images, can be placed in the `public/` directory.
+| Command | Action |
+|---|---|
+| `pnpm dev` | Start dev server at `localhost:4321` |
+| `pnpm build` | Type-check + build: `astro check && astro build` |
+| `pnpm preview` | Preview the production build |
+| `pnpm astro ...` | Run Astro CLI commands |
 
-## 🧞 Commands
+## i18n model
 
-All commands are run from the root of the project, from a terminal:
+- Default locale is **es** (`changeLanguage("es")` on `src/pages/index.astro`), English lives under `/en/`.
+- Every visible string lives in `public/locales/{es,en}/translation.json` and is rendered via `t("key")` — no hardcoded strings in components.
+- `es` and `en` key sets are kept identical (dead/asymmetric keys are removed).
+- Dates render through `Intl.DateTimeFormat(i18next.language, …)` so months are locale-correct.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Fonts
 
-## 👀 Want to learn more?
+| Role | Font | Weights |
+|---|---|---|
+| Display (headings, nav brand, stats, step numbers) | Space Grotesk | 600 |
+| Body (text, buttons, nav links) | Inter | 400/500/600 |
+| Mono (dates, card numbers, tech tags) | Roboto Mono | 400/500/600 |
+| Editorial accent (Contact headline) | Cormorant Garamond | 300 italic |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Imported weight-specific via `@fontsource/*/latin-*-*.css` in `Layout.astro`.
+
+## Quality gate
+
+`astro check && astro build` (wired to `pnpm build`). No test runner. Manual 3-breakpoint visual pass (mobile/tablet/desktop) after styling changes.
+
+## UX/UI audit
+
+A reusable `ux-auditor` subagent lives at `~/.config/opencode/agent/ux-auditor.md` (global, outside this repo). It audits this codebase against ui-ux-pro-max + web-design-guidelines and reports in caveman-ultra format:
+
+```
+opencode run ux-auditor "Audit C:\dev\astro-portfolio"
+```

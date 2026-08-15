@@ -1,0 +1,40 @@
+---
+import i18next, { t } from "i18next";
+---
+
+<nav class="site-nav" aria-label={t("nav.ariaMain")}>
+  <div class="container">
+    <a href="#main" class="nav-brand" aria-label={t("nav.ariaBrand")}>
+      <img class="brand-photo" src="https://avatars.githubusercontent.com/u/42984450?v=4" alt="" aria-hidden="true" width="32" height="32" />
+      <span class="name">{t("hero.name")}</span>
+    </a>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="#about">{t("nav.about")}</a></li>
+      <li><a href="#experience">{t("nav.experience")}</a></li>
+      <li><a href="#projects">{t("nav.projects")}</a></li>
+      <li><a href="#services">{t("nav.services")}</a></li>
+      <li><a href="#contact">{t("nav.contact")}</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-toggle" id="lang-toggle" role="group" aria-label={t("nav.ariaLang")}>
+        <button type="button" data-lang="es" class="lang-btn" aria-pressed={i18next.language === "es" ? "true" : "false"}>ES</button>
+        <button type="button" data-lang="en" class="lang-btn" aria-pressed={i18next.language === "en" ? "true" : "false"}>EN</button>
+      </div>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label={t("nav.themeToggle")}>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="#contact" class="nav-cta bg-success" aria-label={t("nav.ctaAria")}>
+        <span class="pulse" aria-hidden="true"></span>
+        <span>{t("nav.cta")}</span>
+      </a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label={t("nav.menu")} aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>

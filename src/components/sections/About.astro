@@ -1,0 +1,33 @@
+---
+import { t } from "i18next";
+---
+
+<section id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="card card--callout">
+      <div>
+        <span class="eyebrow">{t("about.eyebrow")}</span>
+        <h2 id="about-title">{t("about.titlePrefix")} <span class="accent">{t("about.titleAccent")}</span></h2>
+        <p>{t("about.desc")}</p>
+      </div>
+      <div class="callout-grid">
+        <div class="callout-cell !border-none">
+          <div class="k">{t("about.kExperience")}</div>
+          <div class="v tag">{t("about.vExperience")}</div>
+        </div>
+        <div class="callout-cell !border-none">
+          <div class="k">{t("about.kLocation")}</div>
+          <div class="v">{t("about.vLocation")}</div>
+        </div>
+        <div class="callout-cell">
+          <div class="k">{t("about.kModality")}</div>
+          <div class="v tag">{t("about.vModality")}</div>
+        </div>
+        <div class="callout-cell">
+          <div class="k">{t("about.kAvailability")}</div>
+          <div class="v">{t("about.vAvailability")}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

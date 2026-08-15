@@ -3,6 +3,8 @@ dist/
 
 # generated types
 .astro/
+.astro-temp/
+test-results/
 
 # dependencies
 node_modules/
@@ -19,3 +21,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# AI tooling registry
+.atl/
+.claude/
+CLAUDE.md
+openspec/
+
+# Vercel
+.vercel/

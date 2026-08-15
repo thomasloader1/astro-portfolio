@@ -1,0 +1,93 @@
+---
+import i18next, { t } from "i18next";
+
+interface Role {
+  titleKey: string;
+  company: string;
+  contextKey: string;
+  coreKey: string;
+  start: string;
+  end: string | null;
+  techs: string[];
+}
+
+const roles: Role[] = [
+  {
+    titleKey: "exp.r1Title",
+    company: "Solutica",
+    contextKey: "exp.r1Context",
+    coreKey: "exp.r1Core",
+    start: "2024-09",
+    end: null,
+    techs: [".NET Core 8", "C#", "React", "TypeScript", "SQL Server"],
+  },
+  {
+    titleKey: "exp.r2Title",
+    company: "Medical & Scientific Knowledge",
+    contextKey: "exp.r2Context",
+    coreKey: "exp.leadCore",
+    start: "2023-10",
+    end: "2024-09",
+    techs: ["Laravel", "PHP", "Next.js", "React", "TypeScript", "Python", "MySQL", "Linux"],
+  },
+  {
+    titleKey: "exp.r3Title",
+    company: "Océano Medicina",
+    contextKey: "exp.r3Context",
+    coreKey: "exp.leadCore",
+    start: "2022-01",
+    end: "2023-10",
+    techs: ["Laravel", "PHP", "CakePHP", "React", "WordPress", "MySQL", "Linux"],
+  },
+  {
+    titleKey: "exp.r4Title",
+    company: "Anteojos Negros",
+    contextKey: "exp.r4Context",
+    coreKey: "exp.r4Core",
+    start: "2021-03",
+    end: "2022-01",
+    techs: ["PHP", "Slim Framework", "JavaScript", "jQuery", "AWS", "MySQL"],
+  },
+  {
+    titleKey: "exp.r5Title",
+    company: "Frávega",
+    contextKey: "exp.r5Context",
+    coreKey: "exp.r5Core",
+    start: "2020-03",
+    end: "2021-08",
+    techs: ["Bash", "Rundeck", "Linux", "Windows"],
+  },
+];
+
+const dateFmt = new Intl.DateTimeFormat(i18next.language, { month: "short", year: "numeric" });
+const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`));
+---
+
+<section id="experience" aria-labelledby="exp-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("exp.eyebrow")}</span>
+      <h2 id="exp-title">{t("exp.title")}</h2>
+    </div>
+    <ol class="timeline" role="list">
+      {roles.map((role) => (
+        <li class="tl-item">
+          <div class="tl-date">{fmt(role.start)} — {role.end ? fmt(role.end) : t("exp.present")}</div>
+          <div class="tl-role">
+            <div class="top">
+              <h3>{t(role.titleKey)}</h3>
+              <span class="company">{role.company}</span>
+            </div>
+            <p class="company-context">{t(role.contextKey)}</p>
+            <p class="role-core">{t(role.coreKey)}</p>
+            <div class="techs">
+              {role.techs.map((tech) => (
+                <span>{tech}</span>
+              ))}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

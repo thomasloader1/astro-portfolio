@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Tomás Gómez — Full Stack Developer">
+  <rect width="1200" height="630" fill="#fff7ed"/>
+  <rect width="1200" height="10" fill="#cc3e00"/>
+  <circle cx="1010" cy="110" r="240" fill="#cc3e00" opacity="0.07"/>
+  <circle cx="1010" cy="110" r="150" fill="#cc3e00" opacity="0.1"/>
+  <text x="96" y="292" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" font-size="88" font-weight="600" fill="#2d2a26">Tomás Gómez</text>
+  <text x="98" y="372" font-family="'Inter', system-ui, sans-serif" font-size="42" font-weight="500" letter-spacing="3" fill="#cc3e00">FULL STACK DEVELOPER</text>
+  <rect x="98" y="410" width="96" height="6" rx="3" fill="#cc3e00" opacity="0.35"/>
+  <text x="96" y="470" font-family="'Inter', system-ui, sans-serif" font-size="26" fill="#7c6f64">Buenos Aires · gomeztomasgonzalo.com.ar</text>
+</svg>

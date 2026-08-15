@@ -1,0 +1,61 @@
+---
+import { t } from "i18next";
+
+interface Service {
+  num: string;
+  titleKey: string;
+  descKey: string;
+  deliverableKeys: string[];
+}
+
+const services: Service[] = [
+  {
+    num: "01",
+    titleKey: "srv.s1Title",
+    descKey: "srv.s1Desc",
+    deliverableKeys: ["srv.s1d1", "srv.s1d2", "srv.s1d3"],
+  },
+  {
+    num: "02",
+    titleKey: "srv.s2Title",
+    descKey: "srv.s2Desc",
+    deliverableKeys: ["srv.s2d1", "srv.s2d2", "srv.s2d3"],
+  },
+  {
+    num: "03",
+    titleKey: "srv.s3Title",
+    descKey: "srv.s3Desc",
+    deliverableKeys: ["srv.s3d1", "srv.s3d2", "srv.s3d3"],
+  },
+  {
+    num: "04",
+    titleKey: "srv.s4Title",
+    descKey: "srv.s4Desc",
+    deliverableKeys: ["srv.s4d1", "srv.s4d2", "srv.s4d3"],
+  },
+];
+---
+
+<section id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{t("srv.eyebrow")}</span>
+      <h2 id="services-title">{t("srv.title")}</h2>
+      <p class="lede">{t("srv.lede")}</p>
+    </div>
+    <div class="services-grid">
+      {services.map((s) => (
+        <article class="card card--service">
+          <div class="card__num">{s.num}</div>
+          <h3>{t(s.titleKey)}</h3>
+          <p>{t(s.descKey)}</p>
+          <ul class="card__deliverables">
+            {s.deliverableKeys.map((key) => (
+              <li>{t(key)}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

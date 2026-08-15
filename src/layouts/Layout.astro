@@ -1,6 +1,14 @@
 ---
-import "@fontsource-variable/inter";
-import i18next,{t} from "i18next"
+// Font diet — weight/subset-specific imports only (8 woff2 total).
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/space-grotesk/latin-600.css";
+import "@fontsource/roboto-mono/latin-400.css";
+import "@fontsource/roboto-mono/latin-500.css";
+import "@fontsource/roboto-mono/latin-600.css";
+import "@fontsource/cormorant-garamond/latin-300-italic.css";
+import i18next, { t } from "i18next";
 
 interface Props {
 	title: string;
@@ -8,67 +16,90 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Extract i18n resources for current locale to inject client-side
+const locale = i18next.language;
+const resources = i18next.getResourceBundle(locale, "translation") ?? {};
+
+// --- Technical SEO (canonical, hreflang, Open Graph, Twitter, JSON-LD) ---
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL ?? "https://gomeztomasgonzalo.com.ar").replace(/\/+$/, "");
+const pathname = Astro.url.pathname;
+
+// Root `/` and `/en/` keep their trailing slash; every other path drops it.
+const isRoot = pathname === "/" || pathname === "/en/";
+const canonicalUrl = siteUrl + (isRoot ? pathname : pathname.replace(/\/+$/, ""));
+
+// Locale variants — es lives at the root, en under `/en`.
+const esPath = pathname.startsWith("/en") ? (pathname === "/en/" ? "/" : pathname.slice(3)) : pathname;
+const esUrl = siteUrl + (esPath === "/" ? "/" : esPath.replace(/\/+$/, ""));
+const enUrl = siteUrl + (esPath === "/" ? "/en/" : "/en" + esPath.replace(/\/+$/, ""));
+
+const ogLocale = i18next.language === "en" ? "en_US" : "es_ES";
+const ogLocaleAlternate = i18next.language === "en" ? "es_ES" : "en_US";
+const ogImageUrl = siteUrl + "/og-image.svg";
+
+// Person schema only on the landing pages (excludes the 404 error pages).
+const isLanding = pathname === "/" || pathname === "/en/";
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: t("hero.name"),
+	url: canonicalUrl,
+	jobTitle: t("hero.role"),
+	image: ogImageUrl,
+	sameAs: [
+		"https://linkedin.com/in/gomeztomasgonzalo",
+		"https://github.com/thomasloader1",
+	],
+};
 ---
 
 <!doctype html>
 <html lang={i18next.language}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={t(description)} />
+		<script is:inline>
+			(function() {
+				var theme = localStorage.getItem('theme');
+				if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+					document.documentElement.classList.add('dark');
+				}
+			})();
+		</script>
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="https://avatars.githubusercontent.com/u/42984450?v=4" type="image/png">
-		<link rel="stylesheet" href="swiper.css">
+		<meta name="description" content={t(description)} />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="es" href={esUrl} />
+		<link rel="alternate" hreflang="en" href={enUrl} />
+		<link rel="alternate" hreflang="x-default" href={esUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={t("hero.name")} />
+		<meta property="og:title" content={t(title)} />
+		<meta property="og:description" content={t(description)} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:locale" content={ogLocale} />
+		<meta property="og:locale:alternate" content={ogLocaleAlternate} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={t(title)} />
+		<meta name="twitter:description" content={t(description)} />
+		<meta name="twitter:image" content={ogImageUrl} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="/landing.css" />
 		<title>{t(title)}</title>
+		{isLanding && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		)}
 	</head>
-	<body class="relative top-0 right-0 z-[-2] bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-neutral-950 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+	<body>
+		<a class="skip-link" href="#main">{t("nav.skip")}</a>
 		<slot />
-		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+		<script>
+			import "../scripts/site";
+		</script>
+		<script is:inline define:vars={{ resources }}>
+			window.__i18n = resources;
+		</script>
 	</body>
-
 </html>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
-<script is:inline>
-	const theme = (() => {
-	  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-		return localStorage.getItem("theme");
-	  }
-	  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-		return "dark";
-	  }
-	  return "light";
-	})();
-  
-	if (theme === "light") {
-	  document.documentElement.classList.remove("dark");
-	} else {
-	  document.documentElement.classList.add("dark");
-	}
-	window.localStorage.setItem("theme", theme);
-  </script>
-
-<style is:global>
-	:root {
-		color-scheme: ligth dark;
-	}
-
-	html {
-		background-color: #fff;
-		font-family: "Inter Variable",system-ui, sans-serif;
-		scroll-behavior: smooth;
-
-	}
-
-	body{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		min-height: 100vh;
-	}
-
-	@media (prefers-reduced-motion: reduce){
-		html{
-			scroll-behavior: auto;
-		}
-	}
-</style>

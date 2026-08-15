@@ -1,24 +1,35 @@
 ---
 import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
-import Experience from "../components/Experience.astro";
-import SectionContainer from "../components/SectionContainer.astro";
-import Proyects from "../components/Proyects.astro";
-import Home from "../components/Home.astro";
-import Header from "../components/Header.astro";
-import ContactForm from "../components/ContactForm.astro";
+import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import Experience from "../components/sections/Experience.astro";
+import Projects from "../components/sections/Projects.astro";
+import Services from "../components/sections/Services.astro";
+import Process from "../components/sections/Process.astro";
+import Contact from "../components/sections/Contact.astro";
 
 changeLanguage("es");
 ---
 
-<Layout title="site.title" description='site.description'>
-	<Header />
-	<main>
-		<SectionContainer id="top" class="py-28 pb-24" content={Home} />
-		<SectionContainer id="experience" class="py-24 pb-24" content={Experience} />
-		<SectionContainer id="proyects" class="pb-24" content={Proyects} />
-		<!-- <SectionContainer id="contact" class="pb-24" content={ContactForm} /> -->
-	</main>
-	<Footer />
+<Layout title="site.title" description="site.description">
+  <Nav />
+
+  <main id="main">
+    <Hero />
+    <div class="section-shift--warm">
+      <Services />
+    </div>
+    <Projects />
+    <Experience />
+    <div class="section-shift--warm">
+      <About />
+    </div>
+    <Process />
+    <Contact />
+  </main>
+
+  <Footer />
 </Layout>
