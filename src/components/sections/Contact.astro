@@ -1,5 +1,5 @@
 ---
-import { t } from "i18next";
+import i18next, { t } from "i18next";
 
 interface ContactLink {
   href: string;
@@ -9,9 +9,11 @@ interface ContactLink {
 }
 
 const links: ContactLink[] = [
-  { href: "https://linkedin.com/in/gomeztomasgonzalo", labelKey: "contact.kLinkedIn", value: "gomeztomasgonzalo", target: "_blank" },
+  { href: "https://linkedin.com/in/gtg-dev", labelKey: "contact.kLinkedIn", value: "🟠 Tomás Gonzalo Gomez", target: "_blank" },
   { href: "https://github.com/thomasloader1", labelKey: "contact.kGitHub", value: "thomasloader1", target: "_blank" },
 ];
+
+const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/cv.pdf";
 ---
 
 <section id="contact" aria-labelledby="contact-title">
@@ -35,6 +37,10 @@ const links: ContactLink[] = [
         <button class="btn btn-primary" data-modal="contact" type="button">
           {t("contact.ctaButton")}
         </button>
+        <div class="contact-cv items-center text-center">
+          <p class="contact-cv__hint">{t("contact.cvHint")}</p>
+          <a href={cvHref} class="btn btn-ghost btn-cv" download>{t("contact.cvButton")}</a>
+        </div>
       </div>
     </div>
   </div>

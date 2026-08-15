@@ -16,7 +16,8 @@
     "ariaMain": "Main navigation",
     "ariaBrand": "Home",
     "ariaLang": "Language",
-    "themeToggle": "Toggle dark mode"
+    "themeToggle": "Toggle dark mode",
+    "cv": "Download CV"
   },
   "hero": {
     "role": "Full Stack Developer",
@@ -25,7 +26,6 @@
     "ctaContact": "Hire me →",
     "ctaProjects": "See projects",
     "stat1": "Years writing production code",
-    "stat2": "Companies, from startups to corporations",
     "stat3": "Projects delivered",
     "ariaSection": "Introduction",
     "ariaStats": "Professional summary"
@@ -38,9 +38,9 @@
     "eyebrow": "About me",
     "titlePrefix": "What",
     "titleAccent": "I bring to your project",
-    "desc": "Full Stack developer with 5+ years of professional experience building software. I work with startups and companies that need someone to solve complex technical problems — from backend to deployment, no middlemen.",
+    "desc": "Full Stack developer with experience building professional software. I work nimbly and solve complex technical problems — from architecture to deployment, no middlemen.",
     "kExperience": "Experience",
-    "vExperience": "5+ years in production",
+    "vExperience": "6+ years in production",
     "kLocation": "Location",
     "vLocation": "Buenos Aires · UTC−3",
     "kModality": "Modality",
@@ -57,10 +57,9 @@
     "r1Core": "Responsible for the evolution, maintenance, and development of enterprise applications used by companies in the pharmaceutical industry. I build new features, optimize existing processes, and solve specific requirements on production systems where stability and operational continuity are critical. I take part in technical decisions, architecture improvements, and solutions geared toward scalability, maintainability, and software quality.",
     "r2Title": "Team Lead",
     "r2Context": "Scientific and health e-learning platform",
-    "r2Core": "I led a development team, combining technical leadership with hands-on development. I coordinated planning and delivery, took part in defining architecture and scalable solutions, and established development best practices and code review. I was the technical reference and point of contact for international development teams, turning business needs into concrete solutions while actively building and evolving the platforms.",
     "r3Title": "Team Lead · Senior Full Stack Developer",
     "r3Context": "Medical and scientific publishing",
-    "r3Core": "I led a development team, combining technical leadership with hands-on development. I coordinated planning and delivery, took part in defining architecture and scalable solutions, and established development best practices and code review. I was the technical reference and point of contact for international development teams, turning business needs into concrete solutions while actively building and evolving the platforms.",
+    "leadCore": "I led a development team, combining technical leadership with hands-on development. I coordinated planning and delivery, took part in defining architecture and scalable solutions, and established development best practices and code review. I was the technical reference and point of contact for international development teams, turning business needs into concrete solutions while actively building and evolving the platforms.",
     "r4Title": "Semi-Senior Full Stack Developer",
     "r4Context": "Digital marketing agency",
     "r4Core": "End-to-end development and maintenance of an e-commerce platform — backend, frontend, and infrastructure. I implemented features, optimized existing processes, and worked on integrating and deploying applications on AWS.",
@@ -75,6 +74,18 @@
     "p2Cat": "SOCIAL",
     "p2Role": "Book and celebrate remote birthdays",
     "p2Desc": "Platform to organize birthdays remotely — invitations, RSVP, messages, and a shared gallery. Built on Firebase for auth and real-time data.",
+    "p3Cat": "PLATAFORMA",
+    "p3Role": "Text adaptation for libraries",
+    "p3Desc": "Platform to adapt book texts into accessible formats for visually impaired users: conversion to audio and simplified text, plus content tracking.",
+    "p4Cat": "FINANCE",
+    "p4Role": "Income management",
+    "p4Desc": "Platform to manage income and expenses simply and quickly. Following the 50/30/20 model, it lets you categorize expenses, generate reports, and export data to Excel.",
+    "p5Cat": "CLI",
+    "p5Role": "SSO process automation",
+    "p5Desc": "Tools to automate user setup and management in AWS SSO environments, tunnels, etc.",
+    "p6Cat": "CLI",
+    "p6Role": "CLI for data migration",
+    "p6Desc": "Command-line tool to make data migration between different systems easier.",
     "site": "Live",
     "repo": "Repository"
   },
@@ -121,12 +132,11 @@
     "eyebrow": "Contact",
     "titleAccent": "together",
     "desc": "If you have a project in mind or you just want to connect — write me. I reply within 24 hours.",
-    "kEmail": "Email",
     "kLinkedIn": "LinkedIn",
     "kGitHub": "GitHub",
-    "kWeb": "Web",
-    "kPhone": "Phone",
     "ctaButton": "Write me",
+    "cvHint": "Are you a recruiter or talent scout? Download my CV as a PDF",
+    "cvButton": "Download CV",
     "modal": {
       "title": "Let's talk",
       "subtitle": "Tell me what you need and I'll get back to you within 24h",
@@ -147,6 +157,7 @@
         },
         "success": "Thanks! I'll be in touch within 24 hours.",
         "error": "Something went wrong. Please try again.",
+        "errorRateLimit": "Too many requests. Please wait a moment and try again.",
         "validation": {
           "nameRequired": "Name is required",
           "emailRequired": "Email is required",
@@ -154,10 +165,7 @@
           "typeRequired": "Select a contact type",
           "messageRequired": "Message is required"
         }
-      },
-      "emailConfirmationSubject": "Thanks for reaching out",
-      "emailConfirmationBody": "Hi {{name}},<br><br>Thanks for writing. I received your message about <strong>{{contactTypeLabel}}</strong> and will get back to you within 24 hours.<br><br>Best,<br>Tomás Gómez",
-      "emailConfirmationText": "Hi {{name}},\n\nThanks for writing. I received your message about {{contactTypeLabel}} and will get back to you within 24 hours.\n\nBest,\nTomás Gómez"
+      }
     }
   },
   "footer": {

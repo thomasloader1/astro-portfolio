@@ -16,16 +16,16 @@
     "ariaMain": "Navegación principal",
     "ariaBrand": "Inicio",
     "ariaLang": "Idioma",
-    "themeToggle": "Alternar tema oscuro"
+    "themeToggle": "Alternar tema oscuro",
+    "cv": "Descargar CV"
   },
   "hero": {
     "role": "Full Stack Developer",
     "name": "Tomás Gómez",
-    "lede": "Construyo productos digitales de punta a punta — e-commerce, plataformas empresariales, API's. Llevo ideas a producción.",
+    "lede": "Construyo productos digitales de punta a punta — e-commerce, plataformas empresariales, APIs. Llevo ideas a producción.",
     "ctaContact": "Contratá mis servicios →",
     "ctaProjects": "Ver proyectos",
     "stat1": "Años escribiendo código en producción",
-    "stat2": "Empresas, de startups a corporations",
     "stat3": "Proyectos entregados",
     "ariaSection": "Presentación",
     "ariaStats": "Resumen profesional"
@@ -38,9 +38,9 @@
     "eyebrow": "Sobre mí",
     "titlePrefix": "Lo que",
     "titleAccent": "trabajo con vos",
-    "desc": "Desarrollador Full Stack con 5+ años de experiencia construyendo software profesional. Trabajo con startups y empresas que necesitan alguien que resuelva problemas técnicos complejos — del backend al deploy, sin intermedios.",
+    "desc": "Desarrollador Full Stack con experiencia construyendo software profesional. Trabajo ágil y resuelvo problemas técnicos complejos — desde la arquitectura al deploy, sin intermedios.",
     "kExperience": "Experiencia",
-    "vExperience": "5+ años en producción",
+    "vExperience": "6+ años en producción",
     "kLocation": "Ubicación",
     "vLocation": "Buenos Aires · UTC−3",
     "kModality": "Modalidad",
@@ -57,10 +57,9 @@
     "r1Core": "Responsable de la evolución, mantenimiento y desarrollo de aplicaciones empresariales utilizadas por compañías de la industria farmacéutica. Desarrollo nuevas funcionalidades, optimizo procesos existentes y resuelvo requerimientos específicos, trabajando sobre sistemas en producción donde la estabilidad y la continuidad operativa son críticas. Participo en decisiones técnicas, mejoras de arquitectura y definición de soluciones orientadas a la escalabilidad, mantenibilidad y calidad del software.",
     "r2Title": "Team Lead",
     "r2Context": "Plataforma E-Learning científica y de salud",
-    "r2Core": "Lideré un equipo de desarrollo combinando liderazgo técnico y desarrollo hands-on. Coordiné la planificación y entrega de proyectos, participé en la definición de arquitectura y soluciones escalables, y establecí buenas prácticas de desarrollo y code review. Actué como referente técnico y punto de contacto con equipos de desarrollo internacionales, traduciendo necesidades de negocio en soluciones concretas y participando activamente en el desarrollo y evolución de las plataformas.",
     "r3Title": "Team Lead · Senior Full Stack Developer",
     "r3Context": "Editorial médica y científica",
-    "r3Core": "Lideré un equipo de desarrollo combinando liderazgo técnico y desarrollo hands-on. Coordiné la planificación y entrega de proyectos, participé en la definición de arquitectura y soluciones escalables, y establecí buenas prácticas de desarrollo y code review. Actué como referente técnico y punto de contacto con equipos de desarrollo internacionales, traduciendo necesidades de negocio en soluciones concretas y participando activamente en el desarrollo y evolución de las plataformas.",
+    "leadCore": "Lideré un equipo de desarrollo combinando liderazgo técnico y desarrollo hands-on. Coordiné la planificación y entrega de proyectos, participé en la definición de arquitectura y soluciones escalables, y establecí buenas prácticas de desarrollo y code review. Actué como referente técnico y punto de contacto con equipos de desarrollo internacionales, traduciendo necesidades de negocio en soluciones concretas y participando activamente en el desarrollo y evolución de las plataformas.",
     "r4Title": "Semi-Senior Full Stack Developer",
     "r4Context": "Agencia de Marketing Digital",
     "r4Core": "Desarrollo y mantenimiento end-to-end de una plataforma de e-commerce, participando tanto en el backend como en el frontend y la infraestructura. Implementé funcionalidades, optimicé procesos existentes y trabajé sobre la integración y despliegue de aplicaciones en AWS.",
@@ -71,16 +70,22 @@
   "proj": {
     "eyebrow": "Proyectos",
     "title": "Cosas que construí para resolver problemas reales.",
-    "lede": "Proyectos que muestran cómo aplico mi stack en problemas concretos.",
+    "lede": "Algunos de los proyectos que muestran cómo aplico mi stack en problemas concretos.",
     "p2Cat": "SOCIAL",
     "p2Role": "Reservá y celebrá cumpleaños remotos",
     "p2Desc": "Plataforma para organizar cumpleaños a distancia — invitaciones, confirmación de asistencia, mensajes y galería compartida. Construida con Firebase para auth y datos en tiempo real.",
     "p3Cat": "PLATAFORMA",
-    "p3Role": "Adaptacion de textos para bibliotecas",
-    "p3Desc": "Plataforma para adaptar textos de libros a formatos accesibles pensado para usuarios con discapacidad visual. convertirlos a audio y texto simplificado, y seguimiento de contenidos.",
+    "p3Role": "Adaptación de textos para bibliotecas",
+    "p3Desc": "Plataforma para adaptar textos de libros a formatos accesibles, pensada para usuarios con discapacidad visual: conversión a audio y texto simplificado, y seguimiento de contenidos.",
     "p4Cat": "FINANZAS",
     "p4Role": "Gestión de ingresos",
     "p4Desc": "Plataforma para gestionar ingresos y gastos de manera simple y rápida. Siguiendo el modelo de 50/30/20, permite categorizar gastos, generar reportes y exportar datos a Excel.",
+    "p5Cat": "CONSOLA",
+    "p5Role": "Automatización de procesos SSO",
+    "p5Desc": "Herramientas para automatizar la configuración y gestión de usuarios en entornos AWS SSO, túneles, etc.",
+    "p6Cat": "CONSOLA",
+    "p6Role": "CLI para migración de datos",
+    "p6Desc": "Herramienta de línea de comandos para facilitar la migración de datos entre diferentes sistemas.",
     "site": "Sitio",
     "repo": "Repositorio"
   },
@@ -127,12 +132,11 @@
     "eyebrow": "Contacto",
     "titleAccent": "juntos",
     "desc": "Si tenés un proyecto en mente o simplemente querés conectar — escribime. Respondo en menos de 24 horas.",
-    "kEmail": "Email",
     "kLinkedIn": "LinkedIn",
     "kGitHub": "GitHub",
-    "kWeb": "Web",
-    "kPhone": "Teléfono",
     "ctaButton": "Escribime",
+    "cvHint": "¿Sos recruiter o people search? Descargá mi CV en PDF",
+    "cvButton": "Descargar CV",
     "modal": {
       "title": "Hablemos",
       "subtitle": "Cuéntame qué necesitás y te respondo en menos de 24h",
@@ -153,6 +157,7 @@
         },
         "success": "¡Gracias! Te contacto en menos de 24 horas.",
         "error": "Algo salió mal. Por favor intentá de nuevo.",
+        "errorRateLimit": "Demasiadas solicitudes. Esperá un momento y volvé a intentar.",
         "validation": {
           "nameRequired": "El nombre es obligatorio",
           "emailRequired": "El email es obligatorio",
@@ -160,10 +165,7 @@
           "typeRequired": "Seleccioná un tipo de contacto",
           "messageRequired": "El mensaje es obligatorio"
         }
-      },
-      "emailConfirmationSubject": "Gracias por contactarme",
-      "emailConfirmationBody": "Hola {{name}},<br><br>Gracias por escribirme. He recibido tu mensaje sobre <strong>{{contactTypeLabel}}</strong> y te contactaré en menos de 24 horas.<br><br>Un saludo,<br>Tomás Gómez",
-      "emailConfirmationText": "Hola {{name}},\n\nGracias por escribirme. He recibido tu mensaje sobre {{contactTypeLabel}} y te contactaré en menos de 24 horas.\n\nUn saludo,\nTomás Gómez"
+      }
     }
   },
   "footer": {
