@@ -30,6 +30,7 @@
     "i18next": "^25.6.0",
     "i18next-fs-backend": "^2.6.0",
     "resend": "^4.0.0",
+    "simple-icons": "^12.4.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "zod": "^3.23.0"
