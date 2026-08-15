@@ -1,5 +1,4 @@
-allowBuilds:
-  esbuild: true
-  sharp: false
-minimumReleaseAgeExclude:
-  - astro@6.4.4
+packages:
+  - "."
+onlyBuiltDependencies:
+  - esbuild

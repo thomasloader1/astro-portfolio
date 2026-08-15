@@ -1,14 +1,13 @@
 ---
-import { t } from "i18next";
+import i18next, { t } from "i18next";
 
 interface Role {
   titleKey: string;
   company: string;
   contextKey: string;
   coreKey: string;
-  bulletKeys?: string[];
-  date: string;
-  isCurrent: boolean;
+  start: string;
+  end: string | null;
   techs: string[];
 }
 
@@ -18,28 +17,26 @@ const roles: Role[] = [
     company: "Solutica",
     contextKey: "exp.r1Context",
     coreKey: "exp.r1Core",
-    date: "Sep 2024 — Actualidad",
-    isCurrent: true,
+    start: "2024-09",
+    end: null,
     techs: [".NET Core 8", "C#", "React", "TypeScript", "SQL Server"],
   },
   {
     titleKey: "exp.r2Title",
     company: "Medical & Scientific Knowledge",
     contextKey: "exp.r2Context",
-    coreKey: "exp.r2Core",
-    bulletKeys: ["exp.r2b1", "exp.r2b2", "exp.r2b3", "exp.r2b4", "exp.r2b5"],
-    date: "Oct 2023 — Sep 2024",
-    isCurrent: false,
+    coreKey: "exp.leadCore",
+    start: "2023-10",
+    end: "2024-09",
     techs: ["Laravel", "PHP", "Next.js", "React", "TypeScript", "Python", "MySQL", "Linux"],
   },
   {
     titleKey: "exp.r3Title",
     company: "Océano Medicina",
     contextKey: "exp.r3Context",
-    coreKey: "exp.r3Core",
-    bulletKeys: ["exp.r3b1", "exp.r3b2", "exp.r3b3", "exp.r3b4", "exp.r3b5"],
-    date: "Ene 2022 — Oct 2023",
-    isCurrent: false,
+    coreKey: "exp.leadCore",
+    start: "2022-01",
+    end: "2023-10",
     techs: ["Laravel", "PHP", "CakePHP", "React", "WordPress", "MySQL", "Linux"],
   },
   {
@@ -47,9 +44,8 @@ const roles: Role[] = [
     company: "Anteojos Negros",
     contextKey: "exp.r4Context",
     coreKey: "exp.r4Core",
-    bulletKeys: ["exp.r4b1", "exp.r4b2", "exp.r4b3", "exp.r4b4"],
-    date: "Mar 2021 — Ene 2022",
-    isCurrent: false,
+    start: "2021-03",
+    end: "2022-01",
     techs: ["PHP", "Slim Framework", "JavaScript", "jQuery", "AWS", "MySQL"],
   },
   {
@@ -57,12 +53,14 @@ const roles: Role[] = [
     company: "Frávega",
     contextKey: "exp.r5Context",
     coreKey: "exp.r5Core",
-    bulletKeys: ["exp.r5b1", "exp.r5b2", "exp.r5b3", "exp.r5b4"],
-    date: "Mar 2020 — Ago 2021",
-    isCurrent: false,
+    start: "2020-03",
+    end: "2021-08",
     techs: ["Bash", "Rundeck", "Linux", "Windows"],
   },
 ];
+
+const dateFmt = new Intl.DateTimeFormat(i18next.language, { month: "short", year: "numeric" });
+const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`));
 ---
 
 <section id="experience" aria-labelledby="exp-title">
@@ -70,15 +68,11 @@ const roles: Role[] = [
     <div class="section-head">
       <span class="eyebrow">{t("exp.eyebrow")}</span>
       <h2 id="exp-title">{t("exp.title")}</h2>
-      <p class="exp-narrative">{t("exp.narrative")}</p>
     </div>
     <ol class="timeline" role="list">
       {roles.map((role) => (
         <li class="tl-item">
-          <div class="tl-date">
-            {role.date}
-            {role.isCurrent && <span class="now">{t("exp.now")}</span>}
-          </div>
+          <div class="tl-date">{fmt(role.start)} — {role.end ? fmt(role.end) : t("exp.present")}</div>
           <div class="tl-role">
             <div class="top">
               <h3>{t(role.titleKey)}</h3>

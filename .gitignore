@@ -3,6 +3,8 @@ dist/
 
 # generated types
 .astro/
+.astro-temp/
+test-results/
 
 # dependencies
 node_modules/
@@ -22,3 +24,9 @@ pnpm-debug.log*
 
 # AI tooling registry
 .atl/
+.claude/
+CLAUDE.md
+openspec/
+
+# Vercel
+.vercel/

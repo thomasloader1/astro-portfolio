@@ -1,15 +1,15 @@
 ---
-import i18next, { t } from "i18next";
+import { t } from "i18next";
 ---
 
-<section class="hero" aria-label={i18next.language === "es" ? "Presentación" : "Introduction"}>
+<section class="hero" aria-label={t("hero.ariaSection")}>
   <div class="container">
     <div class="hero-content">
       
       <div class="flex items-center justify-center gap-3 mb-4">
         <img src="https://avatars.githubusercontent.com/u/42984450?v=4" alt="Tomas Gomez Profile" class="rounded-full w-40">
         <div class="text-left">
-          <h1 class="font-bold text-5xl mb-1"><span class="hero-name">{t("hero.name")}</span></h1>
+          <h1><span class="hero-name">{t("hero.name")}</span></h1>
         <span class="eyebrow">{t("hero.role")}</span>
         </div>
       </div>
@@ -17,16 +17,14 @@ import i18next, { t } from "i18next";
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">{t("hero.ctaContact")}</a>
         <a href="#projects" class="btn btn-ghost">{t("hero.ctaProjects")}</a>
+       
       </div>
-      <div class="stat-row" aria-label={i18next.language === "es" ? "Resumen profesional" : "Professional summary"}>
+      <div class="stat-row" aria-label={t("hero.ariaStats")}>
         <div class="stat">
-          <span class="num">5<span class="unit">+</span></span>
+          <span class="num">6<span class="unit">+</span></span>
           <span class="label">{t("hero.stat1")}</span>
         </div>
-        <div class="stat">
-          <span class="num">5</span>
-          <span class="label">{t("hero.stat2")}</span>
-        </div>
+
         <div class="stat">
           <span class="num">30<span class="unit">+</span></span>
           <span class="label">{t("hero.stat3")}</span>
