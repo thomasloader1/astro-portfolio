@@ -9,6 +9,8 @@
  *  4. Spawn msedge --print-to-pdf with 30s timeout per locale.
  *  5. Copy results to public/Downloads/{cv,cv-en}.pdf.
  *  6. Warn on stderr if PUBLIC_CV_EMAIL fallback was used.
+ *  7. On CI (Vercel/Linux) without a Chromium binary: skip generation and
+ *     reuse the committed public/Downloads PDFs (exit 0).
  *
  * Invoked by `pnpm build` via the npm `prebuild` hook in package.json.
  * Must NOT spawn Edge when called outside `pnpm build` for verification
@@ -173,6 +175,17 @@ async function main() {
     console.error(
       `[cv-build] msedge not found. Tried: ${tried}. Set EDGE_PATH or install Edge.`,
     );
+    // CI/Vercel build images (Linux) have no Edge/Chrome. The PDFs are
+    // committed in public/Downloads, so skip generation and let Astro copy
+    // the committed files. Locally this stays a hard error so the developer
+    // notices missing PDFs.
+    const isCi = Boolean(process.env.CI || process.env.VERCEL);
+    if (isCi) {
+      console.error(
+        `[cv-build] CI detected; skipping CV PDF generation. Committed public/Downloads PDFs will be used as-is.`,
+      );
+      process.exit(0);
+    }
     process.exit(2);
   }
   console.error(`[cv-build] using Edge: ${edge.bin} (via ${edge.via})`);
