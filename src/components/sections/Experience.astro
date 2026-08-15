@@ -1,5 +1,26 @@
 ---
 import i18next, { t } from "i18next";
+import {
+  siDotnet,
+  siCsharp,
+  siReact,
+  siTypescript,
+  siMicrosoftsqlserver,
+  siLaravel,
+  siPhp,
+  siNextdotjs,
+  siPython,
+  siMysql,
+  siLinux,
+  siCakephp,
+  siWordpress,
+  siJquery,
+  siAmazonwebservices,
+  siJavascript,
+  siGnubash,
+  siRundeck,
+  siWindows,
+} from "simple-icons";
 
 interface Role {
   titleKey: string;
@@ -59,6 +80,31 @@ const roles: Role[] = [
   },
 ];
 
+// simple-icons dropped some brand icons in newer releases (C#, SQL Server,
+// AWS, Windows), so the version is pinned to 12.4.0 which still ships them.
+// Slim Framework has no simple-icons entry at all — it renders text-only.
+const TECH_ICONS: Record<string, { path: string }> = {
+  ".NET Core 8": siDotnet,
+  "C#": siCsharp,
+  React: siReact,
+  TypeScript: siTypescript,
+  "SQL Server": siMicrosoftsqlserver,
+  Laravel: siLaravel,
+  PHP: siPhp,
+  "Next.js": siNextdotjs,
+  Python: siPython,
+  MySQL: siMysql,
+  Linux: siLinux,
+  CakePHP: siCakephp,
+  WordPress: siWordpress,
+  jQuery: siJquery,
+  AWS: siAmazonwebservices,
+  JavaScript: siJavascript,
+  Bash: siGnubash,
+  Rundeck: siRundeck,
+  Windows: siWindows,
+};
+
 const dateFmt = new Intl.DateTimeFormat(i18next.language, { month: "short", year: "numeric" });
 const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`));
 ---
@@ -80,11 +126,24 @@ const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`)
             </div>
             <p class="company-context">{t(role.contextKey)}</p>
             <p class="role-core">{t(role.coreKey)}</p>
-            <div class="techs">
-              {role.techs.map((tech) => (
-                <span>{tech}</span>
-              ))}
-            </div>
+          </div>
+          <div class="tl-stack">
+            <h4 class="tl-stack-title">{t("exp.stack")}</h4>
+            <ul class="tl-stack-list" role="list">
+              {role.techs.map((tech) => {
+                const icon = TECH_ICONS[tech];
+                return (
+                  <li class="tl-stack-item">
+                    {icon && (
+                      <svg class="tl-stack-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d={icon.path} />
+                      </svg>
+                    )}
+                    <span>{tech}</span>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </li>
       ))}
