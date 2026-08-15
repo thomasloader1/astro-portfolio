@@ -364,31 +364,10 @@ function setupContactModal(): void {
 	});
 }
 
-function setupNavCvVisibility(): void {
-	// The nav's download button is redundant once the contact section — which
-	// has its own CV download button — is on screen, so hide it there. The
-	// pulse CTA (scrolls down to #contact) stays visible.
-	const nav = document.querySelector<HTMLElement>(".site-nav");
-	const cvBtn = document.querySelector<HTMLAnchorElement>(".nav-cta.nav-cv");
-	const contact = document.getElementById("contact");
-	if (!nav || !cvBtn || !contact) return; // 404 pages render no nav/section
-
-	const observer = new IntersectionObserver(
-		(entries) => {
-			const visible = entries.some((e) => e.isIntersecting);
-			nav.classList.toggle("is-contact-visible", visible);
-			cvBtn.setAttribute("aria-hidden", visible ? "true" : "false");
-		},
-		{ rootMargin: "0px", threshold: 0.05 }
-	);
-	observer.observe(contact);
-}
-
 setupSkipLink();
 setupNavToggle();
 setupThemeToggle();
 setupScrollTracking();
 setupNavScrollState();
-setupNavCvVisibility();
 setupLangToggle();
 setupContactModal();
