@@ -897,8 +897,8 @@ html.dark .theme-toggle .moon-icon { display: none; }
   background: var(--surface-warm);
 }
 .tl-stack-icon {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   opacity: 0.55;
   transform: scale(0.9) translateY(1px);
@@ -906,7 +906,7 @@ html.dark .theme-toggle .moon-icon { display: none; }
 }
 .tl-stack-item:hover .tl-stack-icon {
   opacity: 1;
-  transform: scale(1.15) translateY(0);
+  transform: scale(1.05) translateY(0);
 }
 
 /* --- Project grid --- */
