@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "node scripts/build-cv.mjs",
+    "prebuild": "node scripts/cv-build.mjs",
     "build": "astro check && astro build",
     "build:cv:docker": "node scripts/cv-pdf-docker.mjs",
     "build:cv:verify": "node scripts/verify-cv-pdf.mjs",

@@ -1,8 +1,7 @@
 # Image for containerized CV PDF generation (scripts/cv-pdf-docker.mjs).
 # Ships a Chromium-class browser so `scripts/build-cv.mjs` runs with no
 # Chrome/Edge installed on the host. The repo is bind-mounted at /work at
-# run time (deps come from the host checkout's node_modules), so no
-# package installation is baked in here.
+# run time, so the image is independent of the host's node_modules.
 FROM node:24-bookworm-slim
 
 RUN apt-get update \
@@ -11,6 +10,17 @@ RUN apt-get update \
        fonts-liberation \
        ca-certificates \
   && rm -rf /var/lib/apt/lists/*
+
+# CV fonts are baked into the image (versions pinned to the repo lockfile) so
+# the rendered PDF never depends on the host's node_modules. Without them the
+# renderer silently falls back to Liberation/DejaVu system fonts, which changes
+# the typography without raising any error.
+ENV CV_FONT_ROOT=/opt/cv-fonts/node_modules/@fontsource
+
+RUN npm install --prefix /opt/cv-fonts --no-audit --no-fund --loglevel=error \
+      @fontsource/inter@5.3.0 \
+      @fontsource/cormorant-garamond@5.2.11 \
+  && npm cache clean --force
 
 # Defaults so a bare `docker run` works; callers may override either.
 # Chromium needs --no-sandbox inside unprivileged containers (no user

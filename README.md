@@ -51,31 +51,45 @@ All commands run from the root with pnpm:
 ## CV PDF generation
 
 `pnpm build` regenerates `public/Downloads/cv.pdf` / `cv-en.pdf` via the `prebuild`
-hook (`scripts/build-cv.mjs`): it renders localized HTML (`scripts/cv-render.mjs`)
-and prints it to PDF with headless Edge/Chrome.
+hook (`scripts/cv-build.mjs`), which resolves the browser like this:
 
-To generate the PDFs **without installing a browser on the host**, use the
-containerized build:
+1. **Host browser** — Edge/Chrome/Chromium found on the host: the PDF is
+   rendered directly (`scripts/build-cv.mjs`).
+2. **No host browser** — the build falls back to the containerized render
+   (`scripts/cv-pdf-docker.mjs`), so no browser has to be installed on the
+   machine. This is the normal path on CI and on any host without a browser.
+3. **CI/Vercel without a browser** — generation is skipped and the committed
+   `public/Downloads/*.pdf` are used as-is (Vercel has neither Docker nor a
+   browser).
+
+To force the containerized render:
 
 ```bash
 pnpm build:cv:docker   # = node scripts/cv-pdf-docker.mjs
 ```
 
-- Builds `Dockerfile.cv` (Node 24 + Debian Chromium) and runs `scripts/build-cv.mjs`
-  inside it with the repo bind-mounted at `/work`; PDFs land in `public/Downloads/`.
+- Builds `Dockerfile.cv` (Node 24 + Debian Chromium + the CV webfonts) and
+  runs `scripts/build-cv.mjs` inside it with the repo bind-mounted at `/work`;
+  the PDFs land in `public/Downloads/` of the host checkout.
 - Works on any host OS with Docker and in CI — `.github/workflows/cv-pdf.yml`
   runs the same containerized build on push to CV sources and uploads the PDFs
-  as artifacts (on Vercel, where no browser exists, `build-cv.mjs` still skips
-  generation and ships the committed PDFs).
-- Browser resolution order: `EDGE_PATH` → standard Windows Edge paths →
-  `msedge`/`chrome`/`chromium`/`chromium-browser`/`google-chrome` on `PATH`.
-  Extra Chromium flags can be passed via `EDGE_EXTRA_ARGS` (the container sets
-  `--no-sandbox --disable-dev-shm-usage` by default).
-- CV fonts come from the local `@fontsource` packages via `@font-face`
-  (`file://` URLs resolved at runtime), so output is identical across hosts.
+  as artifacts. That job needs **no dependency install**: the image ships
+  Chromium and the fonts.
+- Browser resolution inside the container: `EDGE_PATH` (set by the image to
+  `/usr/bin/chromium`, override with `CV_PDF_EDGE_PATH`) → `msedge`/`chrome`/
+  `chromium`/`chromium-browser`/`google-chrome` on `PATH`. Extra Chromium flags
+  can be passed via `EDGE_EXTRA_ARGS` (the image sets `--no-sandbox
+  --disable-dev-shm-usage` by default).
+- The CV fonts (`Inter`, `Cormorant Garamond`) are embedded via `@font-face`
+  with `file://` URLs resolved at runtime: from `CV_FONT_ROOT` (the fonts baked
+  into the image) or from the local `@fontsource` packages. If they cannot be
+  found the generation aborts instead of silently falling back to system
+  fonts, so the output is identical across hosts.
 - The generated files are validated right after the run (`scripts/verify-cv-pdf.mjs`):
   a missing, truncated or wrong-page-size PDF fails the command and the CI job
-  instead of being shipped as a download.
+  instead of being shipped as a download. The wrapper also checks that the
+  container really rewrote the files, so a broken container can never pass by
+  reusing the committed PDFs.
 
 ## i18n model
 

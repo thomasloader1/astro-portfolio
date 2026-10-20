@@ -5,6 +5,7 @@ on:
     branches: [main, freelance-rebrand]
     paths:
       - "scripts/build-cv.mjs"
+      - "scripts/cv-build.mjs"
       - "scripts/cv-data.mjs"
       - "scripts/cv-render.mjs"
       - "scripts/cv-pdf-docker.mjs"
@@ -15,6 +16,7 @@ on:
   pull_request:
     paths:
       - "scripts/build-cv.mjs"
+      - "scripts/cv-build.mjs"
       - "scripts/cv-data.mjs"
       - "scripts/cv-render.mjs"
       - "scripts/cv-pdf-docker.mjs"
@@ -39,19 +41,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      # Docker builds the Chromium image; no browser is installed on the runner.
+      # Docker builds the Chromium image (which also ships the CV webfonts);
+      # no browser and no dependency install are needed on the runner.
       - name: Generate CV PDFs in Docker
         run: node scripts/cv-pdf-docker.mjs
 

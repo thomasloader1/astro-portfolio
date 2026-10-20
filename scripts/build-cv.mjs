@@ -10,7 +10,12 @@
  *  5. Copy results to public/Downloads/{cv,cv-en}.pdf.
  *  6. Warn on stderr if PUBLIC_CV_EMAIL fallback was used.
  *  7. On CI (Vercel/Linux) without a Chromium binary: skip generation and
- *     reuse the committed public/Downloads PDFs (exit 0).
+ *     reuse the committed public/Downloads PDFs (exit 0). Set CV_PDF_FORCE=1
+ *     to disable that skip (the containerized build always forces a real
+ *     generation).
+ *
+ * Exit codes: 0 ok · 2 no browser found · 3 broken input (missing
+ * translations) · 1 render failure.
  *
  * Container mode: run inside Docker via scripts/cv-pdf-docker.mjs (image
  * Dockerfile.cv ships Chromium). The binary is resolved with EDGE_PATH and
@@ -37,6 +42,10 @@ const OUTPUT_DIR = path.join(ROOT, "public", "Downloads");
 
 const LOCALES = ["es", "en"];
 const RENDER_TIMEOUT_MS = 30_000;
+
+// Exit codes (kept stable so scripts/cv-build.mjs can react to them).
+const EXIT_NO_BROWSER = 2; // no Chromium-class binary found
+const EXIT_BAD_INPUT = 3; // missing translation file / broken input
 
 /**
  * Locate a headless Chromium-class binary. Tries in order:
@@ -191,14 +200,25 @@ async function main() {
     // committed in public/Downloads, so skip generation and let Astro copy
     // the committed files. Locally this stays a hard error so the developer
     // notices missing PDFs.
+    //
+    // CV_PDF_FORCE (set by scripts/cv-pdf-docker.mjs) disables the skip: the
+    // containerized build MUST regenerate the PDFs, otherwise a broken
+    // container would silently ship the committed ones and the CI job would
+    // go green without producing anything.
     const isCi = Boolean(process.env.CI || process.env.VERCEL);
-    if (isCi) {
+    const force = Boolean(process.env.CV_PDF_FORCE);
+    if (isCi && !force) {
       console.error(
         `[cv-build] CI detected; skipping CV PDF generation. Committed public/Downloads PDFs will be used as-is.`,
       );
       process.exit(0);
     }
-    process.exit(2);
+    if (force) {
+      console.error(
+        `[cv-build] CV_PDF_FORCE is set and no browser was found — failing instead of reusing the committed PDFs.`,
+      );
+    }
+    process.exit(EXIT_NO_BROWSER);
   }
   console.error(`[cv-build] using Edge: ${edge.bin} (via ${edge.via})`);
 
@@ -208,7 +228,7 @@ async function main() {
     const file = path.join(LOCALE_DIR, locale, "translation.json");
     if (!existsSync(file)) {
       console.error(`[cv-build] missing translation file: ${file}`);
-      process.exit(2);
+      process.exit(EXIT_BAD_INPUT);
     }
     translations[locale] = JSON.parse(readFileSync(file, "utf8"));
   }

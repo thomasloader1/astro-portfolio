@@ -7,6 +7,7 @@
  */
 import { existsSync } from "node:fs";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 /**
@@ -211,29 +212,62 @@ const CV_FONTS = [
 ];
 
 /**
- * Emit @font-face rules + preload tags for the locally installed @fontsource
- * font files.
+ * Root directory that contains the @fontsource packages with the CV webfonts.
  *
- * Paths are computed at runtime from this script's location, so the renderer
- * works on any host OS and inside the Dockerfile.cv container (repo mounted
- * at a different root) — this replaces the previous hard-coded Windows path.
- * The @font-face rules make the rendered PDF use the same webfonts the site
- * ships regardless of what is installed system-wide, keeping output
- * machine-independent (previously fonts only applied if the host had them
- * installed globally). If the packages are missing, no tags are emitted and
- * rendering falls back to system fonts.
+ * Resolution order:
+ *   1. `CV_FONT_ROOT` — set by Dockerfile.cv to the fonts baked into the image
+ *      (`/opt/cv-fonts/node_modules/@fontsource`), so the containerized build
+ *      does not depend on the host's node_modules.
+ *   2. `<repo>/node_modules/@fontsource` — the host checkout after
+ *      `pnpm install`.
  */
-function fontTags() {
-  const fontsRoot = path.resolve(
+export function cvFontRoot() {
+  const fromEnv = (process.env.CV_FONT_ROOT || "").trim();
+  if (fromEnv) return fromEnv;
+  return path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
     "..",
     "node_modules",
     "@fontsource",
   );
+}
+
+/**
+ * Emit @font-face rules + preload tags for the locally installed @fontsource
+ * font files.
+ *
+ * Paths are computed at runtime (see cvFontRoot), so the renderer works on
+ * any host OS and inside the Dockerfile.cv container (repo mounted at a
+ * different root) — this replaces the previous hard-coded Windows path.
+ * The @font-face rules make the rendered PDF use the same webfonts the site
+ * ships regardless of what is installed system-wide, keeping output
+ * machine-independent (previously fonts only applied if the host had them
+ * installed globally).
+ *
+ * When the fonts cannot be found the render is aborted: falling back to
+ * system fonts silently changes the typography of the PDF (and its size) with
+ * no error, which is exactly the kind of drift this script must prevent.
+ */
+function fontTags() {
+  const fontsRoot = cvFontRoot();
   const installed = CV_FONTS.filter((f) =>
     existsSync(path.join(fontsRoot, f.pkg, "files", f.file)),
   );
-  if (installed.length === 0) return "";
+  const missing = CV_FONTS.filter((f) => !installed.includes(f));
+
+  if (installed.length === 0) {
+    throw new Error(
+      `CV fonts not found under ${fontsRoot}. The PDF would be rendered with fallback ` +
+        `system fonts (different typography), so generation was aborted. Fix it with ` +
+        "`pnpm install` (host checkout) or use the containerized build " +
+        "(`pnpm build:cv:docker`), whose image ships the fonts.",
+    );
+  }
+  if (missing.length > 0) {
+    console.error(
+      `[cv-render] missing CV fonts in ${fontsRoot}: ${missing.map((f) => f.file).join(", ")}`,
+    );
+  }
 
   const fileUrl = (f) =>
     "file:///" +
