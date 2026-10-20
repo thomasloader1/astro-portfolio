@@ -5,3 +5,6 @@ README.md
 .pnpm-store
 dist
 build
+.git
+test-results
+.astro-temp

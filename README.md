@@ -42,9 +42,40 @@ All commands run from the root with pnpm:
 | Command | Action |
 |---|---|
 | `pnpm dev` | Start dev server at `localhost:4321` |
-| `pnpm build` | Type-check + build: `astro check && astro build` |
+| `pnpm build` | Type-check + build: `astro check && astro build` (the `prebuild` hook regenerates the CV PDFs) |
+| `pnpm build:cv:docker` | Regenerate the CV PDFs inside Docker (no browser needed on the host) |
+| `pnpm build:cv:verify` | Check the generated CV PDFs (valid PDF, A4, non-empty) |
 | `pnpm preview` | Preview the production build |
 | `pnpm astro ...` | Run Astro CLI commands |
+
+## CV PDF generation
+
+`pnpm build` regenerates `public/Downloads/cv.pdf` / `cv-en.pdf` via the `prebuild`
+hook (`scripts/build-cv.mjs`): it renders localized HTML (`scripts/cv-render.mjs`)
+and prints it to PDF with headless Edge/Chrome.
+
+To generate the PDFs **without installing a browser on the host**, use the
+containerized build:
+
+```bash
+pnpm build:cv:docker   # = node scripts/cv-pdf-docker.mjs
+```
+
+- Builds `Dockerfile.cv` (Node 24 + Debian Chromium) and runs `scripts/build-cv.mjs`
+  inside it with the repo bind-mounted at `/work`; PDFs land in `public/Downloads/`.
+- Works on any host OS with Docker and in CI — `.github/workflows/cv-pdf.yml`
+  runs the same containerized build on push to CV sources and uploads the PDFs
+  as artifacts (on Vercel, where no browser exists, `build-cv.mjs` still skips
+  generation and ships the committed PDFs).
+- Browser resolution order: `EDGE_PATH` → standard Windows Edge paths →
+  `msedge`/`chrome`/`chromium`/`chromium-browser`/`google-chrome` on `PATH`.
+  Extra Chromium flags can be passed via `EDGE_EXTRA_ARGS` (the container sets
+  `--no-sandbox --disable-dev-shm-usage` by default).
+- CV fonts come from the local `@fontsource` packages via `@font-face`
+  (`file://` URLs resolved at runtime), so output is identical across hosts.
+- The generated files are validated right after the run (`scripts/verify-cv-pdf.mjs`):
+  a missing, truncated or wrong-page-size PDF fails the command and the CI job
+  instead of being shipped as a download.
 
 ## i18n model
 

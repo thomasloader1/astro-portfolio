@@ -1,0 +1,22 @@
+# Image for containerized CV PDF generation (scripts/cv-pdf-docker.mjs).
+# Ships a Chromium-class browser so `scripts/build-cv.mjs` runs with no
+# Chrome/Edge installed on the host. The repo is bind-mounted at /work at
+# run time (deps come from the host checkout's node_modules), so no
+# package installation is baked in here.
+FROM node:24-bookworm-slim
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+       chromium \
+       fonts-liberation \
+       ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# Defaults so a bare `docker run` works; callers may override either.
+# Chromium needs --no-sandbox inside unprivileged containers (no user
+# namespaces) and --disable-dev-shm-usage because /dev/shm is tiny (64 MB).
+ENV EDGE_PATH=/usr/bin/chromium \
+    EDGE_EXTRA_ARGS="--no-sandbox --disable-dev-shm-usage"
+
+WORKDIR /work
+ENTRYPOINT ["node", "scripts/build-cv.mjs"]

@@ -10,6 +10,8 @@
     "start": "astro dev",
     "prebuild": "node scripts/build-cv.mjs",
     "build": "astro check && astro build",
+    "build:cv:docker": "node scripts/cv-pdf-docker.mjs",
+    "build:cv:verify": "node scripts/verify-cv-pdf.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "gen:translations": "npx astro-i18next generate",

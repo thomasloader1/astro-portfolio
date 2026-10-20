@@ -12,6 +12,11 @@
  *  7. On CI (Vercel/Linux) without a Chromium binary: skip generation and
  *     reuse the committed public/Downloads PDFs (exit 0).
  *
+ * Container mode: run inside Docker via scripts/cv-pdf-docker.mjs (image
+ * Dockerfile.cv ships Chromium). The binary is resolved with EDGE_PATH and
+ * container-only flags (--no-sandbox, --disable-dev-shm-usage) are injected
+ * via EDGE_EXTRA_ARGS, so the host needs no browser installed.
+ *
  * Invoked by `pnpm build` via the npm `prebuild` hook in package.json.
  * Must NOT spawn Edge when called outside `pnpm build` for verification
  * unless the caller intentionally wants PDFs generated.
@@ -38,8 +43,8 @@ const RENDER_TIMEOUT_MS = 30_000;
  *  1. process.env.EDGE_PATH
  *  2. C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
  *  3. C:\Program Files\Microsoft\Edge\Application\msedge.exe
- *  4. `msedge` on PATH (via `where` on Windows / `which` elsewhere)
- *  5. `chrome` on PATH
+ *  4. `msedge`, `chrome`, `chromium`, `chromium-browser` or `google-chrome`
+ *     on PATH (via `where` on Windows / `which` elsewhere)
  * Returns { bin, via } on success or { error: tried[] } on failure.
  */
 async function detectEdgeAsync() {
@@ -57,8 +62,10 @@ async function detectEdgeAsync() {
     tried.push(c);
   }
 
-  // Fallback: spawn `where` (Windows) / `which` to find msedge/chrome on PATH.
-  const names = ["msedge", "chrome"];
+  // Fallback: spawn `where` (Windows) / `which` to find a Chromium-class
+  // binary on PATH. Covers Windows Edge, macOS/Linux Chrome and the Debian
+  // Chromium shipped in the Dockerfile.cv build image.
+  const names = ["msedge", "chrome", "chromium", "chromium-browser", "google-chrome"];
   for (const name of names) {
     const isWin = process.platform === "win32";
     const cmd = isWin ? "where" : "which";
@@ -113,7 +120,7 @@ async function generatePdf(locale, edge, html, outputPath) {
   }
 
   // file:// URL with forward slashes (Edge accepts both, but be explicit).
-  const fileUrl = "file:///" + htmlPath.replace(/\\/g, "/");
+  const fileUrl = "file:///" + htmlPath.replace(/\\/g, "/").replace(/^\//, "");
 
   const args = [
     "--headless",
@@ -123,6 +130,11 @@ async function generatePdf(locale, edge, html, outputPath) {
     "--virtual-time-budget=10000",
     fileUrl,
   ];
+
+  // Container/CI hardening: callers (scripts/cv-pdf-docker.mjs, CI jobs) can
+  // inject extra Chromium flags, e.g. --no-sandbox --disable-dev-shm-usage.
+  const extraArgs = (process.env.EDGE_EXTRA_ARGS ?? "").split(/\s+/).filter(Boolean);
+  args.push(...extraArgs);
 
   return new Promise((resolve, reject) => {
     const child = spawn(edge.bin, args, { stdio: ["ignore", "pipe", "pipe"], shell: false });

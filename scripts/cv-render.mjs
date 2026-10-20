@@ -5,6 +5,9 @@
  *
  * @see scripts/build-cv.mjs
  */
+import { existsSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 /**
  * Escape user-controlled strings before inlining them into HTML.
@@ -195,22 +198,63 @@ section h3 {
 `;
 
 /**
- * Resolve absolute paths to the locally installed @fontsource font files.
- * When Edge renders the HTML with file:// URLs, it can fetch fonts from
- * the local filesystem via these absolute paths.
+ * Fonts used by the CV, mapped to the locally installed @fontsource packages.
+ * Weights/styles cover every font-family/weight pair used in CV_STYLE.
  */
-function fontPreloadTags() {
-  // node_modules paths are resolved at runtime via import.meta.resolve-like
-  // semantics. Since we cannot use import.meta.resolve in a .mjs without
-  // a build step, we hard-code the package layout (these files exist when
-  // @fontsource is installed in node_modules).
-  const fontsRoot = "C:/dev/astro-portfolio/node_modules/@fontsource";
-  return [
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/cormorant-garamond/files/cormorant-garamond-latin-300-italic.woff2" as="font" type="font/woff2" crossorigin>`,
-  ].join("\n    ");
+const CV_FONTS = [
+  { family: "Inter", pkg: "inter", file: "inter-latin-400-normal.woff2", weight: 400, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-500-normal.woff2", weight: 500, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-600-normal.woff2", weight: 600, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-700-normal.woff2", weight: 700, style: "normal" },
+  { family: "Cormorant Garamond", pkg: "cormorant-garamond", file: "cormorant-garamond-latin-600-normal.woff2", weight: 600, style: "normal" },
+  { family: "Cormorant Garamond", pkg: "cormorant-garamond", file: "cormorant-garamond-latin-300-italic.woff2", weight: 300, style: "italic" },
+];
+
+/**
+ * Emit @font-face rules + preload tags for the locally installed @fontsource
+ * font files.
+ *
+ * Paths are computed at runtime from this script's location, so the renderer
+ * works on any host OS and inside the Dockerfile.cv container (repo mounted
+ * at a different root) — this replaces the previous hard-coded Windows path.
+ * The @font-face rules make the rendered PDF use the same webfonts the site
+ * ships regardless of what is installed system-wide, keeping output
+ * machine-independent (previously fonts only applied if the host had them
+ * installed globally). If the packages are missing, no tags are emitted and
+ * rendering falls back to system fonts.
+ */
+function fontTags() {
+  const fontsRoot = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "..",
+    "node_modules",
+    "@fontsource",
+  );
+  const installed = CV_FONTS.filter((f) =>
+    existsSync(path.join(fontsRoot, f.pkg, "files", f.file)),
+  );
+  if (installed.length === 0) return "";
+
+  const fileUrl = (f) =>
+    "file:///" +
+    path
+      .join(fontsRoot, f.pkg, "files", f.file)
+      .replace(/\\/g, "/")
+      .replace(/^\//, "");
+
+  const faces = installed
+    .map(
+      (f) =>
+        `@font-face { font-family: "${f.family}"; font-style: ${f.style}; font-weight: ${f.weight}; src: url("${fileUrl(f)}") format("woff2"); }`,
+    )
+    .join("\n  ");
+  const preloads = installed
+    .map(
+      (f) =>
+        `<link rel="preload" href="${fileUrl(f)}" as="font" type="font/woff2" crossorigin>`,
+    )
+    .join("\n    ");
+  return `<style>\n  ${faces}\n</style>\n    ${preloads}`;
 }
 
 /**
@@ -307,7 +351,7 @@ export function renderCvHtml(locale, data, t) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title}</title>
-    ${fontPreloadTags()}
+    ${fontTags()}
     <style>${CV_STYLE}</style>
   </head>
   <body>
