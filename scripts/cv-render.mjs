@@ -201,6 +201,8 @@ section h3 {
 /**
  * Fonts used by the CV, mapped to the locally installed @fontsource packages.
  * Weights/styles cover every font-family/weight pair used in CV_STYLE.
+ * The italic faces are synthesised by the renderer from the regular ones, so
+ * only the roman weights are declared here.
  */
 const CV_FONTS = [
   { family: "Inter", pkg: "inter", file: "inter-latin-400-normal.woff2", weight: 400, style: "normal" },
@@ -208,7 +210,6 @@ const CV_FONTS = [
   { family: "Inter", pkg: "inter", file: "inter-latin-600-normal.woff2", weight: 600, style: "normal" },
   { family: "Inter", pkg: "inter", file: "inter-latin-700-normal.woff2", weight: 700, style: "normal" },
   { family: "Cormorant Garamond", pkg: "cormorant-garamond", file: "cormorant-garamond-latin-600-normal.woff2", weight: 600, style: "normal" },
-  { family: "Cormorant Garamond", pkg: "cormorant-garamond", file: "cormorant-garamond-latin-300-italic.woff2", weight: 300, style: "italic" },
 ];
 
 /**
@@ -246,7 +247,8 @@ export function cvFontRoot() {
  *
  * When the fonts cannot be found the render is aborted: falling back to
  * system fonts silently changes the typography of the PDF (and its size) with
- * no error, which is exactly the kind of drift this script must prevent.
+ * no error, which is exactly the kind of drift this script must prevent. The
+ * same applies to a partially available set of weights.
  */
 function fontTags() {
   const fontsRoot = cvFontRoot();
@@ -255,17 +257,12 @@ function fontTags() {
   );
   const missing = CV_FONTS.filter((f) => !installed.includes(f));
 
-  if (installed.length === 0) {
-    throw new Error(
-      `CV fonts not found under ${fontsRoot}. The PDF would be rendered with fallback ` +
-        `system fonts (different typography), so generation was aborted. Fix it with ` +
-        "`pnpm install` (host checkout) or use the containerized build " +
-        "(`pnpm build:cv:docker`), whose image ships the fonts.",
-    );
-  }
   if (missing.length > 0) {
-    console.error(
-      `[cv-render] missing CV fonts in ${fontsRoot}: ${missing.map((f) => f.file).join(", ")}`,
+    throw new Error(
+      `CV fonts missing under ${fontsRoot}: ${missing.map((f) => f.file).join(", ")}. ` +
+        `The PDF would be rendered with fallback system fonts (different typography), ` +
+        `so generation was aborted. Fix it with \`pnpm install\` (host checkout) or ` +
+        `use the containerized build (\`pnpm build:cv:docker\`), whose image ships the fonts.`,
     );
   }
 
