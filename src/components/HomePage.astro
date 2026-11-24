@@ -1,0 +1,37 @@
+---
+// Landing page body shared by every locale. The page file sets the language
+// (changeLanguage) before rendering this, so all t() calls resolve correctly.
+import Layout from "../layouts/Layout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import Hero from "./sections/Hero.astro";
+import About from "./sections/About.astro";
+import Experience from "./sections/Experience.astro";
+import Projects from "./sections/Projects.astro";
+import Services from "./sections/Services.astro";
+import Process from "./sections/Process.astro";
+import Contact from "./sections/Contact.astro";
+---
+
+<Layout title="site.title" description="site.description">
+  <Nav />
+
+  <main id="main">
+    <Hero />
+    <div class="section-shift--warm">
+      <Services />
+    </div>
+    <Projects />
+    <Experience />
+    <!-- Closing block: About on top, then Process and Contact side by side
+         (2 columns from 1024px, stacked below), all on one warm band. -->
+    <div class="finale">
+      <div class="container section-pair">
+        <Process />
+        <Contact />
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

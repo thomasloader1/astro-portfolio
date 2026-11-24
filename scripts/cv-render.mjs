@@ -292,7 +292,7 @@ function fontTags() {
  * Render the localized CV HTML for headless rendering.
  *
  * @param {string} locale  "es" | "en"
- * @param {object} data    cvData from src/data/cv.ts
+ * @param {object} data    cvData from scripts/cv-data.mjs
  * @param {object} t       translations for the locale (parsed translation.json)
  * @returns {string} Full HTML5 document
  */

@@ -19,7 +19,7 @@ ENV CV_FONT_ROOT=/opt/cv-fonts/node_modules/@fontsource
 
 RUN npm install --prefix /opt/cv-fonts --no-audit --no-fund --loglevel=error \
       @fontsource/inter@5.3.0 \
-      @fontsource/cormorant-garamond@5.2.11 \
+      @fontsource/cormorant-garamond@5.3.0 \
   && npm cache clean --force
 
 # Defaults so a bare `docker run` works; callers may override either.

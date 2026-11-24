@@ -1,0 +1,17 @@
+---
+// 404 body shared by every locale; the page file sets the language first.
+import i18next, { t } from "i18next";
+import Layout from "../layouts/Layout.astro";
+
+const homeHref = i18next.language === "en" ? "/en/" : "/";
+---
+
+<Layout title="404.title" description="404.message" noindex>
+  <main id="main" class="not-found">
+    <div class="container">
+      <h1>404</h1>
+      <p>{t("404.message")}</p>
+      <a href={homeHref} class="btn btn-primary">{t("404.back")}</a>
+    </div>
+  </main>
+</Layout>

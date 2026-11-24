@@ -21,64 +21,18 @@ import {
   siRundeck,
   siWindows,
 } from "simple-icons";
+import { cvData } from "../../../scripts/cv-data.mjs";
 
-interface Role {
-  titleKey: string;
-  company: string;
-  contextKey: string;
-  coreKey: string;
-  start: string;
-  end: string | null;
-  techs: string[];
-}
-
-const roles: Role[] = [
-  {
-    titleKey: "exp.r1Title",
-    company: "Solutica",
-    contextKey: "exp.r1Context",
-    coreKey: "exp.r1Core",
-    start: "2024-09",
-    end: null,
-    techs: [".NET Core 8", "C#", "React", "TypeScript", "SQL Server"],
-  },
-  {
-    titleKey: "exp.r2Title",
-    company: "Medical & Scientific Knowledge",
-    contextKey: "exp.r2Context",
-    coreKey: "exp.leadCore",
-    start: "2023-10",
-    end: "2024-09",
-    techs: ["Laravel", "PHP", "Next.js", "React", "TypeScript", "Python", "MySQL", "Linux"],
-  },
-  {
-    titleKey: "exp.r3Title",
-    company: "Océano Medicina",
-    contextKey: "exp.r3Context",
-    coreKey: "exp.leadCore",
-    start: "2022-01",
-    end: "2023-10",
-    techs: ["Laravel", "PHP", "CakePHP", "React", "WordPress", "MySQL", "Linux"],
-  },
-  {
-    titleKey: "exp.r4Title",
-    company: "Anteojos Negros",
-    contextKey: "exp.r4Context",
-    coreKey: "exp.r4Core",
-    start: "2021-03",
-    end: "2022-01",
-    techs: ["PHP", "Slim Framework", "JavaScript", "jQuery", "AWS", "MySQL"],
-  },
-  {
-    titleKey: "exp.r5Title",
-    company: "Frávega",
-    contextKey: "exp.r5Context",
-    coreKey: "exp.r5Core",
-    start: "2020-03",
-    end: "2021-08",
-    techs: ["Bash", "Rundeck", "Linux", "Windows"],
-  },
-];
+// Single source of truth: the same data feeds the CV PDF (scripts/build-cv.mjs).
+const roles = cvData.experienceMeta.map((meta) => ({
+  titleKey: `exp.${meta.id}Title`,
+  contextKey: `exp.${meta.id}Context`,
+  coreKey: meta.coreKey ?? `exp.${meta.id}Core`,
+  company: meta.company,
+  start: meta.start,
+  end: meta.end,
+  techs: meta.techs,
+}));
 
 // simple-icons dropped some brand icons in newer releases (C#, SQL Server,
 // AWS, Windows), so the version is pinned to 12.4.0 which still ships them.
@@ -105,6 +59,13 @@ const TECH_ICONS: Record<string, { path: string }> = {
   Windows: siWindows,
 };
 
+// Progressive disclosure: the first sentence is always visible, the rest sits
+// behind a native <details>. Copy is unchanged (the CV PDF uses the full text).
+const splitLead = (text: string): { lead: string; rest: string } => {
+  const cut = text.indexOf(". ");
+  return cut > 0 ? { lead: text.slice(0, cut + 1), rest: text.slice(cut + 2) } : { lead: text, rest: "" };
+};
+
 const dateFmt = new Intl.DateTimeFormat(i18next.language, { month: "short", year: "numeric" });
 const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`));
 ---
@@ -112,10 +73,11 @@ const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`)
 <section id="experience" aria-labelledby="exp-title">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">{t("exp.eyebrow")}</span>
       <h2 id="exp-title">{t("exp.title")}</h2>
     </div>
-    <ol class="timeline" role="list">
+    <!-- Collapsed by default when there are more than 3 roles: the 2 latest show,
+         the 3rd fades out, and the toggle below reveals the rest (site.ts). -->
+    <ol class={`timeline${roles.length > 3 ? " is-collapsed" : ""}`} id="exp-timeline" role="list">
       {roles.map((role) => (
         <li class="tl-item">
           <div class="tl-date">{fmt(role.start)} — {role.end ? fmt(role.end) : t("exp.present")}</div>
@@ -125,7 +87,23 @@ const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`)
               <span class="company">{role.company}</span>
             </div>
             <p class="company-context">{t(role.contextKey)}</p>
-            <p class="role-core">{t(role.coreKey)}</p>
+            {(() => {
+              const { lead, rest } = splitLead(t(role.coreKey));
+              return (
+                <>
+                  <p class="role-core">{lead}</p>
+                  {rest && (
+                    <details class="role-more">
+                      <summary>
+                        <span class="role-more__open">{t("exp.more")}</span>
+                        <span class="role-more__close">{t("exp.less")}</span>
+                      </summary>
+                      <p class="role-core">{rest}</p>
+                    </details>
+                  )}
+                </>
+              );
+            })()}
           </div>
           <div class="tl-stack">
             <h4 class="tl-stack-title">{t("exp.stack")}</h4>
@@ -148,5 +126,20 @@ const fmt = (ym: string): string => dateFmt.format(new Date(`${ym}-01T00:00:00`)
         </li>
       ))}
     </ol>
+    {roles.length > 3 && (
+      <div class="tl-toggle-row">
+        <button
+          type="button"
+          class="tl-toggle"
+          data-tl-toggle
+          aria-controls="exp-timeline"
+          aria-expanded="false"
+          data-label-more={`${t("exp.showAll")} (${roles.length})`}
+          data-label-less={t("exp.showLess")}
+        >
+          {t("exp.showAll")} ({roles.length})
+        </button>
+      </div>
+    )}
   </div>
 </section>

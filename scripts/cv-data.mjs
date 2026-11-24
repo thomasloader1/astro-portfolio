@@ -1,7 +1,6 @@
-// MIRROR — keep both in sync.
-// Plain-JS mirror of src/data/cv.ts (sans TypeScript types).
-// Imported directly by scripts/build-cv.mjs to avoid a TS compile step.
-// @see src/data/cv.ts
+// CV data — single source of truth.
+// Read by the site (src/components/sections/Experience.astro) and by the CV
+// PDF build (scripts/build-cv.mjs). Plain JS so Node runs it without a TS step.
 
 function resolveEmail() {
   const fromNode =

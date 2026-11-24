@@ -133,7 +133,8 @@ function setupContactModal(): void {
 
 	if (!modal || !form || !submitBtn || !submitText || !submitLoading || !successEl || !closeBtn) return;
 
-	// i18n translation object (injected by Astro at build time)
+	// Translations for client-side messages. The modal markup itself is already
+	// rendered in the page's language; Layout.astro injects only `contact.modal`.
 	const i18n = (window as any).__i18n ?? {};
 
 	// Guards against double submits while a request is in flight. The submit
@@ -141,55 +142,73 @@ function setupContactModal(): void {
 	// in-flight state is conveyed via aria-busy on the form.
 	let inFlight = false;
 
-	// Helper to get translation with fallback
+	// Looks up a dotted key ("contact.modal.form.error") with a fallback.
 	const t = (key: string, fallback?: string): string => {
-		const keys = key.split(".");
 		let obj: any = i18n;
-		for (const k of keys) {
-			obj = obj?.[k];
-		}
-		return obj ?? fallback ?? key;
+		for (const k of key.split(".")) obj = obj?.[k];
+		return typeof obj === "string" ? obj : fallback ?? key;
 	};
 
-	// Update modal text from i18n
-	const updateModalI18n = (): void => {
-		document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
-			const key = el.getAttribute("data-i18n");
-			if (key) el.textContent = t(key);
+	const clearFieldErrors = (): void => {
+		errorEls.forEach((el) => {
+			el.textContent = "";
+			el.hidden = true;
 		});
-		document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[data-i18n-label]").forEach((el) => {
-			const key = el.getAttribute("data-i18n-label");
-			if (key) el.placeholder = t(key);
-		});
-		document.querySelectorAll<HTMLOptionElement>("option[data-i18n]").forEach((el) => {
-			const key = el.getAttribute("data-i18n");
-			if (key) el.textContent = t(key);
-		});
-		closeBtn.setAttribute("aria-label", t("contact.modal.close"));
+		form.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+	};
+
+	// Shows a message in the status area; errors use the accent color.
+	const showStatus = (message: string, isError: boolean): void => {
+		successEl.textContent = message;
+		successEl.style.color = isError ? "var(--accent)" : "";
+		successEl.hidden = false;
+	};
+
+	// Ends the in-flight state and restores the submit button label.
+	const endRequest = (): void => {
+		inFlight = false;
+		form.removeAttribute("aria-busy");
+		submitText.hidden = false;
+		submitLoading.hidden = true;
 	};
 
 	// Reset form and UI state
 	const resetForm = (): void => {
 		form.reset();
-		errorEls.forEach((el) => {
-			el.textContent = "";
-			el.hidden = true;
-		});
+		clearFieldErrors();
 		successEl.textContent = "";
+		successEl.style.color = "";
 		successEl.hidden = true;
-		submitBtn.disabled = false;
 		submitText.hidden = false;
 		submitLoading.hidden = true;
 	};
 
-	// Show inline error on a specific field
+	const fieldControl = (field: string): HTMLElement | null => {
+		const el = form.elements.namedItem(field);
+		return el instanceof HTMLElement ? el : null;
+	};
+
+	// Show inline error on a specific field and mark it invalid for AT + styling
 	const showFieldError = (field: string, message: string): void => {
 		const errorEl = document.querySelector<HTMLElement>(`[data-contact-error="${field}"]`);
 		if (errorEl) {
 			errorEl.textContent = message;
 			errorEl.hidden = false;
 		}
+		fieldControl(field)?.setAttribute("aria-invalid", "true");
 	};
+
+	// Editing a field clears its own error (not the others)
+	form.addEventListener("input", (e) => {
+		const control = e.target as HTMLElement & { name?: string };
+		if (!control.name || control.getAttribute("aria-invalid") !== "true") return;
+		control.removeAttribute("aria-invalid");
+		const errorEl = document.querySelector<HTMLElement>(`[data-contact-error="${control.name}"]`);
+		if (errorEl) {
+			errorEl.textContent = "";
+			errorEl.hidden = true;
+		}
+	});
 
 	// Client-side validation
 	const validateForm = (formData: FormData): { valid: boolean; errors: Record<string, string> } => {
@@ -212,10 +231,12 @@ function setupContactModal(): void {
 		return { valid: Object.keys(errors).length === 0, errors };
 	};
 
-	// Open modal
+	// Open modal. A draft typed earlier is kept (closing never wipes it); only a
+	// stale status message from a previous attempt is cleared.
 	const openModal = (): void => {
-		updateModalI18n();
-		resetForm();
+		successEl.textContent = "";
+		successEl.style.color = "";
+		successEl.hidden = true;
 		modal.showModal();
 		// Focus first field after modal opens
 		setTimeout(() => {
@@ -224,10 +245,10 @@ function setupContactModal(): void {
 		}, 50);
 	};
 
-	// Close modal
+	// Close modal — keeps whatever the visitor typed so a mis-tap or Esc never
+	// destroys a message. The form is reset only after a successful send.
 	const closeModal = (): void => {
 		modal.close();
-		resetForm();
 	};
 
 	// Event delegation for open buttons
@@ -240,19 +261,11 @@ function setupContactModal(): void {
 		}
 	});
 
-	// Close on backdrop click
+	// Close on backdrop click. The form fills the dialog box, so only a click on
+	// the ::backdrop targets the <dialog> itself. (A coordinate check misfires on
+	// the synthetic click that pressing Enter dispatches, which reports 0,0.)
 	modal.addEventListener("click", (e) => {
-		const rect = modal.getBoundingClientRect();
-		const isInDialog = rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-			rect.left <= e.clientX && e.clientX <= rect.left + rect.width;
-		if (!isInDialog) {
-			closeModal();
-		}
-	});
-
-	// Close on Escape key (native dialog handles this, but ensure form reset)
-	modal.addEventListener("close", () => {
-		resetForm();
+		if (e.target === modal) closeModal();
 	});
 
 	// Close button
@@ -270,16 +283,14 @@ function setupContactModal(): void {
 		const formData = new FormData(form);
 		const { valid, errors } = validateForm(formData);
 
-		// Clear previous errors
-		errorEls.forEach((el) => {
-			el.textContent = "";
-			el.hidden = true;
-		});
+		clearFieldErrors();
+		successEl.hidden = true;
 
 		if (!valid) {
-			inFlight = false;
-			form.removeAttribute("aria-busy");
+			endRequest();
 			Object.entries(errors).forEach(([field, message]) => showFieldError(field, message));
+			// Move focus to the first invalid field so keyboard/SR users land on it
+			fieldControl(Object.keys(errors)[0])?.focus();
 			return;
 		}
 
@@ -299,72 +310,59 @@ function setupContactModal(): void {
 				}),
 			});
 
-			const data = await response.json();
+			const data = await response.json().catch(() => ({}));
 
 			if (response.ok && data.success) {
-				// Success: reset the form FIRST (resetForm wipes the status
-				// element), then show the confirmation so it actually renders.
+				// Reset the form FIRST (resetForm wipes the status element),
+				// then show the confirmation so it actually renders.
 				resetForm();
-				inFlight = false;
-				form.removeAttribute("aria-busy");
-				successEl.textContent = t("contact.modal.form.success", "Thanks! I'll be in touch within 24 hours.");
-				successEl.hidden = false;
-				// Auto-close after 2 seconds
-				setTimeout(() => closeModal(), 2000);
+				endRequest();
+				// Stays visible until the visitor closes the dialog — no timed dismissal.
+				showStatus(t("contact.modal.form.success", "Thanks! I'll be in touch within 24 hours."), false);
 			} else if (response.status === 400 && data.field) {
-				// Validation error from server
-				showFieldError(data.field, data.error);
-				inFlight = false;
-				form.removeAttribute("aria-busy");
-				submitText.hidden = false;
-				submitLoading.hidden = true;
+				// Server validation: `error` is an i18n key (see src/pages/api/contact.ts)
+				endRequest();
+				showFieldError(data.field, t(data.error, t("contact.modal.form.error")));
+				fieldControl(data.field)?.focus();
 			} else if (response.status === 429) {
-				// Rate limit
-				const errorMsg = t("contact.modal.form.errorRateLimit", "Too many requests. Please wait a moment and try again.");
-				successEl.textContent = errorMsg;
-				successEl.style.color = "var(--accent)";
-				successEl.hidden = false;
-				inFlight = false;
-				form.removeAttribute("aria-busy");
-				submitText.hidden = false;
-				submitLoading.hidden = true;
+				endRequest();
+				showStatus(t("contact.modal.form.errorRateLimit", "Too many requests. Please wait a moment and try again."), true);
 			} else {
-				// Server error
-				const errorMsg = t("contact.modal.form.error", "Something went wrong. Please try again.");
-				successEl.textContent = errorMsg;
-				successEl.style.color = "var(--accent)";
-				successEl.hidden = false;
-				inFlight = false;
-				form.removeAttribute("aria-busy");
-				submitText.hidden = false;
-				submitLoading.hidden = true;
+				endRequest();
+				showStatus(t("contact.modal.form.error", "Something went wrong. Please try again."), true);
 			}
 		} catch {
 			// Network error
-			const errorMsg = t("contact.modal.form.error", "Something went wrong. Please try again.");
-			successEl.textContent = errorMsg;
-			successEl.style.color = "var(--accent)";
-			successEl.hidden = false;
-			inFlight = false;
-			form.removeAttribute("aria-busy");
-			submitText.hidden = false;
-			submitLoading.hidden = true;
-		}
-	});
-
-	// Listen for language changes to update modal text
-	window.addEventListener("languagechange", updateModalI18n);
-	// Also listen for the lang toggle click to update if modal is open
-	document.addEventListener("click", (e) => {
-		const target = e.target as HTMLElement;
-		if (target.closest(".lang-btn") && modal.open) {
-			// Small delay for Astro navigation or URL change
-			setTimeout(updateModalI18n, 100);
+			endRequest();
+			showStatus(t("contact.modal.form.error", "Something went wrong. Please try again."), true);
 		}
 	});
 }
 
+// Experience: show the 2 latest roles with the 3rd faded; the toggle reveals all.
+function setupTimelineToggle(): void {
+	const btn = document.querySelector<HTMLButtonElement>("[data-tl-toggle]");
+	const list = btn ? document.getElementById(btn.getAttribute("aria-controls") ?? "") : null;
+	if (!btn || !list) return;
+	// Hidden and faded roles can't take focus or clicks while collapsed.
+	const syncInert = (): void => {
+		const collapsed = list.classList.contains("is-collapsed");
+		[...list.children].forEach((li, i) => ((li as HTMLElement).inert = collapsed && i >= 2));
+	};
+	syncInert();
+	btn.addEventListener("click", () => {
+		const expand = list.classList.contains("is-collapsed");
+		list.classList.toggle("is-collapsed", !expand);
+		syncInert();
+		btn.setAttribute("aria-expanded", expand ? "true" : "false");
+		btn.textContent = (expand ? btn.dataset.labelLess : btn.dataset.labelMore) ?? btn.textContent;
+		// Collapsing from far down: bring the section back so the reader isn't lost.
+		if (!expand) document.getElementById("experience")?.scrollIntoView({ block: "start" });
+	});
+}
+
 setupSkipLink();
+setupTimelineToggle();
 setupNavToggle();
 setupThemeToggle();
 setupScrollTracking();

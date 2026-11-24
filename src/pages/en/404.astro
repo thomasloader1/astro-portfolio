@@ -1,16 +1,8 @@
 ---
-import { changeLanguage, t } from "i18next";
-import Layout from "../../layouts/Layout.astro";
+import { changeLanguage } from "i18next";
+import NotFound from "../../components/NotFound.astro";
 
 changeLanguage("en");
 ---
 
-<Layout title="site.title" description="site.description">
-  <main id="main" class="not-found">
-    <div class="container">
-      <h1>404</h1>
-      <p>{t("404.message")}</p>
-      <a href="/" class="btn btn-primary">{t("404.back")}</a>
-    </div>
-  </main>
-</Layout>
+<NotFound />

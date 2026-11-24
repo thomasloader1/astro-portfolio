@@ -5,10 +5,10 @@ import { t } from "i18next";
 <section class="hero" aria-label={t("hero.ariaSection")}>
   <div class="container">
     <div class="hero-content">
-      
-      <div class="flex items-center justify-center gap-3 mb-4">
-        <img src="https://avatars.githubusercontent.com/u/42984450?v=4" alt="Tomas Gomez Profile" class="rounded-full w-40">
-        <div class="text-left">
+
+      <div class="hero-identity">
+        <img src="https://avatars.githubusercontent.com/u/42984450?v=4" alt="" class="hero-avatar" width="160" height="160">
+        <div class="hero-identity__text">
           <h1><span class="hero-name">{t("hero.name")}</span></h1>
         <span class="eyebrow">{t("hero.role")}</span>
         </div>
@@ -17,7 +17,7 @@ import { t } from "i18next";
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">{t("hero.ctaContact")}</a>
         <a href="#projects" class="btn btn-ghost">{t("hero.ctaProjects")}</a>
-       
+
       </div>
       <div class="stat-row" aria-label={t("hero.ariaStats")}>
         <div class="stat">

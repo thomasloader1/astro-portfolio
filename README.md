@@ -1,14 +1,16 @@
 # Astro Portfolio — Tomás Gómez
 
-Single-page freelance portfolio built with **Astro 7**, **Tailwind CSS 3**, **astro-i18next** and TypeScript (strict). Hand-written CSS design system in `public/landing.css` with a few Tailwind utilities sprinkled in.
+Single-page freelance portfolio built with **Astro 7**, **astro-i18next** and TypeScript (strict). Hand-written CSS design system in `public/landing.css` (no CSS framework).
 
 ## Stack
 
 | Layer | Tool |
 |---|---|
 | Framework | Astro 7 (static) |
-| Styling | Hand-written CSS system (`public/landing.css`) + Tailwind utilities |
-| i18n | astro-i18next (`i18next` + `i18next-fs-backend`), translations in `public/locales/{es,en}/translation.json` |
+| Styling | Hand-written CSS system (`public/landing.css`) |
+| i18n | astro-i18next, translations in `public/locales/{es,en}/translation.json` |
+| Contact form | `/api/contact` serverless route (Vercel): zod validation, Supabase insert, Resend emails |
+| E2E tests | Playwright (`pnpm test:e2e`, specs in `e2e/`) |
 | Language | TypeScript strict |
 | Package manager | pnpm (workspace) |
 
@@ -32,7 +34,9 @@ Single-page freelance portfolio built with **Astro 7**, **Tailwind CSS 3**, **as
     │   ├── en/index.astro
     │   ├── 404.astro
     │   └── en/404.astro
-    └── scripts/site.ts    # shared browser scripts (skip-link, nav/theme/lang toggles, scroll observer)
+    └── scripts/site.ts    # shared browser scripts (skip-link, nav/theme/lang toggles, scroll observer, contact modal)
+
+scripts/cv-data.mjs         # CV data — single source for the Experience section AND the CV PDF
 ```
 
 ## Scripts
@@ -111,12 +115,4 @@ Imported weight-specific via `@fontsource/*/latin-*-*.css` in `Layout.astro`.
 
 ## Quality gate
 
-`astro check && astro build` (wired to `pnpm build`). No test runner. Manual 3-breakpoint visual pass (mobile/tablet/desktop) after styling changes.
-
-## UX/UI audit
-
-A reusable `ux-auditor` subagent lives at `~/.config/opencode/agent/ux-auditor.md` (global, outside this repo). It audits this codebase against ui-ux-pro-max + web-design-guidelines and reports in caveman-ultra format:
-
-```
-opencode run ux-auditor "Audit C:\dev\astro-portfolio"
-```
+`astro check && astro build` (wired to `pnpm build`), plus the Playwright suite (`pnpm test:e2e`). Manual 3-breakpoint visual pass (mobile/tablet/desktop) after styling changes.

@@ -1,4 +1,11 @@
 packages:
   - "."
+allowBuilds:
+  esbuild: true
 onlyBuiltDependencies:
   - esbuild
+# Security overrides for transitive deps (found by safe-anything / OSV.dev).
+# Same major only; remove once upstream releases ship the fixed versions.
+overrides:
+  "path-to-regexp@6": "^6.3.0"
+  "rollup@4": "^4.59.0"

@@ -35,7 +35,6 @@ const DOCKERFILE = process.env.CV_PDF_DOCKERFILE ?? "Dockerfile.cv";
 // absolutize it against ROOT to work from any directory (and in CI).
 const DOCKERFILE_PATH = path.isAbsolute(DOCKERFILE) ? DOCKERFILE : path.join(ROOT, DOCKERFILE);
 const OUTPUT_DIR = path.join(ROOT, "public", "Downloads");
-const TEMP_DIR = path.join(ROOT, ".astro-temp");
 const TARGETS = ["cv.pdf", "cv-en.pdf"];
 
 function runDocker(args) {
