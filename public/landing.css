@@ -10,9 +10,11 @@
   --surface-warm: #ffedd5;
   --fg: #2d2a26;
   --fg-2: #574f45;
-  --muted: #7c6f64;
+  --muted: #776b60;            /* ≥4.5:1 on --surface-warm */
   --border: #eadfd3;
-  --accent: #cc3e00;
+  --accent: #c63c00;           /* ≥4.5:1 as text on --surface-warm */
+  /* Accent as TEXT on the inverted contact slab (bg: var(--fg)). */
+  --accent-inverse: #db764a;
   --accent-on: #ffffff;
   /* --accent is AA-compliant on light surfaces (>= 4.5:1) for text AND as
      button background. --accent-strong lets dark mode keep a bright text
@@ -41,6 +43,7 @@
   --space-6: 24px;
   --space-8: 32px;
   --space-12: 48px;
+  --space-14: 56px;
   --section-y-desktop: 96px;
   --section-y-tablet: 68px;
   --section-y-phone: 48px;
@@ -56,8 +59,48 @@
   --container-gutter-desktop: 32px;
 }
 
-/* --- Reset --- */
+/* --- Reset ---
+   Base reset ported from Tailwind CSS v3 "preflight" (MIT, © Tailwind Labs),
+   which the site relied on implicitly until Tailwind was removed. */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+*, ::before, ::after { border: 0 solid #e5e7eb; }
+html {
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.5;
+}
+hr { height: 0; color: inherit; border-top-width: 1px; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: inherit; }
+b, strong { font-weight: bolder; }
+small { font-size: 80%; }
+button, input, optgroup, select, textarea {
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+button, select { text-transform: none; }
+button, input:where([type="button"]), input:where([type="reset"]), input:where([type="submit"]) {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+ol, ul, menu { list-style: none; }
+dialog { padding: 0; }
+textarea { resize: vertical; }
+input::placeholder, textarea::placeholder { opacity: 1; color: #9ca3af; }
+button, [role="button"] { cursor: pointer; }
+:disabled { cursor: default; }
+img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+img, video { max-width: 100%; height: auto; }
+/* `hidden` must win over component `display` rules (form errors, loading label). */
+[hidden]:where(:not([hidden="until-found"])) { display: none !important; }
 
 html {
   scroll-behavior: smooth;
@@ -72,9 +115,10 @@ html.dark {
   --surface-warm: #2d2821;
   --fg: #f0ebe4;
   --fg-2: #c4b8a8;
-  --muted: #938679;
+  --muted: #998d81;            /* ≥4.5:1 on --surface-warm */
   --border: #3a3429;
-  --accent: #ff4f00;
+  --accent: #ff5305;           /* ≥4.5:1 as text on --surface-warm */
+  --accent-inverse: #bf3b00;   /* accent text on the light contact slab */
   --accent-on: #ffffff;
   /* Bright orange passes AA on dark for TEXT, but white text on it is only
      3.3:1 — buttons use --accent-strong so white text passes 4.5:1. */
@@ -83,8 +127,67 @@ html.dark {
   /* On dark, text hovers BRIGHTEN (white mix) so contrast keeps rising
      instead of dropping below AA (black-mix would give only 4.23:1). */
   --accent-hover: color-mix(in oklab, var(--accent), white 12%);
-  --focus-ring: rgba(255, 79, 0, 0.35);
+  --focus-ring: 0 0 0 4px rgba(255, 79, 0, 0.35);
 }
+
+/* --- Test theme: "teal" (light only) ---
+   Palette: #29738e (primary) · #5f96aa · #f1e5d7 · #cec1b8 · #7f6f62, with
+   near-black/white for text. Activate with ?theme=teal (?theme=default
+   clears it); see the theme script in Layout.astro. Declared after
+   html.dark so it always wins, and the light/dark toggle is hidden while
+   it is active. Values marked "AA" were nudged darker only as far as
+   needed to pass 4.5:1 on every light surface of this theme. */
+html[data-theme="teal"] {
+  color-scheme: light;
+  --bg: #f1e5d7;
+  --surface: #f9f5ef;                /* #f1e5d7 + white */
+  --surface-warm: #e1d5c9;           /* #f1e5d7 + #cec1b8 */
+  --fg: #1d1a17;
+  --fg-2: #4a4038;
+  --muted: #685b50;                  /* #7f6f62, AA */
+  --border: #cec1b8;
+  --accent: #24657d;                 /* #29738e as text, AA */
+  --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+  --accent-inverse: #5f96aa;         /* on the dark contact slab: 5.3:1 */
+  --accent-on: #ffffff;
+  --accent-strong: #29738e;          /* buttons: white text 5.33:1 */
+  --accent-strong-hover: color-mix(in oklab, var(--accent-strong), black 8%);
+  --focus-ring: 0 0 0 4px rgba(41, 115, 142, 0.3);
+}
+html[data-theme="teal"] .theme-toggle { display: none; }
+
+/* Teal — bolder pass: let the palette's two blues carry real surface area
+   instead of only small text. All pairs below were checked for AA. */
+html[data-theme="teal"] {
+  --surface-warm: #c7dae1;           /* white + 35% #5f96aa: clean blue band vs cream */
+  --muted: #61554a;                  /* AA on the band and on cards */
+  --accent: #215e74;                 /* AA on the band and on cards */
+}
+/* Contact: the page's color peak — a solid #29738e slab with white text.
+   Scoping --bg/--accent-inverse here re-tints every slab child at once. */
+html[data-theme="teal"] .contact {
+  background: #29738e;
+  --bg: #ffffff;
+  --accent-inverse: #ffffff;
+}
+html[data-theme="teal"] .contact h2 .editorial { color: #f1e5d7; } /* large text: 4.3:1 */
+html[data-theme="teal"] .contact p,
+html[data-theme="teal"] .contact-cv__hint { color: color-mix(in oklab, #ffffff 92%, transparent); }
+html[data-theme="teal"] .contact-link {
+  background: #225e74;
+  border-color: color-mix(in oklab, #ffffff 18%, transparent);
+}
+html[data-theme="teal"] .contact-link:hover {
+  background: #1f576c;
+  border-color: #f1e5d7;
+}
+html[data-theme="teal"] .contact-link .label .k { color: color-mix(in oklab, #ffffff 85%, transparent); }
+html[data-theme="teal"] .contact .btn-primary {
+  background: #f1e5d7;
+  color: #1d1a17;
+}
+html[data-theme="teal"] .contact .btn-primary:hover { background: #ffffff; color: #1d1a17; }
+html[data-theme="teal"] .contact-cv .btn-cv::before { background: #f1e5d7; box-shadow: none; }
 
 body {
   font-family: var(--font-body);
@@ -133,9 +236,8 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* NOTE: scoped under `body` to win over Tailwind's preflight reset
-   (`h1-h6 { font-size/weight: inherit }`), which ships in a stylesheet
-   loaded AFTER /landing.css and would otherwise nullify the scale. */
+/* Heading scale. The `body` prefix dates from when Tailwind's preflight
+   loaded after this file; kept so specificity stays the same. */
 body h1, body h2, body h3, body h4 {
   font-family: var(--font-display);
   font-weight: 600;
@@ -209,11 +311,19 @@ a:hover {
 }
 
 /* --- Container --- */
+/* Stepped max-width (640/768/1024/1280/1536). This is the width the site has
+   actually rendered with: Tailwind's own `.container` loaded after this file
+   and overrode --container-max. Kept as-is so removing Tailwind is a no-op. */
 .container {
-  max-width: var(--container-max);
+  width: 100%;
   margin: 0 auto;
   padding: 0 var(--container-gutter-desktop);
 }
+@media (min-width: 640px)  { .container { max-width: 640px; } }
+@media (min-width: 768px)  { .container { max-width: 768px; } }
+@media (min-width: 1024px) { .container { max-width: 1024px; } }
+@media (min-width: 1280px) { .container { max-width: 1280px; } }
+@media (min-width: 1536px) { .container { max-width: 1536px; } }
 
 /* --- Section defaults --- */
 section {
@@ -464,6 +574,30 @@ html.dark .theme-toggle .moon-icon { display: none; }
 }
 .nav-toggle:hover { background: var(--surface-warm); }
 .nav-toggle svg { width: 20px; height: 20px; }
+/* Menu button shows its state: the three bars fold into an X when open */
+.nav-toggle svg line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--motion-base) var(--ease-standard), opacity var(--motion-fast);
+}
+.nav-toggle[aria-expanded="true"] svg line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] svg line:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Tap targets: controls that are visually smaller than 44px get an invisible
+   hit area that reaches 44px tall (vertical only, so neighbours never overlap). */
+.nav-brand, .nav-links a, .lang-btn, .theme-toggle, .nav-cta, .nav-toggle,
+.card .card__links a, .role-more summary { position: relative; }
+.nav-brand::before, .nav-links a::before, .lang-btn::before, .theme-toggle::before,
+.nav-cta::before, .nav-toggle::before, .card .card__links a::before, .role-more summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: max(100%, 44px);
+  transform: translateY(-50%);
+}
 
 /* --- Buttons --- */
 .btn {
@@ -478,10 +612,11 @@ html.dark .theme-toggle .moon-icon { display: none; }
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: background var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast);
+  transition: background var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast), transform var(--motion-fast) var(--ease-standard);
   line-height: 1;
 }
-.btn:hover { text-decoration: none; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(0.98); }
 .btn-primary {
   padding: 14px 22px;
   background: var(--accent-strong);
@@ -536,10 +671,8 @@ html.dark .theme-toggle .moon-icon { display: none; }
   flex-direction: column;
   transition: border-color var(--motion-base) var(--ease-standard), transform var(--motion-base) var(--ease-standard);
 }
-.card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
+/* Cards are not links (their links sit inside), so they don't lift on hover:
+   only things that are clickable answer the pointer. */
 .card .card__num {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -598,11 +731,17 @@ html.dark .theme-toggle .moon-icon { display: none; }
   content: "\2192";
   transition: transform var(--motion-fast);
 }
+/* Underline draws in from the left on hover */
+.card .card__links a {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size var(--motion-base) var(--ease-standard), color var(--motion-fast);
+}
+.card .card__links a:hover { background-size: calc(100% - 1.1em) 1px; }
 .card .card__links a:hover { color: var(--accent); text-decoration: none; }
 .card .card__links a:hover::after { transform: translateX(3px); }
 
 /* Card: service modifier */
-.card--service { padding: var(--space-6); }
+.card--service { padding: var(--space-8); }
 .card--service h3 { margin-bottom: var(--space-3); }
 .card--service p {
   font-size: var(--text-sm);
@@ -639,7 +778,6 @@ html.dark .theme-toggle .moon-icon { display: none; }
   align-items: start;
   transform: none;
 }
-.card--callout:hover { transform: none; border-color: var(--border); }
 .card--callout h2 {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 2vw, 1.75rem);
@@ -656,11 +794,11 @@ html.dark .theme-toggle .moon-icon { display: none; }
 }
 
 /* --- Section transitions --- */
+/* The band only paints the ground; its .container keeps the page's one
+   content edge (no extra side padding, so every section lines up at x=gutter). */
 .section-shift--warm {
   background: var(--surface-warm);
   border-radius: var(--radius-lg);
-  padding-left: var(--container-gutter-desktop);
-  padding-right: var(--container-gutter-desktop);
 }
 
 /* --- Hero --- */
@@ -670,19 +808,22 @@ html.dark .theme-toggle .moon-icon { display: none; }
   position: relative;
   overflow: hidden;
 }
-.hero::after {
-  content: "";
-  position: absolute;
-  right: -200px;
-  top: 50%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 12%, transparent) 0%, transparent 70%);
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 0;
+/* Flat ground: the hero's decorative radial glow was removed — a service
+   page reads cleaner on flat colour, with the photo and name doing the work. */
+
+/* Hero entrance — once, on load (never on scroll). Each block rises 12px
+   in sequence. Under reduced motion the global rule ends it instantly,
+   so nothing is ever left hidden. */
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
 }
+.hero-content > * {
+  animation: heroEnter 640ms var(--ease-standard) both;
+}
+.hero-content > :nth-child(2) { animation-delay: 80ms; }
+.hero-content > :nth-child(3) { animation-delay: 160ms; }
+.hero-content > :nth-child(4) { animation-delay: 240ms; }
 .hero .container { position: relative; z-index: 1; }
 
 .hero-content {
@@ -692,6 +833,23 @@ html.dark .theme-toggle .moon-icon { display: none; }
 }
 
 .hero-name { display: block; }
+
+/* Avatar + name/role row */
+.hero-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.hero-avatar {
+  display: block;
+  width: 10rem;
+  height: auto;
+  max-width: 100%;
+  border-radius: 9999px;
+}
+.hero-identity__text { text-align: left; }
 
 .hero h1 { margin-bottom: var(--space-5); }
 
@@ -762,6 +920,7 @@ html.dark .theme-toggle .moon-icon { display: none; }
   padding: var(--space-3) 0;
   border-top: 1px solid var(--border);
 }
+.callout-cell--first-row { border-top: none; }
 .callout-cell .k {
   font-size: var(--text-xs);
   font-weight: 600;
@@ -794,14 +953,27 @@ html.dark .theme-toggle .moon-icon { display: none; }
   flex-direction: column;
 }
 .tl-item {
+  position: relative;
   display: grid;
   grid-template-columns: 200px 1fr 300px;
   gap: var(--space-6);
   padding: var(--space-6) 0;
-  border-bottom: 1px solid var(--border);
 }
 .tl-item:first-child { padding-top: 0; }
-.tl-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.tl-item:last-child { padding-bottom: 0; }
+/* Wavy divider between experiences, in the primary colour. Drawn as a masked
+   strip so it follows --accent in every theme (light, dark, teal). */
+.tl-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 10px;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M0 5 Q4 0 8 5 T16 5' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x left center / 16px 10px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M0 5 Q4 0 8 5 T16 5' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x left center / 16px 10px;
+}
 
 .tl-date {
   font-family: var(--font-mono);
@@ -819,16 +991,17 @@ html.dark .theme-toggle .moon-icon { display: none; }
   margin-bottom: 4px;
 }
 .tl-role h3 { margin: 0; }
+/* Company pill: primary colour with white text. --accent-strong (not --accent)
+   so white passes AA in every theme (4.93:1 light/dark, 5.33:1 teal). */
 .tl-role .company {
   display: inline-flex;
   align-items: center;
   padding: 2px 10px;
-  background: var(--surface-warm);
-  border: 1px solid var(--border);
+  background: var(--accent-strong);
   border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   font-weight: 500;
-  color: var(--fg);
+  color: var(--accent-on);
 }
 .tl-role .company-context {
   font-size: var(--text-xs);
@@ -852,8 +1025,71 @@ html.dark .theme-toggle .moon-icon { display: none; }
   font-weight: 500;
   color: var(--fg);
   line-height: 1.6;
+  max-width: 68ch;
   margin: 0 0 var(--space-3);
 }
+
+/* "Ver más" disclosure for the rest of each role description */
+/* Collapsed timeline: the 2 latest roles, the 3rd fading out, the rest hidden
+   until the toggle below expands it (site.ts setupTimelineToggle). */
+.timeline.is-collapsed .tl-item:nth-child(n+4) { display: none; }
+.timeline.is-collapsed .tl-item:nth-child(3) {
+  max-height: 180px;
+  overflow: hidden;
+  padding-bottom: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 15%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 15%, transparent 100%);
+  user-select: none;
+}
+.tl-toggle-row {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-4);
+}
+.tl-toggle {
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color var(--motion-fast), text-decoration-color var(--motion-fast);
+}
+.tl-toggle:hover { color: var(--accent-hover); text-decoration-color: currentColor; }
+
+.role-more { margin: calc(-1 * var(--space-2)) 0 var(--space-3); }
+.role-more summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+}
+.role-more summary::-webkit-details-marker { display: none; }
+.role-more summary::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform var(--motion-fast);
+}
+.role-more[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+.role-more summary:hover { color: var(--accent-hover); }
+.role-more__close,
+.role-more[open] .role-more__open { display: none; }
+.role-more[open] .role-more__close { display: inline; }
+.role-more[open] summary { margin-bottom: var(--space-2); }
 
 /* --- Timeline stack column (right) --- */
 .tl-stack {
@@ -933,7 +1169,7 @@ html.dark .theme-toggle .moon-icon { display: none; }
 .process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-6);
+  gap: var(--space-14);
 }
 .process-step { position: relative; }
 .process-step .step-num {
@@ -953,6 +1189,37 @@ html.dark .theme-toggle .moon-icon { display: none; }
   max-width: 26ch;
 }
 
+/* --- Closing block: About + Process + Contact on one warm band ---
+   One band and one vertical rhythm, so the three read as a single ending. */
+.finale {
+  background: var(--surface-warm);
+  border-radius: var(--radius-lg);
+  padding-block: var(--section-y-desktop);
+}
+.finale section { padding-block: 0; }
+.finale .section-pair { margin-top: var(--space-12); }
+@media (max-width: 720px) { .finale { padding-block: var(--section-y-tablet); } }
+@media (max-width: 480px) { .finale { padding-block: var(--section-y-phone); } }
+
+/* --- Process + Contact pair: two columns from 1024px ---
+   The wrapper is the page's .container; the sections inside drop their own
+   container width/gutter so both columns share the page's edges. */
+.section-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-12);
+  align-items: start;
+}
+.section-pair > section .container { max-width: none; padding: 0; }
+.section-pair .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.section-pair .contact { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+@media (max-width: 1023px) {
+  .section-pair { grid-template-columns: minmax(0, 1fr); gap: var(--space-12); }
+}
+@media (max-width: 720px) {
+  .section-pair .process-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* --- Contact --- */
 .contact {
   background: var(--fg);
@@ -964,12 +1231,12 @@ html.dark .theme-toggle .moon-icon { display: none; }
   gap: var(--space-12);
   align-items: center;
 }
-.contact .eyebrow { color: var(--accent); }
+.contact .eyebrow { color: var(--accent-inverse); }
 .contact h2 {
   color: var(--bg);
   margin-bottom: var(--space-4);
 }
-.contact h2 .editorial { color: var(--accent); font-weight: 300; }
+.contact h2 .editorial { color: var(--accent-inverse); font-weight: 300; }
 .contact p {
   color: color-mix(in oklab, var(--bg) 75%, transparent);
   font-size: var(--text-lg);
@@ -1009,11 +1276,11 @@ html.dark .theme-toggle .moon-icon { display: none; }
   font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: color-mix(in oklab, var(--bg) 60%, transparent);
+  color: color-mix(in oklab, var(--bg) 72%, transparent);
   font-weight: 600;
 }
 .contact-link .label .v { font-size: var(--text-base); font-weight: 500; }
-.contact-link .arrow { color: var(--accent); font-size: 1.2rem; transition: transform var(--motion-fast); }
+.contact-link .arrow { color: var(--accent-inverse); font-size: 1.2rem; transition: transform var(--motion-fast); }
 .contact-link:hover .arrow { transform: translateX(3px); }
 
 /* CV download block — sits on the inverted .contact card (bg: var(--fg),
@@ -1024,7 +1291,8 @@ html.dark .theme-toggle .moon-icon { display: none; }
   border-top: 1px solid color-mix(in oklab, var(--bg) 14%, transparent);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: var(--space-3);
 }
 .contact-cv__hint {
@@ -1085,7 +1353,6 @@ html.dark .theme-toggle .moon-icon { display: none; }
 /* --- Responsive: 980px --- */
 @media (max-width: 980px) {
   .hero-content { max-width: 100%; }
-  .hero::after { display: none; }
   .card--callout { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr 1fr; }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1105,12 +1372,10 @@ html.dark .theme-toggle .moon-icon { display: none; }
 @media (max-width: 1020px) {
   .tl-item { grid-template-columns: 1fr; gap: var(--space-2); }
   .tl-date { font-size: var(--text-xs); order: 1; }
-  .tl-role { order: 3; }
+  /* Title and description before the stack chips */
+  .tl-role { order: 2; }
   .tl-stack {
-    order: 2;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: var(--space-3) 0;
+    order: 3;
     margin: var(--space-2) 0;
   }
   .tl-stack-list { gap: 6px; }
@@ -1148,8 +1413,10 @@ html.dark .theme-toggle .moon-icon { display: none; }
 @media (max-width: 480px) {
   :root { --container-gutter-desktop: 16px; }
   section { padding: var(--section-y-phone) 0; }
-  .nav-cta span:not(.pulse) { display: none; }
-  .nav-cta .pulse { margin: 0; }
+  /* Keep the "Disponible" label on phones — a bare dot doesn't read as contact.
+     To make room, the scrolled-nav brand shows only the photo here. */
+  .nav-cta { padding: 6px 10px; gap: 6px; }
+  .nav-brand .name { display: none; }
   .lang-toggle { padding: 2px; }
   .lang-btn { padding: 4px 8px; font-size: var(--text-xs); }
   .project-grid { grid-template-columns: 1fr; }
@@ -1159,9 +1426,12 @@ html.dark .theme-toggle .moon-icon { display: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* Hover lifts and presses rest too */
+  .btn:hover, .btn:active { transform: none; }
   html { scroll-behavior: auto; }
   /* Brand visibility delay would otherwise lag 220ms after the global
      duration flattening above — force instant flip. */
@@ -1322,6 +1592,11 @@ html:has(dialog[open]) .site-nav.is-scrolled {
   color: var(--muted);
 }
 
+/* Invalid state — set by site.ts alongside the inline error message. */
+.contact-modal__field [aria-invalid="true"] {
+  border-color: var(--accent);
+}
+
 .contact-modal__field select {
   cursor: pointer;
   appearance: none;
@@ -1467,7 +1742,7 @@ html.dark .contact-modal__status {
 @media print {
   @page { margin: 1.5cm 2cm; size: A4; }
   body { background: #fff !important; color: #000 !important; font-size: 11pt; }
-  .site-nav, .nav-cta, .hero::after, .card--callout, .services-grid, .process-grid, .contact, .nav-toggle, .lang-toggle { display: none !important; }
+  .site-nav, .nav-cta, .card--callout, .services-grid, .process-grid, .contact, .nav-toggle, .lang-toggle { display: none !important; }
   section { padding: 0.5cm 0 !important; }
   body h1 { font-size: 28pt; }
   body h2 { font-size: 16pt; }

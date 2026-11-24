@@ -1,7 +1,22 @@
 node_modules
-.vscode
-.gitignore
-README.md
 .pnpm-store
 dist
 build
+.astro
+.astro-temp
+test-results
+.git
+.gitignore
+.vscode
+README.md
+
+# Secrets and local tooling — never bake these into an image
+.env
+.env.*
+!.env.example
+.vercel
+.neon
+.claude
+.atl
+openspec
+CLAUDE.md

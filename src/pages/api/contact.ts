@@ -2,18 +2,32 @@ import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { z } from "zod";
+import esTranslation from "../../../public/locales/es/translation.json";
+import enTranslation from "../../../public/locales/en/translation.json";
 
 // This route must run as a serverless function (Vercel). Without this,
 // hybrid output would try to prerender it as static HTML — POST never works.
 export const prerender = false;
 
-// Zod schema for validation
+// Error messages are full i18n keys; the client translates them with the same
+// t() it uses for its own validation (src/scripts/site.ts).
+const V = "contact.modal.form.validation";
 const ContactSchema = z.object({
-  name: z.string().min(1, { message: "validation.nameRequired" }).max(100),
-  email: z.string().email({ message: "validation.emailInvalid" }).max(254),
-  contactType: z.enum(["hire", "work", "mentoring", "support"], { message: "validation.typeRequired" }),
-  message: z.string().min(1, { message: "validation.messageRequired" }).max(5000),
+  name: z.string().trim().min(1, { message: `${V}.nameRequired` }).max(100),
+  email: z.email({ message: `${V}.emailInvalid` }).max(254),
+  contactType: z.enum(["hire", "work", "mentoring", "support"], { message: `${V}.typeRequired` }),
+  message: z.string().trim().min(1, { message: `${V}.messageRequired` }).max(5000),
 });
+
+// User input is interpolated into HTML emails — always escape it.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 type ContactInput = z.infer<typeof ContactSchema>;
 
@@ -49,34 +63,34 @@ function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
   return { allowed: true };
 }
 
-// Helper to get contact type label from i18n key
-function getContactTypeLabel(type: string, lang: "es" | "en"): string {
-  const labels: Record<string, Record<"es" | "en", string>> = {
-    hire: { es: "Contratar servicios", en: "Hire services" },
-    work: { es: "Trabajar para mi empresa", en: "Work for my company" },
-    mentoring: { es: "Mentoría / Análisis de plataforma", en: "Mentoring / Platform analysis" },
-    support: { es: "Soporte de aplicaciones", en: "Application support" },
-  };
-  return labels[type]?.[lang] ?? type;
+// Contact type labels come from the same translation files the form uses.
+const contactTypeLabels = {
+  es: esTranslation.contact.modal.form.types,
+  en: enTranslation.contact.modal.form.types,
+};
+
+function getContactTypeLabel(type: ContactInput["contactType"], lang: "es" | "en"): string {
+  return contactTypeLabels[lang][type] ?? type;
 }
 
-// i18n translations for emails (inline to avoid runtime dependency)
+// Email templates. Every interpolated user value MUST go through escapeHtml()
+// in the HTML variants (the plain-text variants are not rendered as HTML).
 const emailTranslations = {
   es: {
     confirmationSubject: "Gracias por contactarme",
     confirmationBody: (name: string, contactTypeLabel: string) =>
-      `Hola ${name},<br><br>Gracias por escribirme. He recibido tu mensaje sobre <strong>${contactTypeLabel}</strong> y te contactaré en menos de 24 horas.<br><br>Un saludo,<br>Tomás Gómez`,
+      `Hola ${escapeHtml(name)},<br><br>Gracias por escribirme. He recibido tu mensaje sobre <strong>${escapeHtml(contactTypeLabel)}</strong> y te contactaré en menos de 24 horas.<br><br>Un saludo,<br>Tomás Gómez`,
     confirmationText: (name: string, contactTypeLabel: string) =>
       `Hola ${name},\n\nGracias por escribirme. He recibido tu mensaje sobre ${contactTypeLabel} y te contactaré en menos de 24 horas.\n\nUn saludo,\nTomás Gómez`,
     notificationSubject: (name: string, contactTypeLabel: string) =>
       `Nuevo contacto: ${contactTypeLabel} — ${name}`,
     notificationHtml: (data: ContactInput, contactTypeLabel: string) =>
       `<h2>Nuevo mensaje de contacto</h2>
-       <p><strong>Nombre:</strong> ${data.name}</p>
-       <p><strong>Email:</strong> ${data.email}</p>
-       <p><strong>Tipo:</strong> ${contactTypeLabel}</p>
+       <p><strong>Nombre:</strong> ${escapeHtml(data.name)}</p>
+       <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+       <p><strong>Tipo:</strong> ${escapeHtml(contactTypeLabel)}</p>
        <p><strong>Mensaje:</strong></p>
-       <p>${data.message.replace(/\n/g, "<br>")}</p>
+       <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
        <hr>
        <p style="font-size: 12px; color: #666;">Responde directamente a este email para contactar al usuario.</p>`,
     notificationText: (data: ContactInput, contactTypeLabel: string) =>
@@ -85,18 +99,18 @@ const emailTranslations = {
   en: {
     confirmationSubject: "Thanks for reaching out",
     confirmationBody: (name: string, contactTypeLabel: string) =>
-      `Hi ${name},<br><br>Thanks for writing. I received your message about <strong>${contactTypeLabel}</strong> and will get back to you within 24 hours.<br><br>Best,<br>Tomás Gómez`,
+      `Hi ${escapeHtml(name)},<br><br>Thanks for writing. I received your message about <strong>${escapeHtml(contactTypeLabel)}</strong> and will get back to you within 24 hours.<br><br>Best,<br>Tomás Gómez`,
     confirmationText: (name: string, contactTypeLabel: string) =>
       `Hi ${name},\n\nThanks for writing. I received your message about ${contactTypeLabel} and will get back to you within 24 hours.\n\nBest,\nTomás Gómez`,
     notificationSubject: (name: string, contactTypeLabel: string) =>
       `New contact: ${contactTypeLabel} — ${name}`,
     notificationHtml: (data: ContactInput, contactTypeLabel: string) =>
       `<h2>New contact message</h2>
-       <p><strong>Name:</strong> ${data.name}</p>
-       <p><strong>Email:</strong> ${data.email}</p>
-       <p><strong>Type:</strong> ${contactTypeLabel}</p>
+       <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+       <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+       <p><strong>Type:</strong> ${escapeHtml(contactTypeLabel)}</p>
        <p><strong>Message:</strong></p>
-       <p>${data.message.replace(/\n/g, "<br>")}</p>
+       <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
        <hr>
        <p style="font-size: 12px; color: #666;">Reply directly to this email to contact the user.</p>`,
     notificationText: (data: ContactInput, contactTypeLabel: string) =>
@@ -105,14 +119,6 @@ const emailTranslations = {
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  // Only allow POST
-  if (request.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
   // Rate limiting
   const ip = getClientIp(request);
   const rateLimit = checkRateLimit(ip);
@@ -136,7 +142,7 @@ export const POST: APIRoute = async ({ request }) => {
     body = ContactSchema.parse(json);
   } catch (err) {
     if (err instanceof z.ZodError) {
-      const firstError = err.errors[0];
+      const firstError = err.issues[0];
       const field = firstError.path[0] as keyof ContactInput;
       return new Response(
         JSON.stringify({ error: firstError.message, field }),

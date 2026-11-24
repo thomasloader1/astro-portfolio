@@ -5,6 +5,10 @@
  *
  * @see scripts/build-cv.mjs
  */
+import { existsSync } from "node:fs";
+import path from "node:path";
+import process from "node:process";
+import { fileURLToPath } from "node:url";
 
 /**
  * Escape user-controlled strings before inlining them into HTML.
@@ -195,29 +199,100 @@ section h3 {
 `;
 
 /**
- * Resolve absolute paths to the locally installed @fontsource font files.
- * When Edge renders the HTML with file:// URLs, it can fetch fonts from
- * the local filesystem via these absolute paths.
+ * Fonts used by the CV, mapped to the locally installed @fontsource packages.
+ * Weights/styles cover every font-family/weight pair used in CV_STYLE.
+ * The italic faces are synthesised by the renderer from the regular ones, so
+ * only the roman weights are declared here.
  */
-function fontPreloadTags() {
-  // node_modules paths are resolved at runtime via import.meta.resolve-like
-  // semantics. Since we cannot use import.meta.resolve in a .mjs without
-  // a build step, we hard-code the package layout (these files exist when
-  // @fontsource is installed in node_modules).
-  const fontsRoot = "C:/dev/astro-portfolio/node_modules/@fontsource";
-  return [
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/inter/files/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>`,
-    `<link rel="preload" href="file:///${fontsRoot}/cormorant-garamond/files/cormorant-garamond-latin-300-italic.woff2" as="font" type="font/woff2" crossorigin>`,
-  ].join("\n    ");
+const CV_FONTS = [
+  { family: "Inter", pkg: "inter", file: "inter-latin-400-normal.woff2", weight: 400, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-500-normal.woff2", weight: 500, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-600-normal.woff2", weight: 600, style: "normal" },
+  { family: "Inter", pkg: "inter", file: "inter-latin-700-normal.woff2", weight: 700, style: "normal" },
+  { family: "Cormorant Garamond", pkg: "cormorant-garamond", file: "cormorant-garamond-latin-600-normal.woff2", weight: 600, style: "normal" },
+];
+
+/**
+ * Root directory that contains the @fontsource packages with the CV webfonts.
+ *
+ * Resolution order:
+ *   1. `CV_FONT_ROOT` — set by Dockerfile.cv to the fonts baked into the image
+ *      (`/opt/cv-fonts/node_modules/@fontsource`), so the containerized build
+ *      does not depend on the host's node_modules.
+ *   2. `<repo>/node_modules/@fontsource` — the host checkout after
+ *      `pnpm install`.
+ */
+export function cvFontRoot() {
+  const fromEnv = (process.env.CV_FONT_ROOT || "").trim();
+  if (fromEnv) return fromEnv;
+  return path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "..",
+    "node_modules",
+    "@fontsource",
+  );
+}
+
+/**
+ * Emit @font-face rules + preload tags for the locally installed @fontsource
+ * font files.
+ *
+ * Paths are computed at runtime (see cvFontRoot), so the renderer works on
+ * any host OS and inside the Dockerfile.cv container (repo mounted at a
+ * different root) — this replaces the previous hard-coded Windows path.
+ * The @font-face rules make the rendered PDF use the same webfonts the site
+ * ships regardless of what is installed system-wide, keeping output
+ * machine-independent (previously fonts only applied if the host had them
+ * installed globally).
+ *
+ * When the fonts cannot be found the render is aborted: falling back to
+ * system fonts silently changes the typography of the PDF (and its size) with
+ * no error, which is exactly the kind of drift this script must prevent. The
+ * same applies to a partially available set of weights.
+ */
+function fontTags() {
+  const fontsRoot = cvFontRoot();
+  const installed = CV_FONTS.filter((f) =>
+    existsSync(path.join(fontsRoot, f.pkg, "files", f.file)),
+  );
+  const missing = CV_FONTS.filter((f) => !installed.includes(f));
+
+  if (missing.length > 0) {
+    throw new Error(
+      `CV fonts missing under ${fontsRoot}: ${missing.map((f) => f.file).join(", ")}. ` +
+        `The PDF would be rendered with fallback system fonts (different typography), ` +
+        `so generation was aborted. Fix it with \`pnpm install\` (host checkout) or ` +
+        `use the containerized build (\`pnpm build:cv:docker\`), whose image ships the fonts.`,
+    );
+  }
+
+  const fileUrl = (f) =>
+    "file:///" +
+    path
+      .join(fontsRoot, f.pkg, "files", f.file)
+      .replace(/\\/g, "/")
+      .replace(/^\//, "");
+
+  const faces = installed
+    .map(
+      (f) =>
+        `@font-face { font-family: "${f.family}"; font-style: ${f.style}; font-weight: ${f.weight}; src: url("${fileUrl(f)}") format("woff2"); }`,
+    )
+    .join("\n  ");
+  const preloads = installed
+    .map(
+      (f) =>
+        `<link rel="preload" href="${fileUrl(f)}" as="font" type="font/woff2" crossorigin>`,
+    )
+    .join("\n    ");
+  return `<style>\n  ${faces}\n</style>\n    ${preloads}`;
 }
 
 /**
  * Render the localized CV HTML for headless rendering.
  *
  * @param {string} locale  "es" | "en"
- * @param {object} data    cvData from src/data/cv.ts
+ * @param {object} data    cvData from scripts/cv-data.mjs
  * @param {object} t       translations for the locale (parsed translation.json)
  * @returns {string} Full HTML5 document
  */
@@ -307,7 +382,7 @@ export function renderCvHtml(locale, data, t) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title}</title>
-    ${fontPreloadTags()}
+    ${fontTags()}
     <style>${CV_STYLE}</style>
   </head>
   <body>

@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
 import astroI18next from "astro-i18next";
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
@@ -11,17 +10,17 @@ export default defineConfig({
   adapter: vercel(),
   site: process.env.PUBLIC_SITE_URL ?? "https://gomeztomasgonzalo.com.ar",
   integrations: [
-    tailwind(),
     astroI18next(),
     sitemap({
       i18n: {
         defaultLocale: "es",
+        // Plain language codes, matching the <link hreflang> tags in
+        // Layout.astro — "es-ES" would target Spain, not Argentina/LATAM.
         locales: {
-          es: "es-ES",
-          en: "en-US",
+          es: "es",
+          en: "en",
         },
       },
     }),
   ],
-  includes: ['./src/**/*.{astro,js,ts}']
 });

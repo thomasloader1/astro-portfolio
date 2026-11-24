@@ -1,0 +1,84 @@
+/* Page CSS (tasteskill: only what sits inside a visual or a part the kit lacks).
+   Every value comes from the kit's tokens (system.css): --s-*, --t-*, --r-*, --line, --ink,
+   --muted, --bg, --surface, --dur, --ease. The kit files in /assets are never edited. */
+
+/* --- Nav: the ES / EN switch (two plain links, 44px tall targets) --- */
+.lang-switch { display: inline-flex; gap: var(--s-1); }
+.lang-switch__btn {
+  display: inline-grid; place-items: center; min-width: 44px; height: 44px;
+  font-size: var(--t-label); font-weight: 500; color: var(--muted); text-decoration: none;
+  border-radius: var(--r-sm);
+}
+.lang-switch__btn:hover { color: var(--ink); }
+.lang-switch__btn[aria-current="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 currentColor; }
+/* Under 640 the logo, the main button and the 44px menu button do not fit in 342px: the bar keeps
+   the logo and the menu (the hero carries the main action on the first screen; the sheet lists Contacto). */
+@media (max-width: 639px) { .nav__actions .btn { display: none; } }
+
+/* --- Services: the visual is the real marks of the tools named (frame on the surface) --- */
+.tools { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-7); }
+.tools__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-6) var(--s-5); }
+.tools__item { display: grid; justify-items: center; gap: var(--s-3); text-align: center; font-size: var(--t-small); color: var(--muted); }
+.tools__item svg { width: 40px; height: 40px; }
+.services-rows__deliverables { font-size: var(--t-small); color: var(--muted); }
+@media (max-width: 1023px) { #services .span-6.start-7 { margin-top: var(--s-7); } }
+@media (max-width: 639px) { .tools { padding: var(--s-5); } .tools__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* --- Projects: one card recipe; the stack as real marks, the links at the foot --- */
+.project { display: flex; flex-direction: column; gap: var(--s-3); }
+.project__role { font-weight: 500; color: var(--ink); }
+.project__stack { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.project__stack li {
+  display: inline-flex; align-items: center; gap: var(--s-2); padding: var(--s-1) var(--s-3);
+  border: 1px solid var(--line); border-radius: var(--r-sm); font-size: var(--t-small); color: var(--ink);
+}
+.project__links { margin-top: auto; padding-top: var(--s-4); display: flex; gap: var(--s-5); flex-wrap: wrap; }
+
+/* --- Experience (the dark band): the timeline --- */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.tl-item {
+  display: grid; grid-template-columns: 200px minmax(0, 1fr) 300px; gap: var(--s-6);
+  padding-block: var(--s-6); border-bottom: 1px solid var(--line);
+}
+.tl-item:first-child { padding-top: 0; }
+.tl-item:last-child { border-bottom: 0; }
+.tl-date { font-size: var(--t-small); color: var(--muted); padding-top: var(--s-1); }
+.tl-role .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-4); }
+.tl-role h3 { font: var(--display-weight) var(--t-h3)/1.2 var(--font-display); letter-spacing: var(--display-tracking); margin: 0; }
+.tl-role .company { font-weight: 500; color: var(--p-inv-accent); }
+.tl-role .company-context { margin: var(--s-2) 0 var(--s-4); font-size: var(--t-small); color: var(--muted); }
+.tl-role .role-core { max-width: 62ch; color: var(--ink); margin: 0 0 var(--s-3); line-height: 1.6; }
+.tl-stack-title { font-size: var(--t-label); font-weight: 500; color: var(--muted); margin: 0 0 var(--s-3); }
+.tl-stack-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+/* real logos keep their own colours: each mark sits on a light tile so dark marks (Next.js) read on the band */
+.tl-stack-item {
+  display: inline-flex; align-items: center; gap: var(--s-2); padding: var(--s-1) var(--s-3);
+  background: var(--p-bg); color: var(--p-ink); border-radius: var(--r-sm); font-size: var(--t-small);
+}
+.tl-stack-icon { width: 16px; height: 16px; flex: none; }
+@media (max-width: 1023px) {
+  .tl-item { grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+}
+
+/* "Ver más" disclosure (native <details>) */
+.role-more { margin: 0 0 var(--s-3); }
+.role-more summary {
+  display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
+  list-style: none; cursor: pointer; font-weight: 500; color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur) var(--ease);
+}
+.role-more summary::-webkit-details-marker { display: none; }
+.role-more summary:hover { text-decoration-color: currentColor; }
+.role-more__close, .role-more[open] .role-more__open { display: none; }
+.role-more[open] .role-more__close { display: inline; }
+
+/* --- Contact: the form on the alternate ground (booking-form recipe: 48px padding) --- */
+.hire-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-7); }
+.hire-links { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: flex; gap: var(--s-5); flex-wrap: wrap; }
+.hire-cv { margin-top: var(--s-6); display: grid; gap: var(--s-2); justify-items: start; }
+@media (max-width: 1023px) { #hire .span-6.start-7 { margin-top: var(--s-7); } }
+@media (max-width: 639px) { .hire-form { padding: var(--s-5); } }
+
+/* --- The statement moment's label --- */
+.statement .t-label { margin: 0 0 var(--s-5); color: var(--muted); }

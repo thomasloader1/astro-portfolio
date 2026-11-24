@@ -30,6 +30,7 @@
     "ariaStats": "Resumen profesional"
   },
   "404": {
+    "title": "Página no encontrada — Tomás Gómez",
     "message": "La página que buscás no existe.",
     "back": "Volver al inicio"
   },
@@ -52,6 +53,10 @@
     "title": "Experiencia.",
     "present": "Actualidad",
     "stack": "Stack",
+    "more": "Ver más",
+    "less": "Ver menos",
+    "showAll": "Mostrar",
+    "showLess": "Mostrar menos",
     "r1Title": "Senior Full Stack Developer",
     "r1Context": "Software Factory para la industria farmacéutica",
     "r1Core": "Responsable de la evolución, mantenimiento y desarrollo de aplicaciones empresariales utilizadas por compañías de la industria farmacéutica. Desarrollo nuevas funcionalidades, optimizo procesos existentes y resuelvo requerimientos específicos, trabajando sobre sistemas en producción donde la estabilidad y la continuidad operativa son críticas. Participo en decisiones técnicas, mejoras de arquitectura y definición de soluciones orientadas a la escalabilidad, mantenibilidad y calidad del software.",
@@ -139,7 +144,7 @@
     "cvButton": "Descargar CV",
     "modal": {
       "title": "Hablemos",
-      "subtitle": "Cuéntame qué necesitás y te respondo en menos de 24h",
+      "subtitle": "Contame qué necesitás y te respondo en menos de 24h",
       "close": "Cerrar",
       "form": {
         "name": "Nombre",

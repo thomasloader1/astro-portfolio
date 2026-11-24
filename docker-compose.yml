@@ -7,15 +7,10 @@ services:
     volumes:
       - ./src:/app/src
       - ./public:/app/public
+      - ./scripts:/app/scripts
     environment:
-      - NODE_ENV= development
-      - PROJECT_DOMAIN= astro.dev.local
+      - NODE_ENV=development
+      - PROJECT_DOMAIN=astro.dev.local
     ports:
-      - "4321:4321"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.astro.rule=Host(`astro.dev.local`)"
-      - "traefik.http.services.astro.loadbalancer.server.port=4321"
-networks:
-  proxy:
-    external: true
+      # Host 4322 so it can run alongside a local `astro dev` on 4321
+      - "4322:4321"

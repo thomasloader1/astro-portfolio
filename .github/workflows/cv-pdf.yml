@@ -1,0 +1,61 @@
+name: CV PDF (containerized)
+
+on:
+  push:
+    branches: [main, freelance-rebrand]
+    paths:
+      - "scripts/build-cv.mjs"
+      - "scripts/cv-build.mjs"
+      - "scripts/cv-data.mjs"
+      - "scripts/cv-render.mjs"
+      - "scripts/cv-pdf-docker.mjs"
+      - "scripts/verify-cv-pdf.mjs"
+      - "Dockerfile.cv"
+      - "public/locales/**/translation.json"
+      - ".github/workflows/cv-pdf.yml"
+  pull_request:
+    paths:
+      - "scripts/build-cv.mjs"
+      - "scripts/cv-build.mjs"
+      - "scripts/cv-data.mjs"
+      - "scripts/cv-render.mjs"
+      - "scripts/cv-pdf-docker.mjs"
+      - "scripts/verify-cv-pdf.mjs"
+      - "Dockerfile.cv"
+      - "public/locales/**/translation.json"
+      - ".github/workflows/cv-pdf.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: cv-pdf-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cv-pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Optional: overrides the fallback email rendered into the CV PDF.
+      # Leave the secret unset to keep the default (talk.gtg@gmail.com).
+      PUBLIC_CV_EMAIL: ${{ secrets.PUBLIC_CV_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Docker builds the Chromium image (which also ships the CV webfonts);
+      # no browser and no dependency install are needed on the runner.
+      - name: Generate CV PDFs in Docker
+        run: node scripts/cv-pdf-docker.mjs
+
+      - name: Verify generated PDFs
+        run: node scripts/verify-cv-pdf.mjs
+
+      - name: Upload generated PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdfs
+          path: public/Downloads/*.pdf
+          if-no-files-found: error

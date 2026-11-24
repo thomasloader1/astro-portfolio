@@ -1,5 +1,6 @@
 ---
 import i18next, { t } from "i18next";
+import { cvData } from "../../../scripts/cv-data.mjs";
 
 interface ContactLink {
   href: string;
@@ -9,8 +10,8 @@ interface ContactLink {
 }
 
 const links: ContactLink[] = [
-  { href: "https://linkedin.com/in/gtg-dev", labelKey: "contact.kLinkedIn", value: "🟠 Tomás Gonzalo Gomez", target: "_blank" },
-  { href: "https://github.com/thomasloader1", labelKey: "contact.kGitHub", value: "thomasloader1", target: "_blank" },
+  { href: cvData.linkedin, labelKey: "contact.kLinkedIn", value: "Tomás Gonzalo Gomez", target: "_blank" },
+  { href: cvData.github, labelKey: "contact.kGitHub", value: "thomasloader1", target: "_blank" },
 ];
 
 const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/cv.pdf";
@@ -20,11 +21,14 @@ const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/
   <div class="container">
     <div class="contact">
       <div>
-        <span class="eyebrow">{t("contact.eyebrow")}</span>
+
         <h2 id="contact-title">{t("contact.title")} <span class="editorial">{t("contact.titleAccent")}</span>.</h2>
         <p>{t("contact.desc")}</p>
       </div>
       <div class="contact-actions">
+        <button class="btn btn-primary" data-modal="contact" type="button">
+          {t("contact.ctaButton")}
+        </button>
         {links.map((link) => (
           <a href={link.href} class="contact-link" {...(link.target ? { target: link.target, rel: "noopener" } : {})}>
             <span class="label">
@@ -34,10 +38,7 @@ const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/
             <span class="arrow" aria-hidden="true">→</span>
           </a>
         ))}
-        <button class="btn btn-primary" data-modal="contact" type="button">
-          {t("contact.ctaButton")}
-        </button>
-        <div class="contact-cv items-center text-center">
+        <div class="contact-cv">
           <p class="contact-cv__hint">{t("contact.cvHint")}</p>
           <a href={cvHref} class="btn btn-ghost btn-cv" download>{t("contact.cvButton")}</a>
         </div>
@@ -49,8 +50,8 @@ const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/
   <dialog id="contact-modal" aria-labelledby="contact-modal-title" aria-modal="true">
     <form id="contact-form" method="dialog" novalidate>
       <header class="contact-modal__header">
-        <h3 id="contact-modal-title" data-i18n="contact.modal.title">{t("contact.modal.title")}</h3>
-        <p class="contact-modal__subtitle" data-i18n="contact.modal.subtitle">{t("contact.modal.subtitle")}</p>
+        <h3 id="contact-modal-title">{t("contact.modal.title")}</h3>
+        <p class="contact-modal__subtitle">{t("contact.modal.subtitle")}</p>
         <button type="button" class="contact-modal__close" data-modal-close aria-label={t("contact.modal.close")}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -61,39 +62,39 @@ const cvHref = i18next.language === "en" ? "/Downloads/cv-en.pdf" : "/Downloads/
 
       <div class="contact-modal__body">
         <div class="contact-modal__field">
-          <label for="contact-name" data-i18n-label="contact.modal.form.name">{t("contact.modal.form.name")}</label>
-          <input type="text" id="contact-name" name="name" required placeholder={t("contact.modal.form.name")} autocomplete="name" aria-describedby="contact-name-error" />
+          <label for="contact-name">{t("contact.modal.form.name")}</label>
+          <input type="text" id="contact-name" name="name" required maxlength="100" placeholder={t("contact.modal.form.name")} autocomplete="name" aria-describedby="contact-name-error" />
           <span id="contact-name-error" class="contact-modal__error" data-contact-error="name" aria-live="polite" hidden></span>
         </div>
 
         <div class="contact-modal__field">
-          <label for="contact-email" data-i18n-label="contact.modal.form.email">{t("contact.modal.form.email")}</label>
-          <input type="email" id="contact-email" name="email" required placeholder={t("contact.modal.form.email")} autocomplete="email" aria-describedby="contact-email-error" />
+          <label for="contact-email">{t("contact.modal.form.email")}</label>
+          <input type="email" id="contact-email" name="email" required maxlength="254" placeholder={t("contact.modal.form.email")} autocomplete="email" aria-describedby="contact-email-error" />
           <span id="contact-email-error" class="contact-modal__error" data-contact-error="email" aria-live="polite" hidden></span>
         </div>
 
         <div class="contact-modal__field">
-          <label for="contact-type" data-i18n-label="contact.modal.form.type">{t("contact.modal.form.type")}</label>
+          <label for="contact-type">{t("contact.modal.form.type")}</label>
           <select id="contact-type" name="contactType" required aria-describedby="contact-type-error">
-            <option value="" disabled selected hidden data-i18n="contact.modal.form.typePlaceholder">{t("contact.modal.form.typePlaceholder")}</option>
-            <option value="hire" data-i18n="contact.modal.form.types.hire">{t("contact.modal.form.types.hire")}</option>
-            <option value="work" data-i18n="contact.modal.form.types.work">{t("contact.modal.form.types.work")}</option>
-            <option value="mentoring" data-i18n="contact.modal.form.types.mentoring">{t("contact.modal.form.types.mentoring")}</option>
-            <option value="support" data-i18n="contact.modal.form.types.support">{t("contact.modal.form.types.support")}</option>
+            <option value="" disabled selected hidden>{t("contact.modal.form.typePlaceholder")}</option>
+            <option value="hire">{t("contact.modal.form.types.hire")}</option>
+            <option value="work">{t("contact.modal.form.types.work")}</option>
+            <option value="mentoring">{t("contact.modal.form.types.mentoring")}</option>
+            <option value="support">{t("contact.modal.form.types.support")}</option>
           </select>
           <span id="contact-type-error" class="contact-modal__error" data-contact-error="contactType" aria-live="polite" hidden></span>
         </div>
 
         <div class="contact-modal__field">
-          <label for="contact-message" data-i18n-label="contact.modal.form.message">{t("contact.modal.form.message")}</label>
-          <textarea id="contact-message" name="message" required rows="4" placeholder={t("contact.modal.form.message")} aria-describedby="contact-message-error"></textarea>
+          <label for="contact-message">{t("contact.modal.form.message")}</label>
+          <textarea id="contact-message" name="message" required maxlength="5000" rows="4" placeholder={t("contact.modal.form.message")} aria-describedby="contact-message-error"></textarea>
           <span id="contact-message-error" class="contact-modal__error" data-contact-error="message" aria-live="polite" hidden></span>
         </div>
 
         <div class="contact-modal__actions">
           <button type="submit" class="btn btn-primary contact-modal__submit" data-contact-submit>
-            <span class="contact-modal__submit-text" data-i18n="contact.modal.form.submit">{t("contact.modal.form.submit")}</span>
-            <span class="contact-modal__submit-loading" data-contact-loading hidden data-i18n="contact.modal.form.submitting">{t("contact.modal.form.submitting")}</span>
+            <span class="contact-modal__submit-text">{t("contact.modal.form.submit")}</span>
+            <span class="contact-modal__submit-loading" data-contact-loading hidden>{t("contact.modal.form.submitting")}</span>
           </button>
         </div>
 

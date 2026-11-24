@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
 const EXPECTED: Record<string, { title: string; subtitle: string; name: string; submit: string; typePlaceholder: string }> = {
   es: {
     title: "Hablemos",
-    subtitle: "Cuéntame qué necesitás y te respondo en menos de 24h",
+    subtitle: "Contame qué necesitás y te respondo en menos de 24h",
     name: "Nombre",
     submit: "Enviar mensaje",
     typePlaceholder: "Seleccioná una opción",
@@ -46,10 +46,8 @@ test.describe("contact modal i18n", () => {
 
       // Regression guard: after opening, NO element inside the modal may still
       // show a raw i18n key (e.g. "contact.modal.title").
-      const rawKeys = await page.locator("#contact-modal [data-i18n]").allTextContents();
-      for (const text of rawKeys) {
-        expect(text).not.toMatch(/^contact\./);
-      }
+      const modalText = await page.locator("#contact-modal").innerText();
+      expect(modalText).not.toMatch(/\bcontact\.[a-z]/i);
     });
   }
 });

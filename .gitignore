@@ -30,3 +30,4 @@ openspec/
 
 # Vercel
 .vercel/
+.neon

@@ -39,14 +39,14 @@ const services: Service[] = [
 <section id="services" aria-labelledby="services-title">
   <div class="container">
     <div class="section-head">
-      <span class="eyebrow">{t("srv.eyebrow")}</span>
+
       <h2 id="services-title">{t("srv.title")}</h2>
       <p class="lede">{t("srv.lede")}</p>
     </div>
     <div class="services-grid">
       {services.map((s) => (
         <article class="card card--service">
-          <div class="card__num">{s.num}</div>
+
           <h3>{t(s.titleKey)}</h3>
           <p>{t(s.descKey)}</p>
           <ul class="card__deliverables">
